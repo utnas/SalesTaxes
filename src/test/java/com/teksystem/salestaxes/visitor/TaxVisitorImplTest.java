@@ -12,9 +12,8 @@ public class TaxVisitorImplTest {
     @Test
     public void itShouldReturnSameItemAfterComputingForTaxTaxableItem() {
         final TaxableItem taxableItem = new TaxableItem("music CD", 14.99);
-        final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(0.10, 0.05);
+        final Pair<Item, Double> itemTax = new TaxVisitorImpl(0.10, 0.05).visit(taxableItem);
 
-        Pair<Item, Double> itemTax = taxVisitor.visit(taxableItem);
         assertThat(itemTax.fst.getName(), is(taxableItem.getName()));
         assertThat(itemTax.fst.getPrice(), is(taxableItem.getPrice()));
     }
