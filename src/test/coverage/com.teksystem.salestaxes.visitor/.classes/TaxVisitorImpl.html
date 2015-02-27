@@ -78,11 +78,11 @@
 <i>4</i>&nbsp;import com.teksystem.salestaxes.model.*;
 <i>5</i>&nbsp;
 <i>6</i>&nbsp;public class TaxVisitorImpl implements TaxVisitor {
-<i>7</i>&nbsp;    private final Double importRate;
+<i>7</i>&nbsp;    private final Double importationRate;
 <i>8</i>&nbsp;    private final Double basicRate;
 <i>9</i>&nbsp;
-<b class="fc"><i>10</i>&nbsp;    public TaxVisitorImpl(final Double basicRate, final Double importRate) {</b>
-<b class="fc"><i>11</i>&nbsp;        this.importRate = importRate;</b>
+<b class="fc"><i>10</i>&nbsp;    public TaxVisitorImpl(final Double basicRate, final Double importationRate) {</b>
+<b class="fc"><i>11</i>&nbsp;        this.importationRate = importationRate;</b>
 <b class="fc"><i>12</i>&nbsp;        this.basicRate = basicRate;</b>
 <i>13</i>&nbsp;    }
 <i>14</i>&nbsp;
@@ -93,7 +93,7 @@
 <i>19</i>&nbsp;
 <i>20</i>&nbsp;    @Override
 <i>21</i>&nbsp;    public Pair&lt;Item, Double&gt; visit(final TaxableImportedItem taxableItem) {
-<b class="fc"><i>22</i>&nbsp;        return new Pair&lt;Item, Double&gt;(taxableItem, (taxableItem.getPrice() * importRate) + (taxableItem.getPrice() * basicRate));</b>
+<b class="fc"><i>22</i>&nbsp;        return new Pair&lt;Item, Double&gt;(taxableItem, (taxableItem.getPrice() * importationRate) + (taxableItem.getPrice() * basicRate));</b>
 <i>23</i>&nbsp;    }
 <i>24</i>&nbsp;
 <i>25</i>&nbsp;    @Override
@@ -103,7 +103,7 @@
 <i>29</i>&nbsp;
 <i>30</i>&nbsp;    @Override
 <i>31</i>&nbsp;    public Pair&lt;Item, Double&gt; visit(final NoneTaxableImportedItem noneTaxableImportedItem) {
-<b class="fc"><i>32</i>&nbsp;        return new Pair&lt;Item, Double&gt;(noneTaxableImportedItem, noneTaxableImportedItem.getPrice() * importRate);</b>
+<b class="fc"><i>32</i>&nbsp;        return new Pair&lt;Item, Double&gt;(noneTaxableImportedItem, noneTaxableImportedItem.getPrice() * importationRate);</b>
 <i>33</i>&nbsp;    }
 <i>34</i>&nbsp;}
 </div>
@@ -111,7 +111,7 @@
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2015-02-27 15:22</div>
+    <div style="float:right;">generated on 2015-02-27 17:52</div>
 </div>
 </body>
 </html>
