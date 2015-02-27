@@ -5,6 +5,9 @@ import com.teksystem.salestaxes.model.*;
 import com.teksystem.salestaxes.visitor.TaxVisitorImpl;
 
 import java.util.ArrayList;
+import java.util.Collection;
+
+import static java.util.Collections.unmodifiableCollection;
 
 
 public class TaxApplier {
@@ -59,5 +62,9 @@ public class TaxApplier {
         result.append("Total: ").append(total);
 
         return result.toString();
+    }
+
+    public Collection<Pair<Item, Double>> getTaxedItems() {
+        return unmodifiableCollection(taxedItems);
     }
 }
