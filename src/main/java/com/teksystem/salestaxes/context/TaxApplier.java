@@ -7,7 +7,7 @@ import com.teksystem.salestaxes.visitor.TaxVisitorImpl;
 import java.util.ArrayList;
 
 
-class TaxApplier {
+public class TaxApplier {
     private final ArrayList<Pair<Item, Double>> taxedItems = new ArrayList<Pair<Item, Double>>();
     private TaxVisitorImpl taxVisitor;
 
@@ -17,7 +17,7 @@ class TaxApplier {
     }
 
     public void addItem(final Item itemTek) {
-        //TODO: this is not really an elegant solution, should be changed
+        //TODO: not really elegant solution, should be changed
         if (itemTek instanceof TaxableItem) {
             taxedItems.add(taxVisitor.visit((TaxableItem) itemTek));
             return;
