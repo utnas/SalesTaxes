@@ -15,12 +15,11 @@ public class TaxApplierTest {
     @Test
     public void itShouldAddItemsToTaxApplier() {
         final TaxApplier taxApplier = new TaxApplier(0.10, 0.05);
-        addAllItems(//
-                taxApplier,
-                new TaxableItem("music box", 20.30),//
-                new NoneTaxableItem("book", 12.49), //
+        addAllItemsTo(taxApplier,
                 new TaxableImportedItem("music box", 20.30),//
-                new NoneTaxableImportedItem("book", 12.49)
+                new NoneTaxableImportedItem("book", 12.49),
+                new NoneTaxableItem("book", 12.49),//
+                new TaxableItem("music box", 20.30)
         );
 
         assertThat(taxApplier.getTaxedItems().size(), is(4));
@@ -31,7 +30,7 @@ public class TaxApplierTest {
 
     }
 
-    private static Collection addAllItems(final TaxApplier taxApplier, final Item... items) {
+    private static Collection addAllItemsTo(final TaxApplier taxApplier, final Item... items) {
         Collection result = new ArrayList();
         for (final Item item : items) {
             taxApplier.addItem(item);

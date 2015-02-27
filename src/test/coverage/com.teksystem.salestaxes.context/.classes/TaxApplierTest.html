@@ -89,36 +89,35 @@
 <i>15</i>&nbsp;    @Test
 <i>16</i>&nbsp;    public void itShouldAddItemsToTaxApplier() {
 <b class="fc"><i>17</i>&nbsp;        final TaxApplier taxApplier = new TaxApplier(0.10, 0.05);</b>
-<b class="fc"><i>18</i>&nbsp;        addAllItems(//</b>
-<i>19</i>&nbsp;                taxApplier,
-<b class="fc"><i>20</i>&nbsp;                new TaxableItem(&quot;music box&quot;, 20.30),//</b>
-<b class="fc"><i>21</i>&nbsp;                new NoneTaxableItem(&quot;book&quot;, 12.49), //</b>
-<b class="fc"><i>22</i>&nbsp;                new TaxableImportedItem(&quot;music box&quot;, 20.30),//</b>
-<b class="fc"><i>23</i>&nbsp;                new NoneTaxableImportedItem(&quot;book&quot;, 12.49)</b>
-<i>24</i>&nbsp;        );
-<i>25</i>&nbsp;
-<b class="fc"><i>26</i>&nbsp;        assertThat(taxApplier.getTaxedItems().size(), is(4));</b>
-<i>27</i>&nbsp;    }
-<i>28</i>&nbsp;
-<i>29</i>&nbsp;    @Test
-<i>30</i>&nbsp;    public void testDisplayTotal() {
-<i>31</i>&nbsp;
-<i>32</i>&nbsp;    }
-<i>33</i>&nbsp;
-<i>34</i>&nbsp;    private static Collection addAllItems(final TaxApplier taxApplier, final Item... items) {
-<b class="fc"><i>35</i>&nbsp;        Collection result = new ArrayList();</b>
-<b class="fc"><i>36</i>&nbsp;        for (final Item item : items) {</b>
-<b class="fc"><i>37</i>&nbsp;            taxApplier.addItem(item);</b>
-<i>38</i>&nbsp;        }
-<b class="fc"><i>39</i>&nbsp;        return Collections.unmodifiableCollection(result);</b>
-<i>40</i>&nbsp;    }
-<i>41</i>&nbsp;}
+<b class="fc"><i>18</i>&nbsp;        addAllItemsTo(taxApplier,</b>
+<b class="fc"><i>19</i>&nbsp;                new TaxableImportedItem(&quot;music box&quot;, 20.30),//</b>
+<b class="fc"><i>20</i>&nbsp;                new NoneTaxableImportedItem(&quot;book&quot;, 12.49),</b>
+<b class="fc"><i>21</i>&nbsp;                new NoneTaxableItem(&quot;book&quot;, 12.49),//</b>
+<b class="fc"><i>22</i>&nbsp;                new TaxableItem(&quot;music box&quot;, 20.30)</b>
+<i>23</i>&nbsp;        );
+<i>24</i>&nbsp;
+<b class="fc"><i>25</i>&nbsp;        assertThat(taxApplier.getTaxedItems().size(), is(4));</b>
+<i>26</i>&nbsp;    }
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    @Test
+<i>29</i>&nbsp;    public void testDisplayTotal() {
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    }
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    private static Collection addAllItemsTo(final TaxApplier taxApplier, final Item... items) {
+<b class="fc"><i>34</i>&nbsp;        Collection result = new ArrayList();</b>
+<b class="fc"><i>35</i>&nbsp;        for (final Item item : items) {</b>
+<b class="fc"><i>36</i>&nbsp;            taxApplier.addItem(item);</b>
+<i>37</i>&nbsp;        }
+<b class="fc"><i>38</i>&nbsp;        return Collections.unmodifiableCollection(result);</b>
+<i>39</i>&nbsp;    }
+<i>40</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2015-02-27 15:13</div>
+    <div style="float:right;">generated on 2015-02-27 15:22</div>
 </div>
 </body>
 </html>
