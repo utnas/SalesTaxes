@@ -6,8 +6,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
+import static java.util.Collections.unmodifiableCollection;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
@@ -81,6 +81,6 @@ public class EndToEndTests {
         for (final Item item : items) {
             taxApplier.applyTaxOn(item);
         }
-        return Collections.unmodifiableCollection(result);
+        return unmodifiableCollection(result);
     }
 }
