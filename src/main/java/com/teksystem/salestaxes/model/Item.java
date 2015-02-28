@@ -4,7 +4,7 @@ import com.teksystem.salestaxes.visitor.TaxVisitor;
 
 public interface Item {
 
-    public double getPrice();
+    public Double getPrice();
 
     public String getName();
 

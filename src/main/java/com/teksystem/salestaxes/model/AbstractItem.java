@@ -10,7 +10,7 @@ public abstract class AbstractItem implements Item {
     }
 
     @Override
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 

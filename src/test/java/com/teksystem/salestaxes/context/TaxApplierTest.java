@@ -1,6 +1,10 @@
 package com.teksystem.salestaxes.context;
 
-import com.teksystem.salestaxes.model.*;
+import com.teksystem.salestaxes.model.Item;
+import com.teksystem.salestaxes.model.NoneTaxableImportedItem;
+import com.teksystem.salestaxes.model.NoneTaxableItem;
+import com.teksystem.salestaxes.model.TaxableImportedItem;
+import com.teksystem.salestaxes.model.TaxableItem;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +21,7 @@ public class TaxApplierTest {
 
     @Before
     public void setUp() throws Exception {
-        taxApplier = new TaxApplier(0.10, 0.05);
+        taxApplier = new TaxApplier(10.0, 5.0);
     }
 
     @After

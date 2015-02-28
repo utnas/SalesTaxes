@@ -1,7 +1,16 @@
 package com.teksystem.salestaxes.visitor;
 
 import com.sun.tools.javac.util.Pair;
-import com.teksystem.salestaxes.model.*;
+import com.teksystem.salestaxes.model.Item;
+import com.teksystem.salestaxes.model.NoneTaxableImportedItem;
+import com.teksystem.salestaxes.model.NoneTaxableItem;
+import com.teksystem.salestaxes.model.TaxableImportedItem;
+import com.teksystem.salestaxes.model.TaxableItem;
+
+import java.math.BigDecimal;
+
+import static com.teksystem.salestaxes.utils.CustomFormatter.format;
+import static com.teksystem.salestaxes.utils.RateCalculator.calculateRate;
 
 public class TaxVisitorImpl implements TaxVisitor {
     private final Double importationRate;
@@ -14,12 +23,14 @@ public class TaxVisitorImpl implements TaxVisitor {
 
     @Override
     public Pair<Item, Double> visit(final TaxableItem taxableItem) {
-        return new Pair<Item, Double>(taxableItem, taxableItem.getPrice() * basicRate);
+        final BigDecimal calculatedRate = calculateRate(taxableItem.getPrice(), basicRate);
+        return new Pair<Item, Double>(taxableItem, format(calculatedRate));
     }
 
     @Override
     public Pair<Item, Double> visit(final TaxableImportedItem taxableItem) {
-        return new Pair<Item, Double>(taxableItem, (taxableItem.getPrice() * importationRate) + (taxableItem.getPrice() * basicRate));
+        final BigDecimal calculatedRate = calculateRate(taxableItem.getPrice(), importationRate).add(calculateRate(taxableItem.getPrice(), basicRate));
+        return new Pair<Item, Double>(taxableItem, format(calculatedRate));
     }
 
     @Override
@@ -29,6 +40,7 @@ public class TaxVisitorImpl implements TaxVisitor {
 
     @Override
     public Pair<Item, Double> visit(final NoneTaxableImportedItem noneTaxableImportedItem) {
-        return new Pair<Item, Double>(noneTaxableImportedItem, noneTaxableImportedItem.getPrice() * importationRate);
+        final BigDecimal calculateRate = calculateRate(noneTaxableImportedItem.getPrice(), importationRate);
+        return new Pair<Item, Double>(noneTaxableImportedItem, format(calculateRate));
     }
 }

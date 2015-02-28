@@ -1,27 +1,30 @@
 package com.teksystem.salestaxes.context;
 
 import com.sun.tools.javac.util.Pair;
-import com.teksystem.salestaxes.model.*;
+import com.teksystem.salestaxes.model.Item;
+import com.teksystem.salestaxes.model.NoneTaxableImportedItem;
+import com.teksystem.salestaxes.model.NoneTaxableItem;
+import com.teksystem.salestaxes.model.TaxableImportedItem;
+import com.teksystem.salestaxes.model.TaxableItem;
 import com.teksystem.salestaxes.visitor.TaxVisitorImpl;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Locale;
 
+import static com.teksystem.salestaxes.utils.CustomFormatter.format;
 import static java.util.Collections.unmodifiableCollection;
 
 
-public class TaxApplier {
+public final class TaxApplier {
     private final ArrayList<Pair<Item, Double>> taxedItems = new ArrayList<Pair<Item, Double>>();
-    private TaxVisitorImpl taxVisitor;
+    private final TaxVisitorImpl taxVisitor;
 
     public TaxApplier(final Double basicRate, final Double importationRate) {
         taxVisitor = new TaxVisitorImpl(basicRate, importationRate);
     }
 
-    public void addItem(final Item itemTek) {
+    public final void addItem(final Item itemTek) {
         //TODO: not really elegant solution, should be changed
         if (itemTek instanceof TaxableItem) {
             taxedItems.add(taxVisitor.visit((TaxableItem) itemTek));
@@ -40,43 +43,34 @@ public class TaxApplier {
         }
     }
 
-
-    public String displayTotal() {
+    public final String displayTotal() {
         final StringBuilder result = new StringBuilder("");
-        Double totalTax = 0.0;
-        Double total = 0.0;
-        DecimalFormat decimalFormat = new DecimalFormat("###,###,###,##0.00");
-        decimalFormat.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.US));
+        BigDecimal totalTax = new BigDecimal(0.0);
+        BigDecimal total = new BigDecimal(0.0);
 
         for (final Pair<Item, Double> taxedItem : taxedItems) {
             final Item itemTek = taxedItem.fst;
             final Double payedTax = taxedItem.snd;
-            totalTax += payedTax;
-            formatMessage(result, //
-                    decimalFormat.format(itemTek.getPrice() + payedTax),//
-                    itemTek.getName());
-            total += payedTax + itemTek.getPrice();
+            totalTax = totalTax.add(BigDecimal.valueOf(payedTax));
+            result.append("1 ");
+            result.append(itemTek.getName());
+            result.append(": ");
+            result.append(format(new BigDecimal(itemTek.getPrice() + payedTax)));
+            result.append(System.getProperty("line.separator"));
+            total = total.add(BigDecimal.valueOf(payedTax)).add(BigDecimal.valueOf(itemTek.getPrice()));
         }
-        result.append("Sales Taxes: ").append(decimalFormat.format(totalTax));
+        result.append("Sales Taxes: ").append(format(totalTax));
         result.append(System.getProperty("line.separator"));
-        result.append("Total: ").append(decimalFormat.format(total));
+        result.append("Total: ").append(format(total));
 
         return result.toString().trim();
     }
 
-    private static void formatMessage(StringBuilder result, String format, String itemName) {
-        result.append("1 ");
-        result.append(itemName);
-        result.append(": ");
-        result.append(format);
-        result.append(System.getProperty("line.separator"));
-    }
-
-    public void clearItemsList() {
+    public final void clearItemsList() {
         taxedItems.clear();
     }
 
-    public Collection<Pair<Item, Double>> getTaxedItems() {
+    public final Collection<Pair<Item, Double>> getTaxedItems() {
         return unmodifiableCollection(taxedItems);
     }
 }

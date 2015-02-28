@@ -75,34 +75,35 @@
 <div class="sourceCode"><i>1</i>&nbsp;package com.teksystem.salestaxes.model;
 <i>2</i>&nbsp;
 <i>3</i>&nbsp;
-<i>4</i>&nbsp;import org.junit.Test;
-<i>5</i>&nbsp;
-<i>6</i>&nbsp;import static org.hamcrest.core.Is.is;
-<i>7</i>&nbsp;import static org.junit.Assert.assertThat;
-<i>8</i>&nbsp;
-<b class="fc"><i>9</i>&nbsp;public class TaxableItemTest {</b>
-<i>10</i>&nbsp;
-<i>11</i>&nbsp;    @Test
-<i>12</i>&nbsp;    public void itShouldGetPrice() {
-<b class="fc"><i>13</i>&nbsp;        assertThat(new TaxableItem(&quot;music CD&quot;, 14.99).getPrice(), is(14.99));</b>
-<i>14</i>&nbsp;    }
-<i>15</i>&nbsp;
-<i>16</i>&nbsp;    @Test
-<i>17</i>&nbsp;    public void itShouldGetName() {
-<b class="fc"><i>18</i>&nbsp;        assertThat(new TaxableItem(&quot;music CD&quot;, 14.99).getName(), is(&quot;music CD&quot;));</b>
-<i>19</i>&nbsp;    }
-<i>20</i>&nbsp;
-<i>21</i>&nbsp;    @Test
-<i>22</i>&nbsp;    public void itShouldAcceptTaxVisitor() throws Exception {
-<i>23</i>&nbsp;        //TODO I should Mock the class
-<i>24</i>&nbsp;    }
-<i>25</i>&nbsp;}
+<i>4</i>&nbsp;import com.teksystem.salestaxes.model.TaxableItem;
+<i>5</i>&nbsp;import org.junit.Test;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import static org.hamcrest.core.Is.is;
+<i>8</i>&nbsp;import static org.junit.Assert.assertThat;
+<i>9</i>&nbsp;
+<b class="fc"><i>10</i>&nbsp;public class TaxableItemTest {</b>
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;    @Test
+<i>13</i>&nbsp;    public void itShouldGetPrice() {
+<b class="fc"><i>14</i>&nbsp;        assertThat(new TaxableItem(&quot;music CD&quot;, 14.99).getPrice(), is(14.99));</b>
+<i>15</i>&nbsp;    }
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    @Test
+<i>18</i>&nbsp;    public void itShouldGetName() {
+<b class="fc"><i>19</i>&nbsp;        assertThat(new TaxableItem(&quot;music CD&quot;, 14.99).getName(), is(&quot;music CD&quot;));</b>
+<i>20</i>&nbsp;    }
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    @Test
+<i>23</i>&nbsp;    public void itShouldAcceptTaxVisitor() throws Exception {
+<i>24</i>&nbsp;        //TODO I should Mock the class
+<i>25</i>&nbsp;    }
+<i>26</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2015-02-27 17:52</div>
+    <div style="float:right;">generated on 2015-02-28 00:41</div>
 </div>
 </body>
 </html>
