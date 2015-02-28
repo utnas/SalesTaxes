@@ -8,11 +8,16 @@ import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 public class CustomFormatter {
-    public final static MathContext MATH_CONTEXT = new MathContext(3, RoundingMode.UP);
+    public final static MathContext MATH_CONTEXT = new MathContext(3, RoundingMode.HALF_UP);
 
     public static DecimalFormat getCustomDecimalFormat() {
-        final DecimalFormat decimalFormat = new DecimalFormat("###,###,###,##0.##");
+        final DecimalFormat decimalFormat = new DecimalFormat();
         decimalFormat.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.US));
+        decimalFormat.setMinimumIntegerDigits(1);
+        decimalFormat.setMaximumIntegerDigits(9);
+        decimalFormat.setMinimumFractionDigits(2);
+        decimalFormat.setMaximumFractionDigits(2);
+        decimalFormat.setDecimalSeparatorAlwaysShown(true);
         return decimalFormat;
     }
 

@@ -1,11 +1,7 @@
 package com.teksystem.salestaxes.context;
 
 import com.sun.tools.javac.util.Pair;
-import com.teksystem.salestaxes.model.Item;
-import com.teksystem.salestaxes.model.NoneTaxableImportedItem;
-import com.teksystem.salestaxes.model.NoneTaxableItem;
-import com.teksystem.salestaxes.model.TaxableImportedItem;
-import com.teksystem.salestaxes.model.TaxableItem;
+import com.teksystem.salestaxes.model.*;
 import com.teksystem.salestaxes.visitor.TaxVisitorImpl;
 
 import java.math.BigDecimal;
@@ -13,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import static com.teksystem.salestaxes.utils.CustomFormatter.format;
+import static java.math.BigDecimal.valueOf;
 import static java.util.Collections.unmodifiableCollection;
 
 
@@ -25,7 +22,7 @@ public final class TaxApplier {
     }
 
     public final void addItem(final Item itemTek) {
-        //TODO: not really elegant solution, should be changed
+        //TODO: not really elegant, should be changed
         if (itemTek instanceof TaxableItem) {
             taxedItems.add(taxVisitor.visit((TaxableItem) itemTek));
             return;
@@ -51,13 +48,13 @@ public final class TaxApplier {
         for (final Pair<Item, Double> taxedItem : taxedItems) {
             final Item itemTek = taxedItem.fst;
             final Double payedTax = taxedItem.snd;
-            totalTax = totalTax.add(BigDecimal.valueOf(payedTax));
+            totalTax = totalTax.add(valueOf(payedTax));
             result.append("1 ");
             result.append(itemTek.getName());
             result.append(": ");
-            result.append(format(new BigDecimal(itemTek.getPrice() + payedTax)));
+            result.append(format(itemTek.getPrice() + payedTax));
             result.append(System.getProperty("line.separator"));
-            total = total.add(BigDecimal.valueOf(payedTax)).add(BigDecimal.valueOf(itemTek.getPrice()));
+            total = total.add(valueOf(payedTax)).add(valueOf(itemTek.getPrice()));
         }
         result.append("Sales Taxes: ").append(format(totalTax));
         result.append(System.getProperty("line.separator"));

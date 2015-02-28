@@ -2,13 +2,10 @@ package com.teksystem.salestaxes.visitor;
 
 import com.sun.tools.javac.util.Pair;
 import com.teksystem.salestaxes.model.*;
-import com.teksystem.salestaxes.model.NoneTaxableImportedItem;
-import com.teksystem.salestaxes.model.NoneTaxableItem;
-import com.teksystem.salestaxes.model.TaxableImportedItem;
-import com.teksystem.salestaxes.model.TaxableItem;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
 
 public class TaxVisitorImplTest {
@@ -43,11 +40,32 @@ public class TaxVisitorImplTest {
         assertThat(taxVisitor.visit(new TaxableImportedItem("bottle of perfume", 10.00)).snd, is(1.50));
     }
 
+    @Test
+    public void itShouldComputeTaxForTaxableImportedItemWithNoneZeroDecimal() {
+        final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
+
+        assertThat(taxVisitor.visit(new TaxableImportedItem("bottle of perfume", 47.50)).snd, is(7.13));
+    }
+
+    @Test
+    public void itShouldComputeTaxForTaxableImportedItemButNotAsExpectedInSpecification() {
+        final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
+
+        assertNotEquals(taxVisitor.visit(new TaxableImportedItem("bottle of perfume", 47.50)).snd, is(7.13));
+    }
+
 
     @Test
     public void itShouldComputeTaxForNoneTaxableImportedItem() {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
 
         assertThat(taxVisitor.visit(new NoneTaxableImportedItem("box of imported chocolates", 11.25)).snd, is(0.56));
+    }
+
+    @Test
+    public void itShouldComputeTaxForNoneTaxableImportedItemNotEqualsToExpectedValueFromSpecification() {
+        final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
+
+        assertNotEquals(taxVisitor.visit(new NoneTaxableImportedItem("box of imported chocolates", 11.25)).snd, is(0.60));
     }
 }
