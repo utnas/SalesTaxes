@@ -53,7 +53,7 @@
     100%
   </span>
   <span class="absValue">
-    (6/ 6)
+    (9/ 9)
   </span>
 </td>
 <td class="coverageStat">
@@ -61,7 +61,7 @@
     100%
   </span>
   <span class="absValue">
-    (13/ 13)
+    (19/ 19)
   </span>
 </td>
 </tr>
@@ -76,61 +76,79 @@
 <i>2</i>&nbsp;
 <i>3</i>&nbsp;import com.sun.tools.javac.util.Pair;
 <i>4</i>&nbsp;import com.teksystem.salestaxes.model.*;
-<i>5</i>&nbsp;import com.teksystem.salestaxes.model.NoneTaxableImportedItem;
-<i>6</i>&nbsp;import com.teksystem.salestaxes.model.NoneTaxableItem;
-<i>7</i>&nbsp;import com.teksystem.salestaxes.model.TaxableImportedItem;
-<i>8</i>&nbsp;import com.teksystem.salestaxes.model.TaxableItem;
-<i>9</i>&nbsp;import org.junit.Test;
+<i>5</i>&nbsp;import org.junit.Test;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import static org.hamcrest.core.Is.is;
+<i>8</i>&nbsp;import static org.junit.Assert.assertNotEquals;
+<i>9</i>&nbsp;import static org.junit.Assert.assertThat;
 <i>10</i>&nbsp;
-<i>11</i>&nbsp;import static org.hamcrest.core.Is.is;
-<i>12</i>&nbsp;import static org.junit.Assert.assertThat;
-<i>13</i>&nbsp;
-<b class="fc"><i>14</i>&nbsp;public class TaxVisitorImplTest {</b>
-<i>15</i>&nbsp;
-<i>16</i>&nbsp;    @Test
-<i>17</i>&nbsp;    public void itShouldReturnSameItemAfterComputingForTaxTaxableItem() {
-<b class="fc"><i>18</i>&nbsp;        final TaxableItem taxableItem = new TaxableItem(&quot;music CD&quot;, 14.99);</b>
-<b class="fc"><i>19</i>&nbsp;        final Pair&lt;Item, Double&gt; itemTax = new TaxVisitorImpl(10.0, 5.0).visit(taxableItem);</b>
-<i>20</i>&nbsp;
-<b class="fc"><i>21</i>&nbsp;        assertThat(itemTax.fst.getName(), is(taxableItem.getName()));</b>
-<b class="fc"><i>22</i>&nbsp;        assertThat(itemTax.fst.getPrice(), is(taxableItem.getPrice()));</b>
-<i>23</i>&nbsp;    }
-<i>24</i>&nbsp;
-<i>25</i>&nbsp;    @Test
-<i>26</i>&nbsp;    public void itShouldComputeTaxForTaxableItem() {
-<b class="fc"><i>27</i>&nbsp;        final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);</b>
+<b class="fc"><i>11</i>&nbsp;public class TaxVisitorImplTest {</b>
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;    @Test
+<i>14</i>&nbsp;    public void itShouldReturnSameItemAfterComputingForTaxTaxableItem() {
+<b class="fc"><i>15</i>&nbsp;        final TaxableItem taxableItem = new TaxableItem(&quot;music CD&quot;, 14.99);</b>
+<b class="fc"><i>16</i>&nbsp;        final Pair&lt;Item, Double&gt; itemTax = new TaxVisitorImpl(10.0, 5.0).visit(taxableItem);</b>
+<i>17</i>&nbsp;
+<b class="fc"><i>18</i>&nbsp;        assertThat(itemTax.fst.getName(), is(taxableItem.getName()));</b>
+<b class="fc"><i>19</i>&nbsp;        assertThat(itemTax.fst.getPrice(), is(taxableItem.getPrice()));</b>
+<i>20</i>&nbsp;    }
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    @Test
+<i>23</i>&nbsp;    public void itShouldComputeTaxForTaxableItem() {
+<b class="fc"><i>24</i>&nbsp;        final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);</b>
+<i>25</i>&nbsp;
+<b class="fc"><i>26</i>&nbsp;        assertThat(taxVisitor.visit(new TaxableItem(&quot;music CD&quot;, 14.99)).snd, is(1.50));</b>
+<i>27</i>&nbsp;    }
 <i>28</i>&nbsp;
-<b class="fc"><i>29</i>&nbsp;        assertThat(taxVisitor.visit(new TaxableItem(&quot;music CD&quot;, 14.99)).snd, is(1.50));</b>
-<i>30</i>&nbsp;    }
-<i>31</i>&nbsp;
-<i>32</i>&nbsp;    @Test
-<i>33</i>&nbsp;    public void itShouldComputeTaxForNoneTaxableItem() {
-<b class="fc"><i>34</i>&nbsp;        final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);</b>
+<i>29</i>&nbsp;    @Test
+<i>30</i>&nbsp;    public void itShouldComputeTaxForNoneTaxableItem() {
+<b class="fc"><i>31</i>&nbsp;        final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);</b>
+<i>32</i>&nbsp;
+<b class="fc"><i>33</i>&nbsp;        assertThat(taxVisitor.visit(new NoneTaxableItem(&quot;book&quot;, 12.49)).snd, is(0.0));</b>
+<i>34</i>&nbsp;    }
 <i>35</i>&nbsp;
-<b class="fc"><i>36</i>&nbsp;        assertThat(taxVisitor.visit(new NoneTaxableItem(&quot;book&quot;, 12.49)).snd, is(0.0));</b>
-<i>37</i>&nbsp;    }
-<i>38</i>&nbsp;
-<i>39</i>&nbsp;    @Test
-<i>40</i>&nbsp;    public void itShouldComputeTaxForTaxableImportedItem() {
-<b class="fc"><i>41</i>&nbsp;        final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);</b>
+<i>36</i>&nbsp;    @Test
+<i>37</i>&nbsp;    public void itShouldComputeTaxForTaxableImportedItem() {
+<b class="fc"><i>38</i>&nbsp;        final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);</b>
+<i>39</i>&nbsp;
+<b class="fc"><i>40</i>&nbsp;        assertThat(taxVisitor.visit(new TaxableImportedItem(&quot;bottle of perfume&quot;, 10.00)).snd, is(1.50));</b>
+<i>41</i>&nbsp;    }
 <i>42</i>&nbsp;
-<b class="fc"><i>43</i>&nbsp;        assertThat(taxVisitor.visit(new TaxableImportedItem(&quot;bottle of perfume&quot;, 10.00)).snd, is(1.50));</b>
-<i>44</i>&nbsp;    }
-<i>45</i>&nbsp;
+<i>43</i>&nbsp;    @Test
+<i>44</i>&nbsp;    public void itShouldComputeTaxForTaxableImportedItemWithNoneZeroDecimal() {
+<b class="fc"><i>45</i>&nbsp;        final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);</b>
 <i>46</i>&nbsp;
-<i>47</i>&nbsp;    @Test
-<i>48</i>&nbsp;    public void itShouldComputeTaxForNoneTaxableImportedItem() {
-<b class="fc"><i>49</i>&nbsp;        final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);</b>
-<i>50</i>&nbsp;
-<b class="fc"><i>51</i>&nbsp;        assertThat(taxVisitor.visit(new NoneTaxableImportedItem(&quot;box of imported chocolates&quot;, 11.25)).snd, is(0.56));</b>
-<i>52</i>&nbsp;    }
-<i>53</i>&nbsp;}
+<b class="fc"><i>47</i>&nbsp;        assertThat(taxVisitor.visit(new TaxableImportedItem(&quot;bottle of perfume&quot;, 47.50)).snd, is(7.13));</b>
+<i>48</i>&nbsp;    }
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    @Test
+<i>51</i>&nbsp;    public void itShouldComputeTaxForTaxableImportedItemButNotAsExpectedInSpecification() {
+<b class="fc"><i>52</i>&nbsp;        final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);</b>
+<i>53</i>&nbsp;
+<b class="fc"><i>54</i>&nbsp;        assertNotEquals(taxVisitor.visit(new TaxableImportedItem(&quot;bottle of perfume&quot;, 47.50)).snd, is(7.13));</b>
+<i>55</i>&nbsp;    }
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;    @Test
+<i>59</i>&nbsp;    public void itShouldComputeTaxForNoneTaxableImportedItem() {
+<b class="fc"><i>60</i>&nbsp;        final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);</b>
+<i>61</i>&nbsp;
+<b class="fc"><i>62</i>&nbsp;        assertThat(taxVisitor.visit(new NoneTaxableImportedItem(&quot;box of imported chocolates&quot;, 11.25)).snd, is(0.56));</b>
+<i>63</i>&nbsp;    }
+<i>64</i>&nbsp;
+<i>65</i>&nbsp;    @Test
+<i>66</i>&nbsp;    public void itShouldComputeTaxForNoneTaxableImportedItemNotEqualsToExpectedValueFromSpecification() {
+<b class="fc"><i>67</i>&nbsp;        final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);</b>
+<i>68</i>&nbsp;
+<b class="fc"><i>69</i>&nbsp;        assertNotEquals(taxVisitor.visit(new NoneTaxableImportedItem(&quot;box of imported chocolates&quot;, 11.25)).snd, is(0.60));</b>
+<i>70</i>&nbsp;    }
+<i>71</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2015-02-28 00:41</div>
+    <div style="float:right;">generated on 2015-02-28 11:36</div>
 </div>
 </body>
 </html>

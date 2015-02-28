@@ -74,35 +74,34 @@
 
 <div class="sourceCode"><i>1</i>&nbsp;package com.teksystem.salestaxes.model;
 <i>2</i>&nbsp;
-<i>3</i>&nbsp;import com.teksystem.salestaxes.model.NoneTaxableImportedItem;
-<i>4</i>&nbsp;import org.junit.Test;
-<i>5</i>&nbsp;
-<i>6</i>&nbsp;import static org.hamcrest.core.Is.is;
-<i>7</i>&nbsp;import static org.junit.Assert.assertThat;
-<i>8</i>&nbsp;
-<b class="fc"><i>9</i>&nbsp;public class NoneTaxableImportedItemTest {</b>
-<i>10</i>&nbsp;
-<i>11</i>&nbsp;    @Test
-<i>12</i>&nbsp;    public void testGetPrice() {
-<b class="fc"><i>13</i>&nbsp;        assertThat(new NoneTaxableImportedItem(&quot;book&quot;, 12.49).getPrice(), is(12.49));</b>
-<i>14</i>&nbsp;    }
-<i>15</i>&nbsp;
-<i>16</i>&nbsp;    @Test
-<i>17</i>&nbsp;    public void testGetName() {
-<b class="fc"><i>18</i>&nbsp;        assertThat(new NoneTaxableImportedItem(&quot;book&quot;, 12.49).getName(), is(&quot;book&quot;));</b>
-<i>19</i>&nbsp;    }
-<i>20</i>&nbsp;
-<i>21</i>&nbsp;    @Test
-<i>22</i>&nbsp;    public void testAccept() {
-<i>23</i>&nbsp;        //TODO I should mock the class
-<i>24</i>&nbsp;    }
-<i>25</i>&nbsp;}
+<i>3</i>&nbsp;import org.junit.Test;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import static org.hamcrest.core.Is.is;
+<i>6</i>&nbsp;import static org.junit.Assert.assertThat;
+<i>7</i>&nbsp;
+<b class="fc"><i>8</i>&nbsp;public class NoneTaxableImportedItemTest {</b>
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;    @Test
+<i>11</i>&nbsp;    public void testGetPrice() {
+<b class="fc"><i>12</i>&nbsp;        assertThat(new NoneTaxableImportedItem(&quot;book&quot;, 12.49).getPrice(), is(12.49));</b>
+<i>13</i>&nbsp;    }
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    @Test
+<i>16</i>&nbsp;    public void testGetName() {
+<b class="fc"><i>17</i>&nbsp;        assertThat(new NoneTaxableImportedItem(&quot;book&quot;, 12.49).getName(), is(&quot;book&quot;));</b>
+<i>18</i>&nbsp;    }
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    @Test
+<i>21</i>&nbsp;    public void testAccept() {
+<i>22</i>&nbsp;        //TODO I should mock the class
+<i>23</i>&nbsp;    }
+<i>24</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2015-02-28 00:41</div>
+    <div style="float:right;">generated on 2015-02-28 11:36</div>
 </div>
 </body>
 </html>

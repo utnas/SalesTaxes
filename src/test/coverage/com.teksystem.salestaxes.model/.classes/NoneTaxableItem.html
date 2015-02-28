@@ -50,18 +50,18 @@
 </td>
 <td class="coverageStat">
   <span class="percent">
-    75%
+    50%
   </span>
   <span class="absValue">
-    (3/ 4)
+    (1/ 2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    83,3%
+    50%
   </span>
   <span class="absValue">
-    (5/ 6)
+    (1/ 2)
   </span>
 </td>
 </tr>
@@ -74,38 +74,26 @@
 
 <div class="sourceCode"><i>1</i>&nbsp;package com.teksystem.salestaxes.model;
 <i>2</i>&nbsp;
-<i>3</i>&nbsp;import com.teksystem.salestaxes.visitor.TaxVisitor;
-<i>4</i>&nbsp;
-<i>5</i>&nbsp;public final class NoneTaxableItem implements Item {
-<i>6</i>&nbsp;    private final String name;
-<i>7</i>&nbsp;    private final Double price;
-<i>8</i>&nbsp;
-<b class="fc"><i>9</i>&nbsp;    public NoneTaxableItem(final String name, final Double price) {</b>
-<b class="fc"><i>10</i>&nbsp;        this.price = price;</b>
-<b class="fc"><i>11</i>&nbsp;        this.name = name;</b>
-<i>12</i>&nbsp;    }
-<i>13</i>&nbsp;
-<i>14</i>&nbsp;    @Override
-<i>15</i>&nbsp;    public double getPrice() {
-<b class="fc"><i>16</i>&nbsp;        return price;</b>
-<i>17</i>&nbsp;    }
-<i>18</i>&nbsp;
-<i>19</i>&nbsp;    @Override
-<i>20</i>&nbsp;    public String getName() {
-<b class="fc"><i>21</i>&nbsp;        return name;</b>
-<i>22</i>&nbsp;    }
-<i>23</i>&nbsp;
-<i>24</i>&nbsp;    @Override
-<i>25</i>&nbsp;    public void accept(final TaxVisitor taxVisitor) {
-<b class="nc"><i>26</i>&nbsp;        taxVisitor.visit(this);</b>
-<i>27</i>&nbsp;    }
-<i>28</i>&nbsp;}
+<i>3</i>&nbsp;import com.teksystem.salestaxes.model.AbstractItem;
+<i>4</i>&nbsp;import com.teksystem.salestaxes.visitor.TaxVisitor;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;public final class NoneTaxableItem extends AbstractItem {
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;    public NoneTaxableItem(final String name, final Double price) {
+<b class="fc"><i>9</i>&nbsp;        super(name, price);</b>
+<i>10</i>&nbsp;    }
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;    @Override
+<i>13</i>&nbsp;    public void accept(final TaxVisitor taxVisitor) {
+<b class="nc"><i>14</i>&nbsp;        taxVisitor.visit(this);</b>
+<i>15</i>&nbsp;    }
+<i>16</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2015-02-27 17:52</div>
+    <div style="float:right;">generated on 2015-02-28 11:36</div>
 </div>
 </body>
 </html>

@@ -4,18 +4,20 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
+import static com.teksystem.salestaxes.utils.CustomFormatter.format;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 public class CustomFormatterTest {
 
     @Test
-    public void testGetCustomDecimalFormat() throws Exception {
-
+    public void itShouldFormatABigDecimal() {
+        assertThat(format(new BigDecimal(23.345)), is(23.34));
     }
 
+
     @Test
-    public void itShouldFormatABigDecimal() {
-        assertThat(CustomFormatter.format(new BigDecimal(23.345)), is(23.34));
+    public void itShouldFormatADouble() {
+        assertThat(format(23.345), is(23.34));
     }
 }

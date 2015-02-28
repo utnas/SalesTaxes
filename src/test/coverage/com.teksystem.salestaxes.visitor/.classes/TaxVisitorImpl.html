@@ -75,55 +75,51 @@
 <div class="sourceCode"><i>1</i>&nbsp;package com.teksystem.salestaxes.visitor;
 <i>2</i>&nbsp;
 <i>3</i>&nbsp;import com.sun.tools.javac.util.Pair;
-<i>4</i>&nbsp;import com.teksystem.salestaxes.model.Item;
-<i>5</i>&nbsp;import com.teksystem.salestaxes.model.NoneTaxableImportedItem;
-<i>6</i>&nbsp;import com.teksystem.salestaxes.model.NoneTaxableItem;
-<i>7</i>&nbsp;import com.teksystem.salestaxes.model.TaxableImportedItem;
-<i>8</i>&nbsp;import com.teksystem.salestaxes.model.TaxableItem;
-<i>9</i>&nbsp;
-<i>10</i>&nbsp;import java.math.BigDecimal;
-<i>11</i>&nbsp;
-<i>12</i>&nbsp;import static com.teksystem.salestaxes.utils.CustomFormatter.format;
-<i>13</i>&nbsp;import static com.teksystem.salestaxes.utils.RateCalculator.calculateRate;
+<i>4</i>&nbsp;import com.teksystem.salestaxes.model.*;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;import java.math.BigDecimal;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import static com.teksystem.salestaxes.utils.CustomFormatter.format;
+<i>9</i>&nbsp;import static com.teksystem.salestaxes.utils.RateCalculator.calculateRate;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;public class TaxVisitorImpl implements TaxVisitor {
+<i>12</i>&nbsp;    private final Double importationRate;
+<i>13</i>&nbsp;    private final Double basicRate;
 <i>14</i>&nbsp;
-<i>15</i>&nbsp;public class TaxVisitorImpl implements TaxVisitor {
-<i>16</i>&nbsp;    private final Double importationRate;
-<i>17</i>&nbsp;    private final Double basicRate;
-<i>18</i>&nbsp;
-<b class="fc"><i>19</i>&nbsp;    public TaxVisitorImpl(final Double basicRate, final Double importationRate) {</b>
-<b class="fc"><i>20</i>&nbsp;        this.importationRate = importationRate;</b>
-<b class="fc"><i>21</i>&nbsp;        this.basicRate = basicRate;</b>
-<i>22</i>&nbsp;    }
-<i>23</i>&nbsp;
-<i>24</i>&nbsp;    @Override
-<i>25</i>&nbsp;    public Pair&lt;Item, Double&gt; visit(final TaxableItem taxableItem) {
-<b class="fc"><i>26</i>&nbsp;        final BigDecimal calculatedRate = calculateRate(taxableItem.getPrice(), basicRate);</b>
-<b class="fc"><i>27</i>&nbsp;        return new Pair&lt;Item, Double&gt;(taxableItem, format(calculatedRate));</b>
-<i>28</i>&nbsp;    }
-<i>29</i>&nbsp;
-<i>30</i>&nbsp;    @Override
-<i>31</i>&nbsp;    public Pair&lt;Item, Double&gt; visit(final TaxableImportedItem taxableItem) {
-<b class="fc"><i>32</i>&nbsp;        final BigDecimal calculatedRate = calculateRate(taxableItem.getPrice(), importationRate).add(calculateRate(taxableItem.getPrice(), basicRate));</b>
-<b class="fc"><i>33</i>&nbsp;        return new Pair&lt;Item, Double&gt;(taxableItem, format(calculatedRate));</b>
-<i>34</i>&nbsp;    }
-<i>35</i>&nbsp;
-<i>36</i>&nbsp;    @Override
-<i>37</i>&nbsp;    public Pair&lt;Item, Double&gt; visit(final NoneTaxableItem nonetaxableItem) {
-<b class="fc"><i>38</i>&nbsp;        return new Pair&lt;Item, Double&gt;(nonetaxableItem, 0.0);</b>
-<i>39</i>&nbsp;    }
-<i>40</i>&nbsp;
-<i>41</i>&nbsp;    @Override
-<i>42</i>&nbsp;    public Pair&lt;Item, Double&gt; visit(final NoneTaxableImportedItem noneTaxableImportedItem) {
-<b class="fc"><i>43</i>&nbsp;        final BigDecimal calculateRate = calculateRate(noneTaxableImportedItem.getPrice(), importationRate);</b>
-<b class="fc"><i>44</i>&nbsp;        return new Pair&lt;Item, Double&gt;(noneTaxableImportedItem, format(calculateRate));</b>
-<i>45</i>&nbsp;    }
-<i>46</i>&nbsp;}
+<b class="fc"><i>15</i>&nbsp;    public TaxVisitorImpl(final Double basicRate, final Double importationRate) {</b>
+<b class="fc"><i>16</i>&nbsp;        this.importationRate = importationRate;</b>
+<b class="fc"><i>17</i>&nbsp;        this.basicRate = basicRate;</b>
+<i>18</i>&nbsp;    }
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    @Override
+<i>21</i>&nbsp;    public Pair&lt;Item, Double&gt; visit(final TaxableItem taxableItem) {
+<b class="fc"><i>22</i>&nbsp;        final BigDecimal calculatedRate = calculateRate(taxableItem.getPrice(), basicRate);</b>
+<b class="fc"><i>23</i>&nbsp;        return new Pair&lt;Item, Double&gt;(taxableItem, format(calculatedRate));</b>
+<i>24</i>&nbsp;    }
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    @Override
+<i>27</i>&nbsp;    public Pair&lt;Item, Double&gt; visit(final TaxableImportedItem taxableItem) {
+<b class="fc"><i>28</i>&nbsp;        final BigDecimal calculatedRate = calculateRate(taxableItem.getPrice(), importationRate).add(calculateRate(taxableItem.getPrice(), basicRate));</b>
+<b class="fc"><i>29</i>&nbsp;        return new Pair&lt;Item, Double&gt;(taxableItem, format(calculatedRate));</b>
+<i>30</i>&nbsp;    }
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    @Override
+<i>33</i>&nbsp;    public Pair&lt;Item, Double&gt; visit(final NoneTaxableItem nonetaxableItem) {
+<b class="fc"><i>34</i>&nbsp;        return new Pair&lt;Item, Double&gt;(nonetaxableItem, 0.0);</b>
+<i>35</i>&nbsp;    }
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    @Override
+<i>38</i>&nbsp;    public Pair&lt;Item, Double&gt; visit(final NoneTaxableImportedItem noneTaxableImportedItem) {
+<b class="fc"><i>39</i>&nbsp;        final BigDecimal calculateRate = calculateRate(noneTaxableImportedItem.getPrice(), importationRate);</b>
+<b class="fc"><i>40</i>&nbsp;        return new Pair&lt;Item, Double&gt;(noneTaxableImportedItem, format(calculateRate));</b>
+<i>41</i>&nbsp;    }
+<i>42</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2015-02-28 00:41</div>
+    <div style="float:right;">generated on 2015-02-28 11:36</div>
 </div>
 </body>
 </html>
