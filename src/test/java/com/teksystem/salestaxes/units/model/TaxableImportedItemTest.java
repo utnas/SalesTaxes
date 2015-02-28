@@ -1,4 +1,4 @@
-package com.teksystem.salestaxes.model;
+package com.teksystem.salestaxes.units.model;
 
 import org.junit.Test;
 

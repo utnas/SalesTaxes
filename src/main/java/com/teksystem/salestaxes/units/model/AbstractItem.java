@@ -1,4 +1,4 @@
-package com.teksystem.salestaxes.model;
+package com.teksystem.salestaxes.units.model;
 
 public abstract class AbstractItem implements Item {
     private final String name;

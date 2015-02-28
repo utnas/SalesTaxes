@@ -1,12 +1,12 @@
-package com.teksystem.salestaxes.visitor;
+package com.teksystem.salestaxes.units.visitor;
 
 import com.sun.tools.javac.util.Pair;
-import com.teksystem.salestaxes.model.*;
+import com.teksystem.salestaxes.units.model.*;
 
 import java.math.BigDecimal;
 
-import static com.teksystem.salestaxes.utils.CustomFormatter.format;
-import static com.teksystem.salestaxes.utils.RateCalculator.calculateRate;
+import static com.teksystem.salestaxes.units.utils.CustomFormatter.format;
+import static com.teksystem.salestaxes.units.utils.RateCalculator.calculateRate;
 
 public class TaxVisitorImpl implements TaxVisitor {
     private final Double importationRate;

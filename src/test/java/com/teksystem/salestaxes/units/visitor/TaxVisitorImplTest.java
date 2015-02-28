@@ -1,7 +1,7 @@
-package com.teksystem.salestaxes.visitor;
+package com.teksystem.salestaxes.units.visitor;
 
 import com.sun.tools.javac.util.Pair;
-import com.teksystem.salestaxes.model.*;
+import com.teksystem.salestaxes.units.model.*;
 import org.junit.Test;
 import org.mockito.Mockito;
 

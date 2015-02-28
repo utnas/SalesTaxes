@@ -1,8 +1,8 @@
-package com.teksystem.salestaxes.utils;
+package com.teksystem.salestaxes.units.utils;
 
 import java.math.BigDecimal;
 
-import static com.teksystem.salestaxes.utils.CustomFormatter.MATH_CONTEXT;
+import static com.teksystem.salestaxes.units.utils.CustomFormatter.MATH_CONTEXT;
 
 public class RateCalculator {
     public static BigDecimal calculateRate(final Double price, final Double rateInPercentage) {

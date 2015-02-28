@@ -1,8 +1,8 @@
-package com.teksystem.salestaxes.utils;
+package com.teksystem.salestaxes.units.utils;
 
 import org.junit.Test;
 
-import static com.teksystem.salestaxes.utils.RateCalculator.calculateRate;
+import static com.teksystem.salestaxes.units.utils.RateCalculator.calculateRate;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 

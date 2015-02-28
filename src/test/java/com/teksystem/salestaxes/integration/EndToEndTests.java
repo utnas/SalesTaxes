@@ -1,6 +1,7 @@
-package com.teksystem.salestaxes.context;
+package com.teksystem.salestaxes.integration;
 
-import com.teksystem.salestaxes.model.*;
+import com.teksystem.salestaxes.units.context.TaxApplier;
+import com.teksystem.salestaxes.units.model.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -11,20 +12,8 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
 
-public class TaxApplierTest {
 
-    @Test
-    public void itShouldAddItemsToTaxApplier() {
-        final TaxApplier taxApplier = new TaxApplier(10.0, 5.0);
-        addItemsTo(taxApplier,
-                new TaxableImportedItem("music box", 20.30),
-                new NoneTaxableImportedItem("book", 12.49),
-                new NoneTaxableItem("book", 12.49),
-                new TaxableItem("music box", 20.30)
-        );
-
-        assertThat(taxApplier.getTaxedItems().size(), is(4));
-    }
+public class EndToEndTests {
 
     @Test
     public void itShouldComputerTaxesForInputsOne() {
@@ -90,7 +79,7 @@ public class TaxApplierTest {
     private static Collection addItemsTo(final TaxApplier taxApplier, final Item... items) {
         final Collection result = new ArrayList();
         for (final Item item : items) {
-            taxApplier.addItem(item);
+            taxApplier.applyTaxOn(item);
         }
         return Collections.unmodifiableCollection(result);
     }

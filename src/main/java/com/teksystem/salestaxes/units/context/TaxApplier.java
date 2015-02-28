@@ -1,14 +1,14 @@
-package com.teksystem.salestaxes.context;
+package com.teksystem.salestaxes.units.context;
 
 import com.sun.tools.javac.util.Pair;
-import com.teksystem.salestaxes.model.*;
-import com.teksystem.salestaxes.visitor.TaxVisitorImpl;
+import com.teksystem.salestaxes.units.model.*;
+import com.teksystem.salestaxes.units.visitor.TaxVisitorImpl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static com.teksystem.salestaxes.utils.CustomFormatter.format;
+import static com.teksystem.salestaxes.units.utils.CustomFormatter.format;
 import static java.math.BigDecimal.valueOf;
 import static java.util.Collections.unmodifiableCollection;
 
@@ -21,7 +21,7 @@ public final class TaxApplier {
         taxVisitor = new TaxVisitorImpl(basicRate, importationRate);
     }
 
-    public final void addItem(final Item itemTek) {
+    public final void applyTaxOn(final Item itemTek) {
         //TODO: not really elegant, should be changed
         if (itemTek instanceof TaxableItem) {
             taxedItems.add(taxVisitor.visit((TaxableItem) itemTek));
@@ -61,10 +61,6 @@ public final class TaxApplier {
         result.append("Total: ").append(format(total));
 
         return result.toString().trim();
-    }
-
-    public final void clearItemsList() {
-        taxedItems.clear();
     }
 
     public final Collection<Pair<Item, Double>> getTaxedItems() {

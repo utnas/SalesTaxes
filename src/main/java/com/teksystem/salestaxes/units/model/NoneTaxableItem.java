@@ -1,6 +1,6 @@
-package com.teksystem.salestaxes.model;
+package com.teksystem.salestaxes.units.model;
 
-import com.teksystem.salestaxes.visitor.TaxVisitor;
+import com.teksystem.salestaxes.units.visitor.TaxVisitor;
 
 public class NoneTaxableItem extends AbstractItem {
 
