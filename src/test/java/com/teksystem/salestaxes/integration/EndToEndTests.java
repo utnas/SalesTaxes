@@ -1,13 +1,13 @@
 package com.teksystem.salestaxes.integration;
 
 import com.teksystem.salestaxes.units.context.TaxApplier;
-import com.teksystem.salestaxes.units.model.*;
+import com.teksystem.salestaxes.units.model.NoneTaxableImportedItem;
+import com.teksystem.salestaxes.units.model.NoneTaxableItem;
+import com.teksystem.salestaxes.units.model.TaxableImportedItem;
+import com.teksystem.salestaxes.units.model.TaxableItem;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import static java.util.Collections.unmodifiableCollection;
+import static com.teksystem.salestaxes.units.utils.TaxApplierHelper.addItemsTo;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
@@ -74,13 +74,5 @@ public class EndToEndTests {
         );
 
         assertNotEquals(taxApplier.displayTotal(), is("1 imported bottle of perfume: 32.19\n1 bottle of perfume: 20.89\n1 medical of headache pills: 9.75\n1 box of imported chocolates: 11.85\nSales Taxes: 6.70\nTotal: 74.68"));
-    }
-
-    private static Collection addItemsTo(final TaxApplier taxApplier, final Item... items) {
-        final Collection result = new ArrayList();
-        for (final Item item : items) {
-            taxApplier.applyTaxOn(item);
-        }
-        return unmodifiableCollection(result);
     }
 }
