@@ -9,7 +9,7 @@ import java.util.Locale;
 
 import static java.lang.Double.valueOf;
 
-public class CustomFormatter {
+public class CustomDecimalFormatter {
     public final static MathContext MATH_CONTEXT = new MathContext(3, RoundingMode.HALF_UP);
 
     private static DecimalFormat getCustomDecimalFormat() {

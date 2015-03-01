@@ -8,7 +8,7 @@ import com.teksystem.salestaxes.utils.Pair;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static com.teksystem.salestaxes.utils.CustomFormatter.format;
+import static com.teksystem.salestaxes.utils.CustomDecimalFormatter.format;
 import static java.lang.System.getProperty;
 import static java.util.Collections.unmodifiableCollection;
 

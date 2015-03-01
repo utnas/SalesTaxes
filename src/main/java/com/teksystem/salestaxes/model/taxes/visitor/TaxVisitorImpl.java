@@ -6,7 +6,7 @@ import com.teksystem.salestaxes.utils.Pair;
 
 import java.math.BigDecimal;
 
-import static com.teksystem.salestaxes.utils.CustomFormatter.format;
+import static com.teksystem.salestaxes.utils.CustomDecimalFormatter.format;
 import static com.teksystem.salestaxes.utils.RateCalculator.calculateRate;
 import static java.lang.String.format;
 

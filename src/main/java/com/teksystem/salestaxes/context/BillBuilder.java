@@ -1,6 +1,6 @@
 package com.teksystem.salestaxes.context;
 
-import static com.teksystem.salestaxes.utils.CustomFormatter.format;
+import static com.teksystem.salestaxes.utils.CustomDecimalFormatter.format;
 import static java.lang.System.getProperty;
 
 public class BillBuilder {

@@ -2,7 +2,7 @@ package com.teksystem.salestaxes.utils;
 
 import java.math.BigDecimal;
 
-import static com.teksystem.salestaxes.utils.CustomFormatter.MATH_CONTEXT;
+import static com.teksystem.salestaxes.utils.CustomDecimalFormatter.MATH_CONTEXT;
 
 public class RateCalculator {
 

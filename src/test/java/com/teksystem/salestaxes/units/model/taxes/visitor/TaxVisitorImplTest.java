@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-import static com.teksystem.salestaxes.utils.CustomFormatter.format;
+import static com.teksystem.salestaxes.utils.CustomDecimalFormatter.format;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
