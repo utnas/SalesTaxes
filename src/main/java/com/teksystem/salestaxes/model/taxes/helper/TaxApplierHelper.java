@@ -1,7 +1,7 @@
-package com.teksystem.salestaxes.units.utils;
+package com.teksystem.salestaxes.model.taxes.helper;
 
-import com.teksystem.salestaxes.units.context.TaxApplier;
-import com.teksystem.salestaxes.units.model.Item;
+import com.teksystem.salestaxes.context.TaxApplier;
+import com.teksystem.salestaxes.model.items.Item;
 
 import java.util.Collection;
 

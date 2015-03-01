@@ -1,12 +1,13 @@
-package com.teksystem.salestaxes.units.visitor;
+package com.teksystem.salestaxes.model.taxes.visitor;
 
 import com.sun.tools.javac.util.Pair;
-import com.teksystem.salestaxes.units.model.*;
+import com.teksystem.salestaxes.model.items.*;
+import com.teksystem.salestaxes.utils.CustomFormatter;
 
 import java.math.BigDecimal;
 
-import static com.teksystem.salestaxes.units.utils.CustomFormatter.format;
-import static com.teksystem.salestaxes.units.utils.RateCalculator.calculateRate;
+import static com.teksystem.salestaxes.utils.CustomFormatter.format;
+import static com.teksystem.salestaxes.utils.RateCalculator.calculateRate;
 
 public class TaxVisitorImpl implements TaxVisitor {
     private final Double importationRate;
@@ -20,13 +21,13 @@ public class TaxVisitorImpl implements TaxVisitor {
     @Override
     public Pair<Item, Double> visit(final TaxableItem taxableItem) {
         final BigDecimal calculatedRate = calculateRate(taxableItem.getPrice(), basicRate);
-        return new Pair<Item, Double>(taxableItem, format(calculatedRate));
+        return new Pair<Item, Double>(taxableItem, CustomFormatter.format(calculatedRate));
     }
 
     @Override
     public Pair<Item, Double> visit(final TaxableImportedItem taxableItem) {
         final BigDecimal calculatedRate = calculateRate(taxableItem.getPrice(), importationRate).add(calculateRate(taxableItem.getPrice(), basicRate));
-        return new Pair<Item, Double>(taxableItem, format(calculatedRate));
+        return new Pair<Item, Double>(taxableItem, CustomFormatter.format(calculatedRate));
     }
 
     @Override
@@ -37,6 +38,6 @@ public class TaxVisitorImpl implements TaxVisitor {
     @Override
     public Pair<Item, Double> visit(final NonTaxableImportedItem nonTaxableImportedItem) {
         final BigDecimal calculateRate = calculateRate(nonTaxableImportedItem.getPrice(), importationRate);
-        return new Pair<Item, Double>(nonTaxableImportedItem, format(calculateRate));
+        return new Pair<Item, Double>(nonTaxableImportedItem, CustomFormatter.format(calculateRate));
     }
 }

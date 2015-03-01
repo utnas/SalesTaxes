@@ -1,5 +1,6 @@
-package com.teksystem.salestaxes.units.model;
+package com.teksystem.salestaxes.units.model.items;
 
+import com.teksystem.salestaxes.model.items.NonTaxableImportedItem;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;

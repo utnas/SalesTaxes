@@ -1,4 +1,4 @@
-package com.teksystem.salestaxes.units.utils;
+package com.teksystem.salestaxes.utils;
 
 import java.math.BigDecimal;
 import java.math.MathContext;

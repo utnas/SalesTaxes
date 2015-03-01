@@ -1,11 +1,11 @@
-package com.teksystem.salestaxes.units.context;
+package com.teksystem.salestaxes.context;
 
 import com.sun.tools.javac.util.Pair;
-import com.teksystem.salestaxes.units.model.Item;
+import com.teksystem.salestaxes.model.items.Item;
 
 import java.math.BigDecimal;
 
-import static com.teksystem.salestaxes.units.utils.CustomFormatter.format;
+import static com.teksystem.salestaxes.utils.CustomFormatter.format;
 import static java.math.BigDecimal.valueOf;
 
 public class SalesTaxesDisplay {

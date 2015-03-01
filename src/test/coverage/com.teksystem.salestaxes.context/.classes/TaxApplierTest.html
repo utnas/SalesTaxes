@@ -17,10 +17,10 @@
 <div class="content">
 <div class="breadCrumbs">
     [ <a href="../../index.html">all classes</a> ]
-    [ <a href="../index.html">com.teksystem.salestaxes.units.context</a> ]
+    [ <a href="../index.html">com.teksystem.salestaxes.context</a> ]
 </div>
 
-<h1>Coverage Summary for Class: TaxApplierTest (com.teksystem.salestaxes.units.context)</h1>
+<h1>Coverage Summary for Class: TaxApplierTest (com.teksystem.salestaxes.context)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -53,15 +53,15 @@
     100%
   </span>
   <span class="absValue">
-    (8/ 8)
+    (2/ 2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    81,8%
   </span>
   <span class="absValue">
-    (42/ 42)
+    (9/ 11)
   </span>
 </td>
 </tr>
@@ -72,109 +72,46 @@
 <br/>
 
 
-<div class="sourceCode"><i>1</i>&nbsp;package com.teksystem.salestaxes.units.context;
+<div class="sourceCode"><i>1</i>&nbsp;package com.teksystem.salestaxes.context;
 <i>2</i>&nbsp;
-<i>3</i>&nbsp;import com.teksystem.salestaxes.units.model.*;
-<i>4</i>&nbsp;import org.junit.Test;
-<i>5</i>&nbsp;
-<i>6</i>&nbsp;import java.util.ArrayList;
-<i>7</i>&nbsp;import java.util.Collection;
-<i>8</i>&nbsp;import java.util.Collections;
+<i>3</i>&nbsp;import com.teksystem.salestaxes.model.items.NonTaxableImportedItem;
+<i>4</i>&nbsp;import com.teksystem.salestaxes.model.items.NonTaxableItem;
+<i>5</i>&nbsp;import com.teksystem.salestaxes.model.items.TaxableImportedItem;
+<i>6</i>&nbsp;import com.teksystem.salestaxes.model.items.TaxableItem;
+<i>7</i>&nbsp;import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
+<i>8</i>&nbsp;import org.junit.Test;
 <i>9</i>&nbsp;
-<i>10</i>&nbsp;import static org.hamcrest.core.Is.is;
-<i>11</i>&nbsp;import static org.junit.Assert.assertNotEquals;
+<i>10</i>&nbsp;import static com.teksystem.salestaxes.model.taxes.helper.TaxApplierHelper.addItemsTo;
+<i>11</i>&nbsp;import static org.hamcrest.core.Is.is;
 <i>12</i>&nbsp;import static org.junit.Assert.assertThat;
 <i>13</i>&nbsp;
-<b class="fc"><i>14</i>&nbsp;public class TaxApplierTest {</b>
+<i>14</i>&nbsp;public class TaxApplierTest {
 <i>15</i>&nbsp;
 <i>16</i>&nbsp;    @Test
 <i>17</i>&nbsp;    public void itShouldAddItemsToTaxApplier() {
-<b class="fc"><i>18</i>&nbsp;        final TaxApplier taxApplier = new TaxApplier(10.0, 5.0);</b>
+<b class="fc"><i>18</i>&nbsp;        final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));</b>
 <b class="fc"><i>19</i>&nbsp;        addItemsTo(taxApplier,</b>
 <b class="fc"><i>20</i>&nbsp;                new TaxableImportedItem(&quot;music box&quot;, 20.30),</b>
-<b class="fc"><i>21</i>&nbsp;                new NoneTaxableImportedItem(&quot;book&quot;, 12.49),</b>
-<b class="fc"><i>22</i>&nbsp;                new NoneTaxableItem(&quot;book&quot;, 12.49),</b>
+<b class="fc"><i>21</i>&nbsp;                new NonTaxableImportedItem(&quot;book&quot;, 12.49),</b>
+<b class="fc"><i>22</i>&nbsp;                new NonTaxableItem(&quot;book&quot;, 12.49),</b>
 <b class="fc"><i>23</i>&nbsp;                new TaxableItem(&quot;music box&quot;, 20.30)</b>
-<i>24</i>&nbsp;        );
-<i>25</i>&nbsp;
+<b class="nc"><i>24</i>&nbsp;        );</b>
+<b class="nc"><i>25</i>&nbsp;</b>
 <b class="fc"><i>26</i>&nbsp;        assertThat(taxApplier.getTaxedItems().size(), is(4));</b>
 <i>27</i>&nbsp;    }
 <i>28</i>&nbsp;
 <i>29</i>&nbsp;    @Test
-<i>30</i>&nbsp;    public void itShouldComputerTaxesForInputsOne() {
-<b class="fc"><i>31</i>&nbsp;        final TaxApplier taxApplier = new TaxApplier(10.0, 5.0);</b>
-<b class="fc"><i>32</i>&nbsp;        addItemsTo(taxApplier,</b>
-<b class="fc"><i>33</i>&nbsp;                new NoneTaxableItem(&quot;book&quot;, 12.49),</b>
-<b class="fc"><i>34</i>&nbsp;                new TaxableItem(&quot;music CD&quot;, 14.99),</b>
-<b class="fc"><i>35</i>&nbsp;                new NoneTaxableItem(&quot;chocolate bar&quot;, 0.85)</b>
-<i>36</i>&nbsp;        );
-<i>37</i>&nbsp;
-<b class="fc"><i>38</i>&nbsp;        assertThat(taxApplier.displayTotal(), is(&quot;1 book: 12.49\n1 music CD: 16.49\n1 chocolate bar: 0.85\nSales Taxes: 1.5\n&quot; +</b>
-<i>39</i>&nbsp;                &quot;Total: 29.83&quot;));
-<i>40</i>&nbsp;    }
-<i>41</i>&nbsp;
-<i>42</i>&nbsp;    @Test
-<i>43</i>&nbsp;    public void itShouldComputerTaxesForInputsTwo() {
-<b class="fc"><i>44</i>&nbsp;        final TaxApplier taxApplier = new TaxApplier(10.0, 5.0);</b>
-<b class="fc"><i>45</i>&nbsp;        addItemsTo(taxApplier,</b>
-<b class="fc"><i>46</i>&nbsp;                new NoneTaxableImportedItem(&quot;imported box chocolates&quot;, 10.00),</b>
-<b class="fc"><i>47</i>&nbsp;                new TaxableImportedItem(&quot;imported bottle of perfume&quot;, 47.50)</b>
-<i>48</i>&nbsp;        );
-<i>49</i>&nbsp;
-<b class="fc"><i>50</i>&nbsp;        assertThat(taxApplier.displayTotal(), is(&quot;1 imported box chocolates: 10.5\n1 imported bottle of perfume: 54.63\nSales Taxes: 7.63\nTotal: 65.13&quot;));</b>
-<i>51</i>&nbsp;    }
-<i>52</i>&nbsp;
-<i>53</i>&nbsp;    @Test
-<i>54</i>&nbsp;    public void itShouldComputerTaxesForInputsTwoNotEqualToSpecification() {
-<b class="fc"><i>55</i>&nbsp;        final TaxApplier taxApplier = new TaxApplier(10.0, 5.0);</b>
-<b class="fc"><i>56</i>&nbsp;        addItemsTo(taxApplier,</b>
-<b class="fc"><i>57</i>&nbsp;                new NoneTaxableImportedItem(&quot;imported box chocolates&quot;, 10.00),</b>
-<b class="fc"><i>58</i>&nbsp;                new TaxableImportedItem(&quot;imported bottle of perfume&quot;, 47.50)</b>
-<i>59</i>&nbsp;        );
-<i>60</i>&nbsp;
-<b class="fc"><i>61</i>&nbsp;        assertNotEquals(taxApplier.displayTotal(), is(&quot;1 imported box chocolates: 10.50\n1 imported bottle of perfume: 54.65\nSales Taxes: 7.65\nTotal: 65.15&quot;));</b>
-<i>62</i>&nbsp;    }
-<i>63</i>&nbsp;
-<i>64</i>&nbsp;    @Test
-<i>65</i>&nbsp;    public void itShouldComputerTaxesForInputsThree() {
-<b class="fc"><i>66</i>&nbsp;        final TaxApplier taxApplier = new TaxApplier(10.0, 5.0);</b>
-<b class="fc"><i>67</i>&nbsp;        addItemsTo(taxApplier,</b>
-<b class="fc"><i>68</i>&nbsp;                new TaxableImportedItem(&quot;imported bottle of perfume&quot;, 27.99),</b>
-<b class="fc"><i>69</i>&nbsp;                new TaxableItem(&quot;bottle of perfume&quot;, 18.99),</b>
-<b class="fc"><i>70</i>&nbsp;                new NoneTaxableItem(&quot;medical of headache pills&quot;, 9.75),</b>
-<b class="fc"><i>71</i>&nbsp;                new NoneTaxableImportedItem(&quot;box of imported chocolates&quot;, 11.25)</b>
-<i>72</i>&nbsp;        );
-<i>73</i>&nbsp;
-<b class="fc"><i>74</i>&nbsp;        assertThat(taxApplier.displayTotal(), is(&quot;1 imported bottle of perfume: 32.19\n1 bottle of perfume: 20.89\n1 medical of headache pills: 9.75\n1 box of imported chocolates: 11.81\nSales Taxes: 6.66\nTotal: 74.64&quot;));</b>
-<i>75</i>&nbsp;    }
-<i>76</i>&nbsp;
-<i>77</i>&nbsp;    @Test
-<i>78</i>&nbsp;    public void itShouldComputerTaxesForInputsThreeNotEqualsToSpecification() {
-<b class="fc"><i>79</i>&nbsp;        final TaxApplier taxApplier = new TaxApplier(10.0, 5.0);</b>
-<b class="fc"><i>80</i>&nbsp;        addItemsTo(taxApplier,</b>
-<b class="fc"><i>81</i>&nbsp;                new TaxableImportedItem(&quot;imported bottle of perfume&quot;, 27.99),</b>
-<b class="fc"><i>82</i>&nbsp;                new TaxableItem(&quot;bottle of perfume&quot;, 18.99),</b>
-<b class="fc"><i>83</i>&nbsp;                new NoneTaxableItem(&quot;medical of headache pills&quot;, 9.75),</b>
-<b class="fc"><i>84</i>&nbsp;                new NoneTaxableImportedItem(&quot;box of imported chocolates&quot;, 11.25)</b>
-<i>85</i>&nbsp;        );
-<i>86</i>&nbsp;
-<b class="fc"><i>87</i>&nbsp;        assertNotEquals(taxApplier.displayTotal(), is(&quot;1 imported bottle of perfume: 32.19\n1 bottle of perfume: 20.89\n1 medical of headache pills: 9.75\n1 box of imported chocolates: 11.85\nSales Taxes: 6.70\nTotal: 74.68&quot;));</b>
-<i>88</i>&nbsp;    }
-<i>89</i>&nbsp;
-<i>90</i>&nbsp;    private static Collection addItemsTo(final TaxApplier taxApplier, final Item... items) {
-<b class="fc"><i>91</i>&nbsp;        final Collection result = new ArrayList();</b>
-<b class="fc"><i>92</i>&nbsp;        for (final Item item : items) {</b>
-<b class="fc"><i>93</i>&nbsp;            taxApplier.addItem(item);</b>
-<i>94</i>&nbsp;        }
-<b class="fc"><i>95</i>&nbsp;        return Collections.unmodifiableCollection(result);</b>
-<i>96</i>&nbsp;    }
-<i>97</i>&nbsp;}
+<i>30</i>&nbsp;    public void itemListShouldBeEmptyByDefault() {
+<b class="fc"><i>31</i>&nbsp;        final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(2.0, 23.0));</b>
+<b class="fc"><i>32</i>&nbsp;        assertThat(taxApplier.getTaxedItems().size(), is(0));</b>
+<i>33</i>&nbsp;    }
+<i>34</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2015-02-28 17:16</div>
+    <div style="float:right;">generated on 2015-02-28 19:39</div>
 </div>
 </body>
 </html>

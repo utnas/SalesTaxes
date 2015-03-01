@@ -1,7 +1,9 @@
 package com.teksystem.salestaxes.units.context;
 
-import com.teksystem.salestaxes.units.model.NonTaxableItem;
-import com.teksystem.salestaxes.units.visitor.TaxVisitorImpl;
+import com.teksystem.salestaxes.context.SalesTaxesDisplay;
+import com.teksystem.salestaxes.context.TaxApplier;
+import com.teksystem.salestaxes.model.items.NonTaxableItem;
+import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;

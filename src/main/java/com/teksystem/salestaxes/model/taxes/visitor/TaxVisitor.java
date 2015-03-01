@@ -1,7 +1,7 @@
-package com.teksystem.salestaxes.units.visitor;
+package com.teksystem.salestaxes.model.taxes.visitor;
 
 import com.sun.tools.javac.util.Pair;
-import com.teksystem.salestaxes.units.model.*;
+import com.teksystem.salestaxes.model.items.*;
 
 public interface TaxVisitor {
     public Pair<Item, Double> visit(final TaxableItem taxableItem);

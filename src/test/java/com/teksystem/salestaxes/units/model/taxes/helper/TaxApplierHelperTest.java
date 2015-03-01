@@ -1,11 +1,11 @@
-package com.teksystem.salestaxes.units.utils;
+package com.teksystem.salestaxes.units.model.taxes.helper;
 
-import com.teksystem.salestaxes.units.context.TaxApplier;
-import com.teksystem.salestaxes.units.model.TaxableItem;
-import com.teksystem.salestaxes.units.visitor.TaxVisitorImpl;
+import com.teksystem.salestaxes.context.TaxApplier;
+import com.teksystem.salestaxes.model.items.TaxableItem;
+import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
 import org.junit.Test;
 
-import static com.teksystem.salestaxes.units.utils.TaxApplierHelper.addItemsTo;
+import static com.teksystem.salestaxes.model.taxes.helper.TaxApplierHelper.addItemsTo;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 

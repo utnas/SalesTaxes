@@ -1,8 +1,8 @@
-package com.teksystem.salestaxes.units.context;
+package com.teksystem.salestaxes.context;
 
 import com.sun.tools.javac.util.Pair;
-import com.teksystem.salestaxes.units.model.*;
-import com.teksystem.salestaxes.units.visitor.TaxVisitorImpl;
+import com.teksystem.salestaxes.model.items.*;
+import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
 
 import java.util.ArrayList;
 import java.util.Collection;

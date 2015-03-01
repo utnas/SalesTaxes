@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
-import static com.teksystem.salestaxes.units.utils.CustomFormatter.format;
+import static com.teksystem.salestaxes.utils.CustomFormatter.format;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
