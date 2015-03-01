@@ -1,8 +1,8 @@
 package com.teksystem.salestaxes.units.model.taxes.visitor;
 
-import com.sun.tools.javac.util.Pair;
 import com.teksystem.salestaxes.model.items.*;
 import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
+import com.teksystem.salestaxes.utils.Pair;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -20,9 +20,9 @@ public class TaxVisitorImplTest {
         final TaxableItem taxableItem = mockTaxableItem("music CD", 14.99);
         final Pair<Item, Double> itemTax = new TaxVisitorImpl(10.0, 5.0).visit(taxableItem);
 
-        assertThat(itemTax.fst.getName(), is(taxableItem.getName()));
-        assertNotEquals(itemTax.fst.getPrice(), is(taxableItem.getPrice()));
-        assertThat(format(itemTax.fst.getPrice()), is(16.49));
+        assertThat(itemTax.first().getName(), is(taxableItem.getName()));
+        assertNotEquals(itemTax.first().getPrice(), is(taxableItem.getPrice()));
+        assertThat(format(itemTax.first().getPrice()), is(16.49));
     }
 
 
@@ -31,7 +31,7 @@ public class TaxVisitorImplTest {
         final TaxableItem taxableItem = mockTaxableItem("music CD", 14.99);
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
 
-        assertThat(taxVisitor.visit(taxableItem).snd, is(1.50));
+        assertThat(taxVisitor.visit(taxableItem).second(), is(1.50));
     }
 
     @Test
@@ -42,7 +42,7 @@ public class TaxVisitorImplTest {
         Mockito.when(nonTaxableItem.getName()).thenReturn("book");
         Mockito.when(nonTaxableItem.getPrice()).thenReturn(12.49);
 
-        assertThat(taxVisitor.visit(nonTaxableItem).snd, is(0.0));
+        assertThat(taxVisitor.visit(nonTaxableItem).second(), is(0.0));
     }
 
     @Test
@@ -50,7 +50,7 @@ public class TaxVisitorImplTest {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
         final TaxableImportedItem taxableImportedItem = mockTaxableImportedItem("bottle of perfume", 10.0);
 
-        assertThat(taxVisitor.visit(taxableImportedItem).snd, is(1.50));
+        assertThat(taxVisitor.visit(taxableImportedItem).second(), is(1.50));
     }
 
 
@@ -59,7 +59,7 @@ public class TaxVisitorImplTest {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
         TaxableImportedItem taxableImportedItem = mockTaxableImportedItem("bottle of perfume", 47.50);
 
-        assertThat(taxVisitor.visit(taxableImportedItem).snd, is(7.13));
+        assertThat(taxVisitor.visit(taxableImportedItem).second(), is(7.13));
     }
 
     @Test
@@ -67,7 +67,7 @@ public class TaxVisitorImplTest {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
         final TaxableImportedItem taxableImportedItem = mockTaxableImportedItem("bottle of perfume", 47.50);
 
-        assertNotEquals(taxVisitor.visit(taxableImportedItem).snd, is(7.13));
+        assertNotEquals(taxVisitor.visit(taxableImportedItem).second(), is(7.13));
     }
 
 
@@ -76,7 +76,7 @@ public class TaxVisitorImplTest {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
         final NonTaxableImportedItem item = mockNonTaxableImportedItem("box of imported chocolates", 11.25);
 
-        assertThat(taxVisitor.visit(item).snd, is(0.56));
+        assertThat(taxVisitor.visit(item).second(), is(0.56));
     }
 
     @Test
@@ -84,7 +84,7 @@ public class TaxVisitorImplTest {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
         final NonTaxableImportedItem item = mockNonTaxableImportedItem("box of imported chocolates", 11.25);
 
-        assertNotEquals(taxVisitor.visit(item).snd, is(0.60));
+        assertNotEquals(taxVisitor.visit(item).second(), is(0.60));
     }
 
     private static NonTaxableImportedItem mockNonTaxableImportedItem(String itemName, double itemPrice) {

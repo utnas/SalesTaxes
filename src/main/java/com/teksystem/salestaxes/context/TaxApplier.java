@@ -1,8 +1,8 @@
 package com.teksystem.salestaxes.context;
 
-import com.sun.tools.javac.util.Pair;
 import com.teksystem.salestaxes.model.items.*;
 import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
+import com.teksystem.salestaxes.utils.Pair;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -44,7 +44,7 @@ public class TaxApplier {
     public Double calculateTotalOfSalesTaxes() {
         Double result = 0.0;
         for (final Pair<Item, Double> taxedItem : taxedItems) {
-            result += taxedItem.snd;
+            result += taxedItem.second();
         }
         return result;
     }
@@ -52,7 +52,7 @@ public class TaxApplier {
     public Double calculateTotalOfTaxedItems() {
         Double result = 0.0;
         for (final Pair<Item, Double> taxedItem : taxedItems) {
-            result += taxedItem.fst.getPrice();
+            result += taxedItem.first().getPrice();
         }
         return result;
     }

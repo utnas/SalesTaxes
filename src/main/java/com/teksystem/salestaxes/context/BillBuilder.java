@@ -1,7 +1,7 @@
 package com.teksystem.salestaxes.context;
 
-import com.sun.tools.javac.util.Pair;
 import com.teksystem.salestaxes.model.items.Item;
+import com.teksystem.salestaxes.utils.Pair;
 
 import static com.teksystem.salestaxes.utils.CustomFormatter.format;
 import static java.lang.System.getProperty;
@@ -18,9 +18,9 @@ public class BillBuilder {
 
         for (final Pair<Item, Double> taxedItem : taxApplier.getTaxedItems()) {
             result.append("1 ");
-            result.append(taxedItem.fst.getName());
+            result.append(taxedItem.first().getName());
             result.append(": ");
-            result.append(format(taxedItem.fst.getPrice()));
+            result.append(format(taxedItem.first().getPrice()));
             result.append(getProperty("line.separator"));
         }
 
