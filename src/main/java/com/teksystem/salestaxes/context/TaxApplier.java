@@ -7,6 +7,8 @@ import com.teksystem.salestaxes.utils.Pair;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static com.teksystem.salestaxes.utils.CustomFormatter.format;
+import static java.lang.System.getProperty;
 import static java.util.Collections.unmodifiableCollection;
 
 
@@ -41,19 +43,15 @@ public class TaxApplier {
         return unmodifiableCollection(taxedItems);
     }
 
-    public Double calculateTotalOfSalesTaxes() {
-        Double result = 0.0;
+    public String formatTaxedItems() {
+        final StringBuilder result = new StringBuilder("");
         for (final Pair<Item, Double> taxedItem : taxedItems) {
-            result += taxedItem.second();
+            result.append("1 ");
+            result.append(taxedItem.first().getName());
+            result.append(": ");
+            result.append(format(taxedItem.first().getPrice()));
+            result.append(getProperty("line.separator"));
         }
-        return result;
-    }
-
-    public Double calculateTotalOfTaxedItems() {
-        Double result = 0.0;
-        for (final Pair<Item, Double> taxedItem : taxedItems) {
-            result += taxedItem.first().getPrice();
-        }
-        return result;
+        return result.toString();
     }
 }

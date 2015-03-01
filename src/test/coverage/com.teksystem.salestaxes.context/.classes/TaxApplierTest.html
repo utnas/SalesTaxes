@@ -89,21 +89,21 @@
 <i>15</i>&nbsp;
 <i>16</i>&nbsp;    @Test
 <i>17</i>&nbsp;    public void itShouldAddItemsToTaxApplier() {
-<b class="fc"><i>18</i>&nbsp;        final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));</b>
-<b class="fc"><i>19</i>&nbsp;        addItemsTo(taxApplier,</b>
+<b class="fc"><i>18</i>&nbsp;        final TaxApplier totalsCalculator = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));</b>
+<b class="fc"><i>19</i>&nbsp;        addItemsTo(totalsCalculator,</b>
 <b class="fc"><i>20</i>&nbsp;                new TaxableImportedItem(&quot;music box&quot;, 20.30),</b>
 <b class="fc"><i>21</i>&nbsp;                new NonTaxableImportedItem(&quot;book&quot;, 12.49),</b>
 <b class="fc"><i>22</i>&nbsp;                new NonTaxableItem(&quot;book&quot;, 12.49),</b>
 <b class="fc"><i>23</i>&nbsp;                new TaxableItem(&quot;music box&quot;, 20.30)</b>
 <b class="nc"><i>24</i>&nbsp;        );</b>
 <b class="nc"><i>25</i>&nbsp;</b>
-<b class="fc"><i>26</i>&nbsp;        assertThat(taxApplier.getTaxedItems().size(), is(4));</b>
+<b class="fc"><i>26</i>&nbsp;        assertThat(totalsCalculator.getTaxedItems().size(), is(4));</b>
 <i>27</i>&nbsp;    }
 <i>28</i>&nbsp;
 <i>29</i>&nbsp;    @Test
 <i>30</i>&nbsp;    public void itemListShouldBeEmptyByDefault() {
-<b class="fc"><i>31</i>&nbsp;        final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(2.0, 23.0));</b>
-<b class="fc"><i>32</i>&nbsp;        assertThat(taxApplier.getTaxedItems().size(), is(0));</b>
+<b class="fc"><i>31</i>&nbsp;        final TaxApplier totalsCalculator = new TaxApplier(new TaxVisitorImpl(2.0, 23.0));</b>
+<b class="fc"><i>32</i>&nbsp;        assertThat(totalsCalculator.getTaxedItems().size(), is(0));</b>
 <i>33</i>&nbsp;    }
 <i>34</i>&nbsp;}
 </div>

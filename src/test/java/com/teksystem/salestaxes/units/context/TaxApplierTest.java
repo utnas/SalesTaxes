@@ -31,36 +31,4 @@ public class TaxApplierTest {
         final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(2.0, 23.0));
         assertThat(taxApplier.getTaxedItems().size(), is(0));
     }
-
-    @Test
-    public void itShouldCalculateTotalOfSalesTaxes() {
-        final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
-        addItemsTo(taxApplier,
-                new NonTaxableImportedItem("imported box chocolates", 10.00),
-                new TaxableImportedItem("imported bottle of perfume", 47.50)
-        );
-        assertThat(taxApplier.calculateTotalOfSalesTaxes(), is(7.63));
-    }
-
-    @Test
-    public void itShouldReturnZeroForSalesTaxesOfNoItem() {
-        final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
-        assertThat(taxApplier.calculateTotalOfSalesTaxes(), is(0.0));
-    }
-
-    @Test
-    public void itShouldCalculateTotalOfItemsIncludingTaxes() {
-        final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
-        addItemsTo(taxApplier,
-                new NonTaxableImportedItem("imported box chocolates", 10.00),
-                new TaxableImportedItem("imported bottle of perfume", 47.50)
-        );
-        assertThat(taxApplier.calculateTotalOfTaxedItems(), is(65.13));
-    }
-
-    @Test
-    public void itShouldReturnZeroAsTotalOfNoItem() {
-        final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
-        assertThat(taxApplier.calculateTotalOfTaxedItems(), is(0.0));
-    }
 }
