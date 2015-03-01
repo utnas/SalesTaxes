@@ -4,63 +4,37 @@ import com.sun.tools.javac.util.Pair;
 import com.teksystem.salestaxes.units.model.*;
 import com.teksystem.salestaxes.units.visitor.TaxVisitorImpl;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static com.teksystem.salestaxes.units.utils.CustomFormatter.format;
-import static java.math.BigDecimal.valueOf;
 import static java.util.Collections.unmodifiableCollection;
 
 
-public final class TaxApplier {
+public class TaxApplier {
     private final ArrayList<Pair<Item, Double>> taxedItems = new ArrayList<Pair<Item, Double>>();
     private final TaxVisitorImpl taxVisitor;
 
-    public TaxApplier(final Double basicRate, final Double importationRate) {
-        taxVisitor = new TaxVisitorImpl(basicRate, importationRate);
+    public TaxApplier(final TaxVisitorImpl taxVisitor) {
+        this.taxVisitor = taxVisitor;
     }
 
-    public final void applyTaxOn(final Item itemTek) {
-        //TODO: not really elegant, should be changed
+    public void applyTaxOn(final Item itemTek) {
+        //TODO: not really elegant, should be refactored
         if (itemTek instanceof TaxableItem) {
             taxedItems.add(taxVisitor.visit((TaxableItem) itemTek));
             return;
         }
-        if (itemTek instanceof NoneTaxableItem) {
-            taxedItems.add(taxVisitor.visit((NoneTaxableItem) itemTek));
+        if (itemTek instanceof NonTaxableItem) {
+            taxedItems.add(taxVisitor.visit((NonTaxableItem) itemTek));
             return;
         }
         if (itemTek instanceof TaxableImportedItem) {
             taxedItems.add(taxVisitor.visit((TaxableImportedItem) itemTek));
             return;
         }
-        if (itemTek instanceof NoneTaxableImportedItem) {
-            taxedItems.add(taxVisitor.visit((NoneTaxableImportedItem) itemTek));
+        if (itemTek instanceof NonTaxableImportedItem) {
+            taxedItems.add(taxVisitor.visit((NonTaxableImportedItem) itemTek));
         }
-    }
-
-    public final String displayTotal() {
-        final StringBuilder result = new StringBuilder("");
-        BigDecimal totalTax = new BigDecimal(0.0);
-        BigDecimal total = new BigDecimal(0.0);
-
-        for (final Pair<Item, Double> taxedItem : taxedItems) {
-            final Item itemTek = taxedItem.fst;
-            final Double payedTax = taxedItem.snd;
-            totalTax = totalTax.add(valueOf(payedTax));
-            result.append("1 ");
-            result.append(itemTek.getName());
-            result.append(": ");
-            result.append(format(itemTek.getPrice() + payedTax));
-            result.append(System.getProperty("line.separator"));
-            total = total.add(valueOf(payedTax)).add(valueOf(itemTek.getPrice()));
-        }
-        result.append("Sales Taxes: ").append(format(totalTax));
-        result.append(System.getProperty("line.separator"));
-        result.append("Total: ").append(format(total));
-
-        return result.toString().trim();
     }
 
     public final Collection<Pair<Item, Double>> getTaxedItems() {

@@ -2,6 +2,7 @@ package com.teksystem.salestaxes.units.utils;
 
 import com.teksystem.salestaxes.units.context.TaxApplier;
 import com.teksystem.salestaxes.units.model.TaxableItem;
+import com.teksystem.salestaxes.units.visitor.TaxVisitorImpl;
 import org.junit.Test;
 
 import static com.teksystem.salestaxes.units.utils.TaxApplierHelper.addItemsTo;
@@ -12,11 +13,11 @@ public class TaxApplierHelperTest {
 
     @Test
     public void itShouldReturnAnEmptyCollection() {
-        assertThat(addItemsTo(new TaxApplier(10.0, 5.0)).size(), is(0));
+        assertThat(addItemsTo(new TaxApplier(new TaxVisitorImpl(10.0, 5.0))).size(), is(0));
     }
 
     @Test
     public void itShouldReturnACollectionOfGivenItems() {
-        assertThat(addItemsTo(new TaxApplier(10.0, 5.0), new TaxableItem("My Item", 234.99)).size(), is(1));
+        assertThat(addItemsTo(new TaxApplier(new TaxVisitorImpl(10.0, 5.0)), new TaxableItem("My Item", 234.99)).size(), is(1));
     }
 }

@@ -1,10 +1,12 @@
 package com.teksystem.salestaxes.integration;
 
+import com.teksystem.salestaxes.units.context.SalesTaxesDisplay;
 import com.teksystem.salestaxes.units.context.TaxApplier;
-import com.teksystem.salestaxes.units.model.NoneTaxableImportedItem;
-import com.teksystem.salestaxes.units.model.NoneTaxableItem;
+import com.teksystem.salestaxes.units.model.NonTaxableImportedItem;
+import com.teksystem.salestaxes.units.model.NonTaxableItem;
 import com.teksystem.salestaxes.units.model.TaxableImportedItem;
 import com.teksystem.salestaxes.units.model.TaxableItem;
+import com.teksystem.salestaxes.units.visitor.TaxVisitorImpl;
 import org.junit.Test;
 
 import static com.teksystem.salestaxes.units.utils.TaxApplierHelper.addItemsTo;
@@ -17,62 +19,62 @@ public class EndToEndTests {
 
     @Test
     public void itShouldComputerTaxesForInputsOne() {
-        final TaxApplier taxApplier = new TaxApplier(10.0, 5.0);
+        final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
         addItemsTo(taxApplier,
-                new NoneTaxableItem("book", 12.49),
+                new NonTaxableItem("book", 12.49),
                 new TaxableItem("music CD", 14.99),
-                new NoneTaxableItem("chocolate bar", 0.85)
+                new NonTaxableItem("chocolate bar", 0.85)
         );
 
-        assertThat(taxApplier.displayTotal(), is("1 book: 12.49\n1 music CD: 16.49\n1 chocolate bar: 0.85\nSales Taxes: 1.5\n" +
+        assertThat(new SalesTaxesDisplay(taxApplier.getTaxedItems()).displayBill(), is("1 book: 12.49\n1 music CD: 16.49\n1 chocolate bar: 0.85\nSales Taxes: 1.5\n" +
                 "Total: 29.83"));
     }
 
     @Test
     public void itShouldComputerTaxesForInputsTwo() {
-        final TaxApplier taxApplier = new TaxApplier(10.0, 5.0);
+        final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
         addItemsTo(taxApplier,
-                new NoneTaxableImportedItem("imported box chocolates", 10.00),
+                new NonTaxableImportedItem("imported box chocolates", 10.00),
                 new TaxableImportedItem("imported bottle of perfume", 47.50)
         );
 
-        assertThat(taxApplier.displayTotal(), is("1 imported box chocolates: 10.5\n1 imported bottle of perfume: 54.63\nSales Taxes: 7.63\nTotal: 65.13"));
+        assertThat(new SalesTaxesDisplay(taxApplier.getTaxedItems()).displayBill(), is("1 imported box chocolates: 10.5\n1 imported bottle of perfume: 54.63\nSales Taxes: 7.63\nTotal: 65.13"));
     }
 
     @Test
     public void itShouldComputerTaxesForInputsTwoNotEqualToSpecification() {
-        final TaxApplier taxApplier = new TaxApplier(10.0, 5.0);
+        final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
         addItemsTo(taxApplier,
-                new NoneTaxableImportedItem("imported box chocolates", 10.00),
+                new NonTaxableImportedItem("imported box chocolates", 10.00),
                 new TaxableImportedItem("imported bottle of perfume", 47.50)
         );
 
-        assertNotEquals(taxApplier.displayTotal(), is("1 imported box chocolates: 10.50\n1 imported bottle of perfume: 54.65\nSales Taxes: 7.65\nTotal: 65.15"));
+        assertNotEquals(new SalesTaxesDisplay(taxApplier.getTaxedItems()).displayBill(), is("1 imported box chocolates: 10.50\n1 imported bottle of perfume: 54.65\nSales Taxes: 7.65\nTotal: 65.15"));
     }
 
     @Test
     public void itShouldComputerTaxesForInputsThree() {
-        final TaxApplier taxApplier = new TaxApplier(10.0, 5.0);
+        final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
         addItemsTo(taxApplier,
                 new TaxableImportedItem("imported bottle of perfume", 27.99),
                 new TaxableItem("bottle of perfume", 18.99),
-                new NoneTaxableItem("medical of headache pills", 9.75),
-                new NoneTaxableImportedItem("box of imported chocolates", 11.25)
+                new NonTaxableItem("medical of headache pills", 9.75),
+                new NonTaxableImportedItem("box of imported chocolates", 11.25)
         );
 
-        assertThat(taxApplier.displayTotal(), is("1 imported bottle of perfume: 32.19\n1 bottle of perfume: 20.89\n1 medical of headache pills: 9.75\n1 box of imported chocolates: 11.81\nSales Taxes: 6.66\nTotal: 74.64"));
+        assertThat(new SalesTaxesDisplay(taxApplier.getTaxedItems()).displayBill(), is("1 imported bottle of perfume: 32.19\n1 bottle of perfume: 20.89\n1 medical of headache pills: 9.75\n1 box of imported chocolates: 11.81\nSales Taxes: 6.66\nTotal: 74.64"));
     }
 
     @Test
     public void itShouldComputerTaxesForInputsThreeNotEqualsToSpecification() {
-        final TaxApplier taxApplier = new TaxApplier(10.0, 5.0);
+        final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
         addItemsTo(taxApplier,
                 new TaxableImportedItem("imported bottle of perfume", 27.99),
                 new TaxableItem("bottle of perfume", 18.99),
-                new NoneTaxableItem("medical of headache pills", 9.75),
-                new NoneTaxableImportedItem("box of imported chocolates", 11.25)
+                new NonTaxableItem("medical of headache pills", 9.75),
+                new NonTaxableImportedItem("box of imported chocolates", 11.25)
         );
 
-        assertNotEquals(taxApplier.displayTotal(), is("1 imported bottle of perfume: 32.19\n1 bottle of perfume: 20.89\n1 medical of headache pills: 9.75\n1 box of imported chocolates: 11.85\nSales Taxes: 6.70\nTotal: 74.68"));
+        assertNotEquals(new SalesTaxesDisplay(taxApplier.getTaxedItems()).displayBill(), is("1 imported bottle of perfume: 32.19\n1 bottle of perfume: 20.89\n1 medical of headache pills: 9.75\n1 box of imported chocolates: 11.85\nSales Taxes: 6.70\nTotal: 74.68"));
     }
 }

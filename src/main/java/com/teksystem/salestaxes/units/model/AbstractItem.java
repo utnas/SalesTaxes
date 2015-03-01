@@ -18,5 +18,4 @@ public abstract class AbstractItem implements Item {
     public String getName() {
         return name;
     }
-
 }

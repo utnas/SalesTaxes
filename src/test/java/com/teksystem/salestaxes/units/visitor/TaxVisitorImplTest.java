@@ -32,14 +32,14 @@ public class TaxVisitorImplTest {
     }
 
     @Test
-    public void itShouldComputeTaxForNoneTaxableItem() {
+    public void itShouldComputeTaxForNonTaxableItem() {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
 
-        final NoneTaxableItem noneTaxableItem = Mockito.mock(NoneTaxableItem.class);
-        Mockito.when(noneTaxableItem.getName()).thenReturn("book");
-        Mockito.when(noneTaxableItem.getPrice()).thenReturn(12.49);
+        final NonTaxableItem nonTaxableItem = Mockito.mock(NonTaxableItem.class);
+        Mockito.when(nonTaxableItem.getName()).thenReturn("book");
+        Mockito.when(nonTaxableItem.getPrice()).thenReturn(12.49);
 
-        assertThat(taxVisitor.visit(noneTaxableItem).snd, is(0.0));
+        assertThat(taxVisitor.visit(nonTaxableItem).snd, is(0.0));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class TaxVisitorImplTest {
 
 
     @Test
-    public void itShouldComputeTaxForTaxableImportedItemWithNoneZeroDecimal() {
+    public void itShouldComputeTaxForTaxableImportedItemWithNonZeroDecimal() {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
         TaxableImportedItem taxableImportedItem = mockTaxableImportedItem("bottle of perfume", 47.50);
 
@@ -69,27 +69,27 @@ public class TaxVisitorImplTest {
 
 
     @Test
-    public void itShouldComputeTaxForNoneTaxableImportedItem() {
+    public void itShouldComputeTaxForNonTaxableImportedItem() {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
-        final NoneTaxableImportedItem item = mockNoneTaxableImportedItem("box of imported chocolates", 11.25);
+        final NonTaxableImportedItem item = mockNonTaxableImportedItem("box of imported chocolates", 11.25);
 
         assertThat(taxVisitor.visit(item).snd, is(0.56));
     }
 
     @Test
-    public void itShouldComputeTaxForNoneTaxableImportedItemNotEqualsToExpectedValueFromSpecification() {
+    public void itShouldComputeTaxForNonTaxableImportedItemNotEqualsToExpectedValueFromSpecification() {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
-        final NoneTaxableImportedItem item = mockNoneTaxableImportedItem("box of imported chocolates", 11.25);
+        final NonTaxableImportedItem item = mockNonTaxableImportedItem("box of imported chocolates", 11.25);
 
         assertNotEquals(taxVisitor.visit(item).snd, is(0.60));
     }
 
-    private static NoneTaxableImportedItem mockNoneTaxableImportedItem(String itemName, double itemPrice) {
-        final NoneTaxableImportedItem noneTaxableImportedItem = Mockito.mock(NoneTaxableImportedItem.class);
-        Mockito.when(noneTaxableImportedItem.getName()).thenReturn(itemName);
-        Mockito.when(noneTaxableImportedItem.getPrice()).thenReturn(itemPrice);
+    private static NonTaxableImportedItem mockNonTaxableImportedItem(String itemName, double itemPrice) {
+        final NonTaxableImportedItem nonTaxableImportedItem = Mockito.mock(NonTaxableImportedItem.class);
+        Mockito.when(nonTaxableImportedItem.getName()).thenReturn(itemName);
+        Mockito.when(nonTaxableImportedItem.getPrice()).thenReturn(itemPrice);
 
-        return noneTaxableImportedItem;
+        return nonTaxableImportedItem;
     }
 
     private static TaxableItem mockTaxableItem(String itemName, final Double itemPrice) {

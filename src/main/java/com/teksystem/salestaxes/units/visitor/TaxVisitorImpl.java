@@ -30,13 +30,13 @@ public class TaxVisitorImpl implements TaxVisitor {
     }
 
     @Override
-    public Pair<Item, Double> visit(final NoneTaxableItem nonetaxableItem) {
-        return new Pair<Item, Double>(nonetaxableItem, 0.0);
+    public Pair<Item, Double> visit(final NonTaxableItem nonTaxableItem) {
+        return new Pair<Item, Double>(nonTaxableItem, 0.0);
     }
 
     @Override
-    public Pair<Item, Double> visit(final NoneTaxableImportedItem noneTaxableImportedItem) {
-        final BigDecimal calculateRate = calculateRate(noneTaxableImportedItem.getPrice(), importationRate);
-        return new Pair<Item, Double>(noneTaxableImportedItem, format(calculateRate));
+    public Pair<Item, Double> visit(final NonTaxableImportedItem nonTaxableImportedItem) {
+        final BigDecimal calculateRate = calculateRate(nonTaxableImportedItem.getPrice(), importationRate);
+        return new Pair<Item, Double>(nonTaxableImportedItem, format(calculateRate));
     }
 }

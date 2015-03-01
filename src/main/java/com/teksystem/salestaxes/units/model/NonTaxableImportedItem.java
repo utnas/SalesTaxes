@@ -2,9 +2,9 @@ package com.teksystem.salestaxes.units.model;
 
 import com.teksystem.salestaxes.units.visitor.TaxVisitor;
 
-public class NoneTaxableItem extends AbstractItem {
+public class NonTaxableImportedItem extends AbstractItem {
 
-    public NoneTaxableItem(final String name, final Double price) {
+    public NonTaxableImportedItem(final String name, final Double price) {
         super(name, price);
     }
 

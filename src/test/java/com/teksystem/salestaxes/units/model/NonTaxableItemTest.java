@@ -5,16 +5,16 @@ import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class NoneTaxableImportedItemTest {
+public class NonTaxableItemTest {
 
     @Test
-    public void testGetPrice() {
-        assertThat(new NoneTaxableImportedItem("book", 12.49).getPrice(), is(12.49));
+    public void itShouldGetPrice() {
+        assertThat(new NonTaxableItem("book", 12.49).getPrice(), is(12.49));
     }
 
     @Test
     public void testGetName() {
-        assertThat(new NoneTaxableImportedItem("book", 12.49).getName(), is("book"));
+        assertThat(new NonTaxableItem("book", 12.49).getName(), is("book"));
     }
 
     @Test
