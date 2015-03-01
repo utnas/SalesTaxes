@@ -7,6 +7,7 @@ import com.teksystem.salestaxes.model.items.NonTaxableImportedItem;
 import com.teksystem.salestaxes.model.items.NonTaxableItem;
 import com.teksystem.salestaxes.model.items.TaxableImportedItem;
 import com.teksystem.salestaxes.model.items.TaxableItem;
+import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
 import org.junit.Test;
 
@@ -19,7 +20,7 @@ import static org.junit.Assert.assertThat;
 public class EndToEndTest {
 
     @Test
-    public void itShouldComputerTaxesForInputsOne() {
+    public void itShouldComputerTaxesForInputsOne() throws NegativeDecimalException {
         final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
         addItemsTo(taxApplier,
                 new NonTaxableItem("book", 12.49),
@@ -33,7 +34,7 @@ public class EndToEndTest {
     }
 
     @Test
-    public void itShouldComputerTaxesForInputsTwo() {
+    public void itShouldComputerTaxesForInputsTwo() throws NegativeDecimalException {
         final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
         addItemsTo(taxApplier,
                 new NonTaxableImportedItem("imported box chocolates", 10.00),
@@ -45,7 +46,7 @@ public class EndToEndTest {
     }
 
     @Test
-    public void itShouldComputerTaxesForInputsTwoNotEqualToSpecification() {
+    public void itShouldComputerTaxesForInputsTwoNotEqualToSpecification() throws NegativeDecimalException {
         final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
         addItemsTo(taxApplier,
                 new NonTaxableImportedItem("imported box chocolates", 10.00),
@@ -57,7 +58,7 @@ public class EndToEndTest {
     }
 
     @Test
-    public void itShouldComputerTaxesForInputsThree() {
+    public void itShouldComputerTaxesForInputsThree() throws NegativeDecimalException {
         final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
         addItemsTo(taxApplier,
                 new TaxableImportedItem("imported bottle of perfume", 27.99),
@@ -71,7 +72,7 @@ public class EndToEndTest {
     }
 
     @Test
-    public void itShouldComputerTaxesForInputsThreeNotEqualsToSpecification() {
+    public void itShouldComputerTaxesForInputsThreeNotEqualsToSpecification() throws NegativeDecimalException {
         final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
         addItemsTo(taxApplier,
                 new TaxableImportedItem("imported bottle of perfume", 27.99),

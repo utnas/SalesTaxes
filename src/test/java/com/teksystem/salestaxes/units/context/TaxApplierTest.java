@@ -5,6 +5,7 @@ import com.teksystem.salestaxes.model.items.NonTaxableImportedItem;
 import com.teksystem.salestaxes.model.items.NonTaxableItem;
 import com.teksystem.salestaxes.model.items.TaxableImportedItem;
 import com.teksystem.salestaxes.model.items.TaxableItem;
+import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
 import org.junit.Test;
 
@@ -15,7 +16,7 @@ import static org.junit.Assert.assertThat;
 public class TaxApplierTest {
 
     @Test
-    public void itShouldAddItemsToTaxApplier() {
+    public void itShouldAddItemsToTaxApplier() throws NegativeDecimalException {
         final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
         addItemsTo(taxApplier,
                 new TaxableImportedItem("music box", 20.30),
@@ -27,7 +28,7 @@ public class TaxApplierTest {
     }
 
     @Test
-    public void itemListShouldBeEmptyByDefault() {
+    public void itemListShouldBeEmptyByDefault() throws NegativeDecimalException {
         final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(2.0, 23.0));
         assertThat(taxApplier.getTaxedItems().size(), is(0));
     }

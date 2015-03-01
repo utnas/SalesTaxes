@@ -75,66 +75,67 @@
 <div class="sourceCode"><i>1</i>&nbsp;package com.teksystem.salestaxes.context;
 <i>2</i>&nbsp;
 <i>3</i>&nbsp;import com.teksystem.salestaxes.model.items.*;
-<i>4</i>&nbsp;import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
-<i>5</i>&nbsp;import com.teksystem.salestaxes.utils.Pair;
-<i>6</i>&nbsp;
-<i>7</i>&nbsp;import java.util.ArrayList;
-<i>8</i>&nbsp;import java.util.Collection;
-<i>9</i>&nbsp;
-<i>10</i>&nbsp;import static com.teksystem.salestaxes.utils.CustomFormatter.format;
-<i>11</i>&nbsp;import static java.lang.System.getProperty;
-<i>12</i>&nbsp;import static java.util.Collections.unmodifiableCollection;
-<i>13</i>&nbsp;
+<i>4</i>&nbsp;import com.teksystem.salestaxes.utils.NegativeDecimalException;
+<i>5</i>&nbsp;import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
+<i>6</i>&nbsp;import com.teksystem.salestaxes.utils.Pair;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.util.ArrayList;
+<i>9</i>&nbsp;import java.util.Collection;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;import static com.teksystem.salestaxes.utils.CustomFormatter.format;
+<i>12</i>&nbsp;import static java.lang.System.getProperty;
+<i>13</i>&nbsp;import static java.util.Collections.unmodifiableCollection;
 <i>14</i>&nbsp;
-<i>15</i>&nbsp;public class TaxApplier {
-<b class="fc"><i>16</i>&nbsp;    private final ArrayList&lt;Pair&lt;Item, Double&gt;&gt; taxedItems = new ArrayList&lt;Pair&lt;Item, Double&gt;&gt;();</b>
-<b class="nc"><i>17</i>&nbsp;    private final TaxVisitorImpl taxVisitor;</b>
-<b class="nc"><i>18</i>&nbsp;</b>
-<b class="fc"><i>19</i>&nbsp;    public TaxApplier(final TaxVisitorImpl taxVisitor) {</b>
-<b class="fc"><i>20</i>&nbsp;        this.taxVisitor = taxVisitor;</b>
-<i>21</i>&nbsp;    }
-<i>22</i>&nbsp;
-<i>23</i>&nbsp;    public void applyTaxOn(final Item item) {
-<i>24</i>&nbsp;        //TODO: not really elegant, should be refactored
-<b class="fc"><i>25</i>&nbsp;        if (item instanceof TaxableItem) {</b>
-<b class="fc"><i>26</i>&nbsp;            taxedItems.add(taxVisitor.visit((TaxableItem) item));</b>
-<b class="fc"><i>27</i>&nbsp;            return;</b>
-<b class="nc"><i>28</i>&nbsp;        }</b>
-<b class="fc"><i>29</i>&nbsp;        if (item instanceof NonTaxableItem) {</b>
-<b class="fc"><i>30</i>&nbsp;            taxedItems.add(taxVisitor.visit((NonTaxableItem) item));</b>
-<b class="fc"><i>31</i>&nbsp;            return;</b>
-<b class="nc"><i>32</i>&nbsp;        }</b>
-<b class="fc"><i>33</i>&nbsp;        if (item instanceof TaxableImportedItem) {</b>
-<b class="fc"><i>34</i>&nbsp;            taxedItems.add(taxVisitor.visit((TaxableImportedItem) item));</b>
-<b class="fc"><i>35</i>&nbsp;            return;</b>
-<b class="nc"><i>36</i>&nbsp;        }</b>
-<b class="fc"><i>37</i>&nbsp;        if (item instanceof NonTaxableImportedItem) {</b>
-<b class="fc"><i>38</i>&nbsp;            taxedItems.add(taxVisitor.visit((NonTaxableImportedItem) item));</b>
-<b class="nc"><i>39</i>&nbsp;        }</b>
-<i>40</i>&nbsp;    }
-<i>41</i>&nbsp;
-<i>42</i>&nbsp;    public final Collection&lt;Pair&lt;Item, Double&gt;&gt; getTaxedItems() {
-<i>43</i>&nbsp;        return unmodifiableCollection(taxedItems);
-<i>44</i>&nbsp;    }
-<i>45</i>&nbsp;
-<i>46</i>&nbsp;    public String formatTaxedItems() {
-<b class="fc"><i>47</i>&nbsp;        final StringBuilder result = new StringBuilder(&quot;&quot;);</b>
-<b class="fc"><i>48</i>&nbsp;        for (final Pair&lt;Item, Double&gt; taxedItem : taxedItems) {</b>
-<b class="fc"><i>49</i>&nbsp;            result.append(&quot;1 &quot;);</b>
-<b class="fc"><i>50</i>&nbsp;            result.append(taxedItem.first().getName());</b>
-<b class="fc"><i>51</i>&nbsp;            result.append(&quot;: &quot;);</b>
-<b class="fc"><i>52</i>&nbsp;            result.append(format(taxedItem.first().getPrice()));</b>
-<b class="fc"><i>53</i>&nbsp;            result.append(getProperty(&quot;line.separator&quot;));</b>
-<b class="fc"><i>54</i>&nbsp;        }</b>
-<i>55</i>&nbsp;        return result.toString();
-<i>56</i>&nbsp;    }
-<i>57</i>&nbsp;}
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;public class TaxApplier {
+<b class="fc"><i>17</i>&nbsp;    private final ArrayList&lt;Pair&lt;Item, Double&gt;&gt; taxedItems = new ArrayList&lt;Pair&lt;Item, Double&gt;&gt;();</b>
+<b class="nc"><i>18</i>&nbsp;    private final TaxVisitorImpl taxVisitor;</b>
+<b class="nc"><i>19</i>&nbsp;</b>
+<b class="fc"><i>20</i>&nbsp;    public TaxApplier(final TaxVisitorImpl taxVisitor) {</b>
+<b class="fc"><i>21</i>&nbsp;        this.taxVisitor = taxVisitor;</b>
+<i>22</i>&nbsp;    }
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    public void applyTaxOn(final Item item) throws NegativeDecimalException {
+<i>25</i>&nbsp;        //TODO: not really elegant, should be refactored
+<b class="fc"><i>26</i>&nbsp;        if (item instanceof TaxableItem) {</b>
+<b class="fc"><i>27</i>&nbsp;            taxedItems.add(taxVisitor.visit((TaxableItem) item));</b>
+<b class="fc"><i>28</i>&nbsp;            return;</b>
+<b class="nc"><i>29</i>&nbsp;        }</b>
+<b class="fc"><i>30</i>&nbsp;        if (item instanceof NonTaxableItem) {</b>
+<b class="fc"><i>31</i>&nbsp;            taxedItems.add(taxVisitor.visit((NonTaxableItem) item));</b>
+<b class="fc"><i>32</i>&nbsp;            return;</b>
+<b class="nc"><i>33</i>&nbsp;        }</b>
+<b class="fc"><i>34</i>&nbsp;        if (item instanceof TaxableImportedItem) {</b>
+<b class="fc"><i>35</i>&nbsp;            taxedItems.add(taxVisitor.visit((TaxableImportedItem) item));</b>
+<b class="fc"><i>36</i>&nbsp;            return;</b>
+<b class="nc"><i>37</i>&nbsp;        }</b>
+<b class="fc"><i>38</i>&nbsp;        if (item instanceof NonTaxableImportedItem) {</b>
+<b class="fc"><i>39</i>&nbsp;            taxedItems.add(taxVisitor.visit((NonTaxableImportedItem) item));</b>
+<b class="nc"><i>40</i>&nbsp;        }</b>
+<i>41</i>&nbsp;    }
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;    public final Collection&lt;Pair&lt;Item, Double&gt;&gt; getTaxedItems() {
+<i>44</i>&nbsp;        return unmodifiableCollection(taxedItems);
+<i>45</i>&nbsp;    }
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;    public String formatTaxedItems() {
+<b class="fc"><i>48</i>&nbsp;        final StringBuilder result = new StringBuilder(&quot;&quot;);</b>
+<b class="fc"><i>49</i>&nbsp;        for (final Pair&lt;Item, Double&gt; taxedItem : taxedItems) {</b>
+<b class="fc"><i>50</i>&nbsp;            result.append(&quot;1 &quot;);</b>
+<b class="fc"><i>51</i>&nbsp;            result.append(taxedItem.first().getName());</b>
+<b class="fc"><i>52</i>&nbsp;            result.append(&quot;: &quot;);</b>
+<b class="fc"><i>53</i>&nbsp;            result.append(format(taxedItem.first().getPrice()));</b>
+<b class="fc"><i>54</i>&nbsp;            result.append(getProperty(&quot;line.separator&quot;));</b>
+<b class="fc"><i>55</i>&nbsp;        }</b>
+<i>56</i>&nbsp;        return result.toString();
+<i>57</i>&nbsp;    }
+<i>58</i>&nbsp;}
 </div>
 </div>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2015-03-01 00:58</div>
+    <div style="float:right;">generated on 2015-03-01 03:06</div>
 </div>
 </body>
 </html>

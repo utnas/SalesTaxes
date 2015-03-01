@@ -4,6 +4,7 @@ import com.teksystem.salestaxes.context.TaxApplier;
 import com.teksystem.salestaxes.context.TotalsCalculator;
 import com.teksystem.salestaxes.model.items.NonTaxableImportedItem;
 import com.teksystem.salestaxes.model.items.TaxableImportedItem;
+import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
 import org.junit.Test;
 
@@ -15,7 +16,7 @@ import static org.junit.Assert.assertThat;
 public class TotalsCalculatorTest {
 
     @Test
-    public void itShouldCalculateTotalOfSalesTaxes() {
+    public void itShouldCalculateTotalOfSalesTaxes() throws NegativeDecimalException {
         final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
 
         addItemsTo(taxApplier,
@@ -33,7 +34,7 @@ public class TotalsCalculatorTest {
     }
 
     @Test
-    public void itShouldCalculateTotalOfItemsIncludingTaxes() {
+    public void itShouldCalculateTotalOfItemsIncludingTaxes() throws NegativeDecimalException {
         final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
         addItemsTo(taxApplier,
                 new NonTaxableImportedItem("imported box chocolates", 10.00),

@@ -4,6 +4,7 @@ import com.teksystem.salestaxes.context.BillBuilder;
 import com.teksystem.salestaxes.context.TaxApplier;
 import com.teksystem.salestaxes.context.TotalsCalculator;
 import com.teksystem.salestaxes.model.items.NonTaxableItem;
+import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -14,7 +15,7 @@ import static org.junit.Assert.assertThat;
 public class BillBuilderTest {
 
     @Test
-    public void itShouldDisplayZeroAsTaxTotalForNonItem() {
+    public void itShouldDisplayZeroAsTaxTotalForNonItem() throws NegativeDecimalException {
         final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
 
         final TotalsCalculator totalsCalculator = Mockito.mock(TotalsCalculator.class);
@@ -27,7 +28,7 @@ public class BillBuilderTest {
     }
 
     @Test
-    public void itShouldDisplayZeroAsTaxTotalForNonTaxableItem() {
+    public void itShouldDisplayZeroAsTaxTotalForNonTaxableItem() throws NegativeDecimalException {
         final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
         taxApplier.applyTaxOn(new NonTaxableItem("chocolate bar", 0.85));
 
@@ -41,7 +42,7 @@ public class BillBuilderTest {
     }
 
     @Test
-    public void itShouldDisplayTaxTotalForTaxableItem() {
+    public void itShouldDisplayTaxTotalForTaxableItem() throws NegativeDecimalException {
         final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
         taxApplier.applyTaxOn(new NonTaxableItem("chocolate bar", 0.85));
 

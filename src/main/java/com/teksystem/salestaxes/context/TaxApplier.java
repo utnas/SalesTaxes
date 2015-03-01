@@ -1,6 +1,7 @@
 package com.teksystem.salestaxes.context;
 
 import com.teksystem.salestaxes.model.items.*;
+import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
 import com.teksystem.salestaxes.utils.Pair;
 
@@ -20,7 +21,7 @@ public class TaxApplier {
         this.taxVisitor = taxVisitor;
     }
 
-    public void applyTaxOn(final Item item) {
+    public void applyTaxOn(final Item item) throws NegativeDecimalException {
         //TODO: not really elegant, should be refactored
         if (item instanceof TaxableItem) {
             taxedItems.add(taxVisitor.visit((TaxableItem) item));

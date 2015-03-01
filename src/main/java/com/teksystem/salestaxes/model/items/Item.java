@@ -1,5 +1,6 @@
 package com.teksystem.salestaxes.model.items;
 
+import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitor;
 
 public interface Item {
@@ -8,5 +9,5 @@ public interface Item {
 
     public String getName();
 
-    public void accept(final TaxVisitor taxVisitor);
+    public void accept(final TaxVisitor taxVisitor) throws NegativeDecimalException;
 }

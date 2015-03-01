@@ -1,6 +1,7 @@
 package com.teksystem.salestaxes.units.model.taxes.visitor;
 
 import com.teksystem.salestaxes.model.items.*;
+import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
 import com.teksystem.salestaxes.utils.Pair;
 import org.junit.Test;
@@ -16,7 +17,7 @@ import static org.junit.Assert.assertThat;
 public class TaxVisitorImplTest {
 
     @Test
-    public void itShouldReturnComputedTaxItemAfterComputingForTaxTaxableItem() {
+    public void itShouldReturnComputedTaxItemAfterComputingForTaxTaxableItem() throws NegativeDecimalException {
         final TaxableItem taxableItem = mockTaxableItem("music CD", 14.99);
         final Pair<Item, Double> itemTax = new TaxVisitorImpl(10.0, 5.0).visit(taxableItem);
 
@@ -27,7 +28,7 @@ public class TaxVisitorImplTest {
 
 
     @Test
-    public void itShouldComputeTaxForTaxableItem() {
+    public void itShouldComputeTaxForTaxableItem() throws NegativeDecimalException {
         final TaxableItem taxableItem = mockTaxableItem("music CD", 14.99);
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
 
@@ -35,7 +36,7 @@ public class TaxVisitorImplTest {
     }
 
     @Test
-    public void itShouldComputeTaxForNonTaxableItem() {
+    public void itShouldComputeTaxForNonTaxableItem() throws NegativeDecimalException {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
 
         final NonTaxableItem nonTaxableItem = Mockito.mock(NonTaxableItem.class);
@@ -46,7 +47,7 @@ public class TaxVisitorImplTest {
     }
 
     @Test
-    public void itShouldComputeTaxForTaxableImportedItem() {
+    public void itShouldComputeTaxForTaxableImportedItem() throws NegativeDecimalException {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
         final TaxableImportedItem taxableImportedItem = mockTaxableImportedItem("bottle of perfume", 10.0);
 
@@ -55,7 +56,7 @@ public class TaxVisitorImplTest {
 
 
     @Test
-    public void itShouldComputeTaxForTaxableImportedItemWithNonZeroDecimal() {
+    public void itShouldComputeTaxForTaxableImportedItemWithNonZeroDecimal() throws NegativeDecimalException {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
         TaxableImportedItem taxableImportedItem = mockTaxableImportedItem("bottle of perfume", 47.50);
 
@@ -63,7 +64,7 @@ public class TaxVisitorImplTest {
     }
 
     @Test
-    public void itShouldComputeTaxForTaxableImportedItemButNotAsExpectedInSpecification() {
+    public void itShouldComputeTaxForTaxableImportedItemButNotAsExpectedInSpecification() throws NegativeDecimalException {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
         final TaxableImportedItem taxableImportedItem = mockTaxableImportedItem("bottle of perfume", 47.50);
 
@@ -72,7 +73,7 @@ public class TaxVisitorImplTest {
 
 
     @Test
-    public void itShouldComputeTaxForNonTaxableImportedItem() {
+    public void itShouldComputeTaxForNonTaxableImportedItem() throws NegativeDecimalException {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
         final NonTaxableImportedItem item = mockNonTaxableImportedItem("box of imported chocolates", 11.25);
 
@@ -80,7 +81,7 @@ public class TaxVisitorImplTest {
     }
 
     @Test
-    public void itShouldComputeTaxForNonTaxableImportedItemNotEqualsToExpectedValueFromSpecification() {
+    public void itShouldComputeTaxForNonTaxableImportedItemNotEqualsToExpectedValueFromSpecification() throws NegativeDecimalException {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
         final NonTaxableImportedItem item = mockNonTaxableImportedItem("box of imported chocolates", 11.25);
 
