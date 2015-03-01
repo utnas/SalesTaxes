@@ -1,6 +1,6 @@
 package com.teksystem.salestaxes.utils;
 
-public class Pair<F, S> {
+public final class Pair<F, S> {
     private final F first;
     private final S second;
 
@@ -9,11 +9,11 @@ public class Pair<F, S> {
         this.second = second;
     }
 
-    public F first() {
+    public final F first() {
         return first;
     }
 
-    public S second() {
+    public final S second() {
         return second;
     }
 }
