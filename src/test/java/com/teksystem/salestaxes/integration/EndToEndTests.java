@@ -11,8 +11,8 @@ import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
 import org.junit.Test;
 
 import static com.teksystem.salestaxes.model.taxes.helper.TaxApplierHelper.addItemsTo;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
 
 
@@ -53,7 +53,7 @@ public class EndToEndTests {
         );
         final BillBuilder billBuilder = new BillBuilder(new TotalsCalculator(taxApplier.getTaxedItems()), taxApplier);
 
-        assertNotEquals(billBuilder.displayBill(), is("1 imported box chocolates: 10.50\n1 imported bottle of perfume: 54.65\nSales Taxes: 7.65\nTotal: 65.15"));
+        assertThat(billBuilder.displayBill(), not("1 imported box chocolates: 10.50\n1 imported bottle of perfume: 54.65\nSales Taxes: 7.65\nTotal: 65.15"));
     }
 
     @Test
@@ -82,6 +82,6 @@ public class EndToEndTests {
         final TotalsCalculator totalsCalculator = new TotalsCalculator(taxApplier.getTaxedItems());
         final BillBuilder billBuilder = new BillBuilder(totalsCalculator, taxApplier);
 
-        assertNotEquals(billBuilder.displayBill(), is("1 imported bottle of perfume: 32.19\n1 bottle of perfume: 20.89\n1 medical of headache pills: 9.75\n1 box of imported chocolates: 11.85\nSales Taxes: 6.70\nTotal: 74.68"));
+        assertThat(billBuilder.displayBill(), not("1 imported bottle of perfume: 32.19\n1 bottle of perfume: 20.89\n1 medical of headache pills: 9.75\n1 box of imported chocolates: 11.85\nSales Taxes: 6.70\nTotal: 74.68"));
     }
 }

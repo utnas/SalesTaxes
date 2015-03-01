@@ -9,8 +9,8 @@ import org.mockito.Mockito;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static com.teksystem.salestaxes.utils.CustomFormatter.format;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
 
 public class TaxVisitorImplTest {
@@ -21,7 +21,7 @@ public class TaxVisitorImplTest {
         final Pair<Item, Double> itemTax = new TaxVisitorImpl(10.0, 5.0).visit(taxableItem);
 
         assertThat(itemTax.first().getName(), is(taxableItem.getName()));
-        assertNotEquals(itemTax.first().getPrice(), is(taxableItem.getPrice()));
+        assertThat(itemTax.first().getPrice(), not(taxableItem.getPrice()));
         assertThat(format(itemTax.first().getPrice()), is(16.49));
     }
 
@@ -67,7 +67,7 @@ public class TaxVisitorImplTest {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
         final TaxableImportedItem taxableImportedItem = mockTaxableImportedItem("bottle of perfume", 47.50);
 
-        assertNotEquals(taxVisitor.visit(taxableImportedItem).second(), is(7.13));
+        assertThat(taxVisitor.visit(taxableImportedItem).second(), not(7.15));
     }
 
 
@@ -84,7 +84,7 @@ public class TaxVisitorImplTest {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
         final NonTaxableImportedItem item = mockNonTaxableImportedItem("box of imported chocolates", 11.25);
 
-        assertNotEquals(taxVisitor.visit(item).second(), is(0.60));
+        assertThat(taxVisitor.visit(item).second(), not(0.60));
     }
 
     private static NonTaxableImportedItem mockNonTaxableImportedItem(String itemName, double itemPrice) {
