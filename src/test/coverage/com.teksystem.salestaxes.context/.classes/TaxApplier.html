@@ -53,15 +53,15 @@
     100%
   </span>
   <span class="absValue">
-    (5/ 5)
+    (4/ 4)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    78,6%
   </span>
   <span class="absValue">
-    (27/ 27)
+    (22/ 28)
   </span>
 </td>
 </tr>
@@ -74,9 +74,9 @@
 
 <div class="sourceCode"><i>1</i>&nbsp;package com.teksystem.salestaxes.context;
 <i>2</i>&nbsp;
-<i>3</i>&nbsp;import com.sun.tools.javac.util.Pair;
-<i>4</i>&nbsp;import com.teksystem.salestaxes.model.items.*;
-<i>5</i>&nbsp;import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
+<i>3</i>&nbsp;import com.teksystem.salestaxes.model.items.*;
+<i>4</i>&nbsp;import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
+<i>5</i>&nbsp;import com.teksystem.salestaxes.utils.Pair;
 <i>6</i>&nbsp;
 <i>7</i>&nbsp;import java.util.ArrayList;
 <i>8</i>&nbsp;import java.util.Collection;
@@ -86,49 +86,49 @@
 <i>12</i>&nbsp;
 <i>13</i>&nbsp;public class TaxApplier {
 <b class="fc"><i>14</i>&nbsp;    private final ArrayList&lt;Pair&lt;Item, Double&gt;&gt; taxedItems = new ArrayList&lt;Pair&lt;Item, Double&gt;&gt;();</b>
-<i>15</i>&nbsp;    private final TaxVisitorImpl taxVisitor;
-<i>16</i>&nbsp;
+<b class="nc"><i>15</i>&nbsp;    private final TaxVisitorImpl taxVisitor;</b>
+<b class="nc"><i>16</i>&nbsp;</b>
 <b class="fc"><i>17</i>&nbsp;    public TaxApplier(final TaxVisitorImpl taxVisitor) {</b>
 <b class="fc"><i>18</i>&nbsp;        this.taxVisitor = taxVisitor;</b>
-<b class="fc"><i>19</i>&nbsp;    }</b>
+<i>19</i>&nbsp;    }
 <i>20</i>&nbsp;
 <i>21</i>&nbsp;    public void applyTaxOn(final Item item) {
 <i>22</i>&nbsp;        //TODO: not really elegant, should be refactored
 <b class="fc"><i>23</i>&nbsp;        if (item instanceof TaxableItem) {</b>
 <b class="fc"><i>24</i>&nbsp;            taxedItems.add(taxVisitor.visit((TaxableItem) item));</b>
 <b class="fc"><i>25</i>&nbsp;            return;</b>
-<i>26</i>&nbsp;        }
+<b class="nc"><i>26</i>&nbsp;        }</b>
 <b class="fc"><i>27</i>&nbsp;        if (item instanceof NonTaxableItem) {</b>
 <b class="fc"><i>28</i>&nbsp;            taxedItems.add(taxVisitor.visit((NonTaxableItem) item));</b>
 <b class="fc"><i>29</i>&nbsp;            return;</b>
-<i>30</i>&nbsp;        }
+<b class="nc"><i>30</i>&nbsp;        }</b>
 <b class="fc"><i>31</i>&nbsp;        if (item instanceof TaxableImportedItem) {</b>
 <b class="fc"><i>32</i>&nbsp;            taxedItems.add(taxVisitor.visit((TaxableImportedItem) item));</b>
 <b class="fc"><i>33</i>&nbsp;            return;</b>
-<i>34</i>&nbsp;        }
+<b class="nc"><i>34</i>&nbsp;        }</b>
 <b class="fc"><i>35</i>&nbsp;        if (item instanceof NonTaxableImportedItem) {</b>
 <b class="fc"><i>36</i>&nbsp;            taxedItems.add(taxVisitor.visit((NonTaxableImportedItem) item));</b>
-<i>37</i>&nbsp;        }
-<b class="fc"><i>38</i>&nbsp;    }</b>
+<b class="nc"><i>37</i>&nbsp;        }</b>
+<i>38</i>&nbsp;    }
 <i>39</i>&nbsp;
 <i>40</i>&nbsp;    public final Collection&lt;Pair&lt;Item, Double&gt;&gt; getTaxedItems() {
-<b class="fc"><i>41</i>&nbsp;        return unmodifiableCollection(taxedItems);</b>
+<i>41</i>&nbsp;        return unmodifiableCollection(taxedItems);
 <i>42</i>&nbsp;    }
 <i>43</i>&nbsp;
-<i>44</i>&nbsp;    public Double calculateSalesTaxes() {
+<i>44</i>&nbsp;    public Double calculateTotalOfSalesTaxes() {
 <b class="fc"><i>45</i>&nbsp;        Double result = 0.0;</b>
 <b class="fc"><i>46</i>&nbsp;        for (final Pair&lt;Item, Double&gt; taxedItem : taxedItems) {</b>
-<b class="fc"><i>47</i>&nbsp;            result += taxedItem.snd;</b>
+<b class="fc"><i>47</i>&nbsp;            result += taxedItem.second();</b>
 <b class="fc"><i>48</i>&nbsp;        }</b>
-<b class="fc"><i>49</i>&nbsp;        return result;</b>
+<i>49</i>&nbsp;        return result;
 <i>50</i>&nbsp;    }
 <i>51</i>&nbsp;
-<i>52</i>&nbsp;    public Double calculateTaxedItemsTotal() {
+<i>52</i>&nbsp;    public Double calculateTotalOfTaxedItems() {
 <b class="fc"><i>53</i>&nbsp;        Double result = 0.0;</b>
 <b class="fc"><i>54</i>&nbsp;        for (final Pair&lt;Item, Double&gt; taxedItem : taxedItems) {</b>
-<b class="fc"><i>55</i>&nbsp;            result += taxedItem.fst.getPrice();</b>
+<b class="fc"><i>55</i>&nbsp;            result += taxedItem.first().getPrice();</b>
 <b class="fc"><i>56</i>&nbsp;        }</b>
-<b class="fc"><i>57</i>&nbsp;        return result;</b>
+<i>57</i>&nbsp;        return result;
 <i>58</i>&nbsp;    }
 <i>59</i>&nbsp;}
 </div>
@@ -136,7 +136,7 @@
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2015-02-28 21:52</div>
+    <div style="float:right;">generated on 2015-02-28 23:23</div>
 </div>
 </body>
 </html>
