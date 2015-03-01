@@ -7,6 +7,8 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
+import static java.lang.Double.valueOf;
+
 public class CustomFormatter {
     public final static MathContext MATH_CONTEXT = new MathContext(3, RoundingMode.HALF_UP);
 
@@ -22,10 +24,10 @@ public class CustomFormatter {
     }
 
     public static Double format(final BigDecimal calculatedRate) {
-        return Double.valueOf(getCustomDecimalFormat().format(calculatedRate));
+        return valueOf(getCustomDecimalFormat().format(calculatedRate));
     }
 
     public static Double format(final Double calculatedRate) {
-        return Double.valueOf(getCustomDecimalFormat().format(calculatedRate));
+        return valueOf(getCustomDecimalFormat().format(calculatedRate));
     }
 }

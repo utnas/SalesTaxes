@@ -18,22 +18,22 @@ public class TaxApplier {
         this.taxVisitor = taxVisitor;
     }
 
-    public void applyTaxOn(final Item itemTek) {
+    public void applyTaxOn(final Item item) {
         //TODO: not really elegant, should be refactored
-        if (itemTek instanceof TaxableItem) {
-            taxedItems.add(taxVisitor.visit((TaxableItem) itemTek));
+        if (item instanceof TaxableItem) {
+            taxedItems.add(taxVisitor.visit((TaxableItem) item));
             return;
         }
-        if (itemTek instanceof NonTaxableItem) {
-            taxedItems.add(taxVisitor.visit((NonTaxableItem) itemTek));
+        if (item instanceof NonTaxableItem) {
+            taxedItems.add(taxVisitor.visit((NonTaxableItem) item));
             return;
         }
-        if (itemTek instanceof TaxableImportedItem) {
-            taxedItems.add(taxVisitor.visit((TaxableImportedItem) itemTek));
+        if (item instanceof TaxableImportedItem) {
+            taxedItems.add(taxVisitor.visit((TaxableImportedItem) item));
             return;
         }
-        if (itemTek instanceof NonTaxableImportedItem) {
-            taxedItems.add(taxVisitor.visit((NonTaxableImportedItem) itemTek));
+        if (item instanceof NonTaxableImportedItem) {
+            taxedItems.add(taxVisitor.visit((NonTaxableImportedItem) item));
         }
     }
 

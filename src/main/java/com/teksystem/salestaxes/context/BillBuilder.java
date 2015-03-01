@@ -6,12 +6,13 @@ import com.teksystem.salestaxes.model.items.Item;
 import java.math.BigDecimal;
 
 import static com.teksystem.salestaxes.utils.CustomFormatter.format;
+import static java.lang.System.getProperty;
 import static java.math.BigDecimal.valueOf;
 
-public class SalesTaxesDisplay {
+public class BillBuilder {
     private Iterable<Pair<Item, Double>> taxedItems;
 
-    public SalesTaxesDisplay(Iterable<Pair<Item, Double>> taxedItems) {
+    public BillBuilder(Iterable<Pair<Item, Double>> taxedItems) {
         this.taxedItems = taxedItems;
     }
 
@@ -21,18 +22,17 @@ public class SalesTaxesDisplay {
         BigDecimal total = new BigDecimal(0.0);
 
         for (final Pair<Item, Double> taxedItem : taxedItems) {
-            final Item itemTek = taxedItem.fst;
-            final Double payedTax = taxedItem.snd;
-            totalTax = totalTax.add(valueOf(payedTax));
             result.append("1 ");
-            result.append(itemTek.getName());
+            result.append(taxedItem.fst.getName());
             result.append(": ");
-            result.append(format(itemTek.getPrice() + payedTax));
-            result.append(System.getProperty("line.separator"));
-            total = total.add(valueOf(payedTax)).add(valueOf(itemTek.getPrice()));
+            result.append(format(taxedItem.fst.getPrice()));
+            result.append(getProperty("line.separator"));
+            
+            totalTax = totalTax.add(valueOf(taxedItem.snd));
+            total = total.add(valueOf(taxedItem.fst.getPrice()));
         }
         result.append("Sales Taxes: ").append(format(totalTax));
-        result.append(System.getProperty("line.separator"));
+        result.append(getProperty("line.separator"));
         result.append("Total: ").append(format(total));
 
         return result.toString().trim();

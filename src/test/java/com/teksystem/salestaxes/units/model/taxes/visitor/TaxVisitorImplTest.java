@@ -8,6 +8,7 @@ import org.mockito.Mockito;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+import static com.teksystem.salestaxes.utils.CustomFormatter.format;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
@@ -15,12 +16,13 @@ import static org.junit.Assert.assertThat;
 public class TaxVisitorImplTest {
 
     @Test
-    public void itShouldReturnSameItemAfterComputingForTaxTaxableItem() {
+    public void itShouldReturnComputedTaxItemAfterComputingForTaxTaxableItem() {
         final TaxableItem taxableItem = mockTaxableItem("music CD", 14.99);
         final Pair<Item, Double> itemTax = new TaxVisitorImpl(10.0, 5.0).visit(taxableItem);
 
         assertThat(itemTax.fst.getName(), is(taxableItem.getName()));
-        assertThat(itemTax.fst.getPrice(), is(taxableItem.getPrice()));
+        assertNotEquals(itemTax.fst.getPrice(), is(taxableItem.getPrice()));
+        assertThat(format(itemTax.fst.getPrice()), is(16.49));
     }
 
 

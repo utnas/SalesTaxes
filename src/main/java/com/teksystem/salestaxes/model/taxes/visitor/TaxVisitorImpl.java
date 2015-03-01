@@ -2,7 +2,6 @@ package com.teksystem.salestaxes.model.taxes.visitor;
 
 import com.sun.tools.javac.util.Pair;
 import com.teksystem.salestaxes.model.items.*;
-import com.teksystem.salestaxes.utils.CustomFormatter;
 
 import java.math.BigDecimal;
 
@@ -19,15 +18,17 @@ public class TaxVisitorImpl implements TaxVisitor {
     }
 
     @Override
-    public Pair<Item, Double> visit(final TaxableItem taxableItem) {
-        final BigDecimal calculatedRate = calculateRate(taxableItem.getPrice(), basicRate);
-        return new Pair<Item, Double>(taxableItem, CustomFormatter.format(calculatedRate));
+    public Pair<Item, Double> visit(final TaxableItem item) {
+        final Double formattedTax = format(calculateRate(item.getPrice(), basicRate));
+        return new Pair<Item, Double>(new TaxableItem(item.getName(), item.getPrice() + formattedTax), formattedTax);
     }
 
     @Override
-    public Pair<Item, Double> visit(final TaxableImportedItem taxableItem) {
-        final BigDecimal calculatedRate = calculateRate(taxableItem.getPrice(), importationRate).add(calculateRate(taxableItem.getPrice(), basicRate));
-        return new Pair<Item, Double>(taxableItem, CustomFormatter.format(calculatedRate));
+    public Pair<Item, Double> visit(final TaxableImportedItem item) {
+        final BigDecimal calculatedRate = calculateRate(item.getPrice(), importationRate).add(calculateRate(item.getPrice(), basicRate));
+        final Double formattedTax = format(calculatedRate);
+
+        return new Pair<Item, Double>(new TaxableImportedItem(item.getName(), item.getPrice() + formattedTax), formattedTax);
     }
 
     @Override
@@ -36,8 +37,9 @@ public class TaxVisitorImpl implements TaxVisitor {
     }
 
     @Override
-    public Pair<Item, Double> visit(final NonTaxableImportedItem nonTaxableImportedItem) {
-        final BigDecimal calculateRate = calculateRate(nonTaxableImportedItem.getPrice(), importationRate);
-        return new Pair<Item, Double>(nonTaxableImportedItem, CustomFormatter.format(calculateRate));
+    public Pair<Item, Double> visit(final NonTaxableImportedItem item) {
+        final BigDecimal calculateRate = calculateRate(item.getPrice(), importationRate);
+        final Double formattedTax = format(calculateRate);
+        return new Pair<Item, Double>(new NonTaxableImportedItem(item.getName(), item.getPrice() + formattedTax), formattedTax);
     }
 }
