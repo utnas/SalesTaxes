@@ -1,5 +1,6 @@
-package com.teksystem.salestaxes.utils;
+package com.teksystem.salestaxes.units.utils;
 
+import com.teksystem.salestaxes.utils.Pair;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
