@@ -15,7 +15,7 @@ public class BillBuilderTest {
     public void itShouldDisplayZeroAsTaxTotalForNonItem() {
         final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
 
-        assertThat(new BillBuilder(taxApplier.getTaxedItems()).displayBill(), is("Sales Taxes: 0.0\nTotal: 0.0"));
+        assertThat(new BillBuilder(taxApplier).displayBill(), is("Sales Taxes: 0.0\nTotal: 0.0"));
     }
 
     @Test
@@ -23,7 +23,7 @@ public class BillBuilderTest {
         final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
         taxApplier.applyTaxOn(new NonTaxableItem("chocolate bar", 0.85));
 
-        assertThat(new BillBuilder(taxApplier.getTaxedItems()).displayBill(), is("1 chocolate bar: 0.85\nSales Taxes: 0.0\nTotal: 0.85"));
+        assertThat(new BillBuilder(taxApplier).displayBill(), is("1 chocolate bar: 0.85\nSales Taxes: 0.0\nTotal: 0.85"));
     }
 
     @Test
@@ -31,7 +31,7 @@ public class BillBuilderTest {
         final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
         taxApplier.applyTaxOn(new NonTaxableItem("chocolate bar", 0.85));
 
-        final BillBuilder billBuilder = new BillBuilder(taxApplier.getTaxedItems());
+        final BillBuilder billBuilder = new BillBuilder(taxApplier);
         assertThat(billBuilder.displayBill(), is("1 chocolate bar: 0.85\nSales Taxes: 0.0\nTotal: 0.85"));
     }
 }

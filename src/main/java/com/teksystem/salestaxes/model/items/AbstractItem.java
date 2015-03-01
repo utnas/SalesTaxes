@@ -4,7 +4,7 @@ public abstract class AbstractItem implements Item {
     private final String name;
     private final Double price;
 
-    public AbstractItem(final String name, final Double price) {
+     AbstractItem(final String name, final Double price) {
         this.price = price;
         this.name = name;
     }

@@ -12,7 +12,7 @@ import static java.lang.Double.valueOf;
 public class CustomFormatter {
     public final static MathContext MATH_CONTEXT = new MathContext(3, RoundingMode.HALF_UP);
 
-    public static DecimalFormat getCustomDecimalFormat() {
+    private static DecimalFormat getCustomDecimalFormat() {
         final DecimalFormat decimalFormat = new DecimalFormat();
         decimalFormat.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.US));
         decimalFormat.setMinimumIntegerDigits(1);

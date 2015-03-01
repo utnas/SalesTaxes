@@ -23,7 +23,12 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="org.mockito:mockito-all:1.9.5" level="project" />
+    <orderEntry type="library" name="emma:maven-emma-plugin:0.5" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.8.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.mockito:mockito-all:1.9.5" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: emma:maven-emma-plugin:0.5" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: ant:ant:1.6.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: emma:emma:2.0.5312" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: emma:emma_ant:2.0.5312" level="project" />
   </component>
 </module>

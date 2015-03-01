@@ -23,7 +23,6 @@ public class TaxApplierTest {
                 new NonTaxableItem("book", 12.49),
                 new TaxableItem("music box", 20.30)
         );
-
         assertThat(taxApplier.getTaxedItems().size(), is(4));
     }
 
@@ -31,5 +30,37 @@ public class TaxApplierTest {
     public void itemListShouldBeEmptyByDefault() {
         final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(2.0, 23.0));
         assertThat(taxApplier.getTaxedItems().size(), is(0));
+    }
+
+    @Test
+    public void itShouldCalculateTotalOfSalesTaxes() {
+        final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
+        addItemsTo(taxApplier,
+                new NonTaxableImportedItem("imported box chocolates", 10.00),
+                new TaxableImportedItem("imported bottle of perfume", 47.50)
+        );
+        assertThat(taxApplier.calculateSalesTaxes(), is(7.63));
+    }
+
+    @Test
+    public void itShouldReturnZeroForSalesTaxesOfNoItem() {
+        final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
+        assertThat(taxApplier.calculateSalesTaxes(), is(0.0));
+    }
+
+    @Test
+    public void itShouldCalculateTotalOfItemsIncludingTaxes() {
+        final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
+        addItemsTo(taxApplier,
+                new NonTaxableImportedItem("imported box chocolates", 10.00),
+                new TaxableImportedItem("imported bottle of perfume", 47.50)
+        );
+        assertThat(taxApplier.calculateTaxedItemsTotal(), is(65.13));
+    }
+
+    @Test
+    public void itShouldReturnZeroAsTotalOfNoItem() {
+        final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
+        assertThat(taxApplier.calculateTaxedItemsTotal(), is(0.0));
     }
 }

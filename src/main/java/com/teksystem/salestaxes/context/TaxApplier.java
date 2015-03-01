@@ -40,4 +40,20 @@ public class TaxApplier {
     public final Collection<Pair<Item, Double>> getTaxedItems() {
         return unmodifiableCollection(taxedItems);
     }
+
+    public Double calculateSalesTaxes() {
+        Double result = 0.0;
+        for (final Pair<Item, Double> taxedItem : taxedItems) {
+            result += taxedItem.snd;
+        }
+        return result;
+    }
+
+    public Double calculateTaxedItemsTotal() {
+        Double result = 0.0;
+        for (final Pair<Item, Double> taxedItem : taxedItems) {
+            result += taxedItem.fst.getPrice();
+        }
+        return result;
+    }
 }
