@@ -24,9 +24,9 @@ public class BillBuilder {
             result.append(getProperty("line.separator"));
         }
 
-        result.append("Sales Taxes: ").append(format(taxApplier.calculateSalesTaxes()));
+        result.append("Sales Taxes: ").append(format(taxApplier.calculateTotalOfSalesTaxes()));
         result.append(getProperty("line.separator"));
-        result.append("Total: ").append(format(taxApplier.calculateTaxedItemsTotal()));
+        result.append("Total: ").append(format(taxApplier.calculateTotalOfTaxedItems()));
 
         return result.toString().trim();
     }

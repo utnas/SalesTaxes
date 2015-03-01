@@ -41,7 +41,7 @@ public class TaxApplier {
         return unmodifiableCollection(taxedItems);
     }
 
-    public Double calculateSalesTaxes() {
+    public Double calculateTotalOfSalesTaxes() {
         Double result = 0.0;
         for (final Pair<Item, Double> taxedItem : taxedItems) {
             result += taxedItem.snd;
@@ -49,7 +49,7 @@ public class TaxApplier {
         return result;
     }
 
-    public Double calculateTaxedItemsTotal() {
+    public Double calculateTotalOfTaxedItems() {
         Double result = 0.0;
         for (final Pair<Item, Double> taxedItem : taxedItems) {
             result += taxedItem.fst.getPrice();

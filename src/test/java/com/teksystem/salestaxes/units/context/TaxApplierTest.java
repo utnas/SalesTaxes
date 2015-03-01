@@ -39,13 +39,13 @@ public class TaxApplierTest {
                 new NonTaxableImportedItem("imported box chocolates", 10.00),
                 new TaxableImportedItem("imported bottle of perfume", 47.50)
         );
-        assertThat(taxApplier.calculateSalesTaxes(), is(7.63));
+        assertThat(taxApplier.calculateTotalOfSalesTaxes(), is(7.63));
     }
 
     @Test
     public void itShouldReturnZeroForSalesTaxesOfNoItem() {
         final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
-        assertThat(taxApplier.calculateSalesTaxes(), is(0.0));
+        assertThat(taxApplier.calculateTotalOfSalesTaxes(), is(0.0));
     }
 
     @Test
@@ -55,12 +55,12 @@ public class TaxApplierTest {
                 new NonTaxableImportedItem("imported box chocolates", 10.00),
                 new TaxableImportedItem("imported bottle of perfume", 47.50)
         );
-        assertThat(taxApplier.calculateTaxedItemsTotal(), is(65.13));
+        assertThat(taxApplier.calculateTotalOfTaxedItems(), is(65.13));
     }
 
     @Test
     public void itShouldReturnZeroAsTotalOfNoItem() {
         final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
-        assertThat(taxApplier.calculateTaxedItemsTotal(), is(0.0));
+        assertThat(taxApplier.calculateTotalOfTaxedItems(), is(0.0));
     }
 }
