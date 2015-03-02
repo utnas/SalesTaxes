@@ -58,4 +58,9 @@ public class TaxITaxApplier implements ITaxApplier {
         }
         return result.toString();
     }
+
+    @Override
+    public void clearItemsList() {
+        taxedItems.clear();
+    }
 }

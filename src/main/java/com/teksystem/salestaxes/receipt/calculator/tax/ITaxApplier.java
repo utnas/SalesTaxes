@@ -8,4 +8,6 @@ public interface ITaxApplier {
     public void applyTaxOn(final Item item) throws NegativeDecimalException;
 
     public String formatTaxedItems();
+
+    public void clearItemsList();
 }

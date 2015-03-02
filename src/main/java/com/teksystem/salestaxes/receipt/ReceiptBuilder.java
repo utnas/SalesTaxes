@@ -16,11 +16,14 @@ public class ReceiptBuilder {
     }
 
     public final String displayBill() {
-        return (""
-                + taxApplier.formatTaxedItems()
-                + "Sales Taxes: " + format(totalsCalculator.calculateTotalOfSalesTaxes())
-                + getProperty("line.separator")
-                + "Total: " + format(totalsCalculator.calculateTotalOfTaxedItems())
-        ).trim();
+        final String receipt =
+                (""
+                        + taxApplier.formatTaxedItems()
+                        + "Sales Taxes: " + format(totalsCalculator.calculateTotalOfSalesTaxes())
+                        + getProperty("line.separator")
+                        + "Total: " + format(totalsCalculator.calculateTotalOfTaxedItems())
+                ).trim();
+        taxApplier.clearItemsList();
+        return receipt;
     }
 }
