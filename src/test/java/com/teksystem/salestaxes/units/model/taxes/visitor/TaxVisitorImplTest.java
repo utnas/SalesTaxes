@@ -92,7 +92,6 @@ public class TaxVisitorImplTest {
         final Item item = Mockito.mock(classToMock);
         Mockito.when(item.getName()).thenReturn(itemName);
         Mockito.when(item.getPrice()).thenReturn(itemPrice);
-
         return item;
     }
 }
