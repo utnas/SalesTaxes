@@ -24,7 +24,7 @@ public class TaxITaxApplier implements ITaxApplier {
 
     @Override
     public void applyTaxOn(final Item item) throws NegativeDecimalException {
-        //TODO: not really elegant, should be refactored
+        //TODO: not really elegant
         if (item instanceof TaxableItem) {
             taxedItems.add(taxVisitor.visit((TaxableItem) item));
             return;
