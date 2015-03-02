@@ -1,4 +1,4 @@
-package com.teksystem.salestaxes.start;
+package com.teksystem.salestaxes.starting;
 
 import com.teksystem.salestaxes.model.items.NonTaxableImportedItem;
 import com.teksystem.salestaxes.model.items.NonTaxableItem;

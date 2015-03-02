@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 
+import static com.teksystem.salestaxes.units.model.items.ItemMockHelper.mockItem;
 import static com.teksystem.salestaxes.utils.CustomDecimalFormatter.format;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.Is.is;
@@ -86,12 +87,5 @@ public class TaxVisitorImplTest {
         final Item item = mockItem("box of imported chocolates", new BigDecimal(11.25), NonTaxableImportedItem.class);
 
         assertThat(taxVisitor.visit((NonTaxableImportedItem) item).second().doubleValue(), not(0.60));
-    }
-
-    private static Item mockItem(final String itemName, final BigDecimal itemPrice, Class<? extends Item> classToMock) {
-        final Item item = Mockito.mock(classToMock);
-        Mockito.when(item.getName()).thenReturn(itemName);
-        Mockito.when(item.getPrice()).thenReturn(itemPrice);
-        return item;
     }
 }
