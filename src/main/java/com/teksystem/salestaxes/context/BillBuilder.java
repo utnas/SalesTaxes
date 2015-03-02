@@ -5,7 +5,7 @@ import static java.lang.System.getProperty;
 
 public class BillBuilder {
     private final TotalsCalculator totalsCalculator;
-    private TaxApplier taxApplier;
+    private final TaxApplier taxApplier;
 
     public BillBuilder(final TotalsCalculator totalsCalculator, final TaxApplier taxApplier) {
         this.totalsCalculator = totalsCalculator;

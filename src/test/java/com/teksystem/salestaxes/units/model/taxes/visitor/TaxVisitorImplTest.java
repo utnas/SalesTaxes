@@ -1,13 +1,13 @@
 package com.teksystem.salestaxes.units.model.taxes.visitor;
 
 import com.teksystem.salestaxes.model.items.*;
-import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
+import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import com.teksystem.salestaxes.utils.Pair;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import java.util.concurrent.atomic.AtomicReference;
+import java.math.BigDecimal;
 
 import static com.teksystem.salestaxes.utils.CustomDecimalFormatter.format;
 import static org.hamcrest.CoreMatchers.not;
@@ -18,21 +18,21 @@ public class TaxVisitorImplTest {
 
     @Test
     public void itShouldReturnComputedTaxItemAfterComputingForTaxTaxableItem() throws NegativeDecimalException {
-        final TaxableItem taxableItem = mockTaxableItem("music CD", 14.99);
-        final Pair<Item, Double> itemTax = new TaxVisitorImpl(10.0, 5.0).visit(taxableItem);
+        final Item taxableItem = mockItem("music CD", new BigDecimal(14.99), TaxableItem.class);
+        final Pair<Item, BigDecimal> itemTax = new TaxVisitorImpl(10.0, 5.0).visit((TaxableItem) taxableItem);
 
         assertThat(itemTax.first().getName(), is(taxableItem.getName()));
         assertThat(itemTax.first().getPrice(), not(taxableItem.getPrice()));
-        assertThat(format(itemTax.first().getPrice()), is(16.49));
+        assertThat(format(itemTax.first().getPrice()), is("16.49"));
     }
 
 
     @Test
     public void itShouldComputeTaxForTaxableItem() throws NegativeDecimalException {
-        final TaxableItem taxableItem = mockTaxableItem("music CD", 14.99);
+        final Item taxableItem = mockItem("music CD", new BigDecimal(14.99), TaxableItem.class);
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
 
-        assertThat(taxVisitor.visit(taxableItem).second(), is(1.50));
+        assertThat(taxVisitor.visit((TaxableItem) taxableItem).second().doubleValue(), is(1.50));
     }
 
     @Test
@@ -41,73 +41,58 @@ public class TaxVisitorImplTest {
 
         final NonTaxableItem nonTaxableItem = Mockito.mock(NonTaxableItem.class);
         Mockito.when(nonTaxableItem.getName()).thenReturn("book");
-        Mockito.when(nonTaxableItem.getPrice()).thenReturn(12.49);
+        Mockito.when(nonTaxableItem.getPrice()).thenReturn(new BigDecimal(12.49));
 
-        assertThat(taxVisitor.visit(nonTaxableItem).second(), is(0.0));
+        assertThat(taxVisitor.visit(nonTaxableItem).second().doubleValue(), is(0.0));
     }
 
     @Test
     public void itShouldComputeTaxForTaxableImportedItem() throws NegativeDecimalException {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
-        final TaxableImportedItem taxableImportedItem = mockTaxableImportedItem("bottle of perfume", 10.0);
+        final Item taxableImportedItem = mockItem("bottle of perfume", new BigDecimal(10.0), TaxableImportedItem.class);
 
-        assertThat(taxVisitor.visit(taxableImportedItem).second(), is(1.50));
+        assertThat(taxVisitor.visit((TaxableImportedItem) taxableImportedItem).second().doubleValue(), is(1.50));
     }
 
 
     @Test
     public void itShouldComputeTaxForTaxableImportedItemWithNonZeroDecimal() throws NegativeDecimalException {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
-        TaxableImportedItem taxableImportedItem = mockTaxableImportedItem("bottle of perfume", 47.50);
+        Item taxableImportedItem = mockItem("bottle of perfume", new BigDecimal(47.50), TaxableImportedItem.class);
 
-        assertThat(taxVisitor.visit(taxableImportedItem).second(), is(7.13));
+        assertThat(taxVisitor.visit((TaxableImportedItem) taxableImportedItem).second().doubleValue(), is(7.13));
     }
 
     @Test
     public void itShouldComputeTaxForTaxableImportedItemButNotAsExpectedInSpecification() throws NegativeDecimalException {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
-        final TaxableImportedItem taxableImportedItem = mockTaxableImportedItem("bottle of perfume", 47.50);
+        final Item taxableImportedItem = mockItem("bottle of perfume", new BigDecimal(47.50), TaxableImportedItem.class);
 
-        assertThat(taxVisitor.visit(taxableImportedItem).second(), not(7.15));
+        assertThat(taxVisitor.visit((TaxableImportedItem) taxableImportedItem).second().doubleValue(), not(7.15));
     }
 
 
     @Test
     public void itShouldComputeTaxForNonTaxableImportedItem() throws NegativeDecimalException {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
-        final NonTaxableImportedItem item = mockNonTaxableImportedItem("box of imported chocolates", 11.25);
+        final Item item = mockItem("box of imported chocolates", new BigDecimal(11.25), NonTaxableImportedItem.class);
 
-        assertThat(taxVisitor.visit(item).second(), is(0.56));
+        assertThat(taxVisitor.visit((NonTaxableImportedItem) item).second().doubleValue(), is(0.563));
     }
 
     @Test
     public void itShouldComputeTaxForNonTaxableImportedItemNotEqualsToExpectedValueFromSpecification() throws NegativeDecimalException {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
-        final NonTaxableImportedItem item = mockNonTaxableImportedItem("box of imported chocolates", 11.25);
+        final Item item = mockItem("box of imported chocolates", new BigDecimal(11.25), NonTaxableImportedItem.class);
 
-        assertThat(taxVisitor.visit(item).second(), not(0.60));
+        assertThat(taxVisitor.visit((NonTaxableImportedItem) item).second().doubleValue(), not(0.60));
     }
 
-    private static NonTaxableImportedItem mockNonTaxableImportedItem(String itemName, double itemPrice) {
-        final NonTaxableImportedItem nonTaxableImportedItem = Mockito.mock(NonTaxableImportedItem.class);
-        Mockito.when(nonTaxableImportedItem.getName()).thenReturn(itemName);
-        Mockito.when(nonTaxableImportedItem.getPrice()).thenReturn(itemPrice);
+    private static Item mockItem(final String itemName, final BigDecimal itemPrice, Class<? extends Item> classToMock) {
+        final Item item = Mockito.mock(classToMock);
+        Mockito.when(item.getName()).thenReturn(itemName);
+        Mockito.when(item.getPrice()).thenReturn(itemPrice);
 
-        return nonTaxableImportedItem;
-    }
-
-    private static TaxableItem mockTaxableItem(String itemName, final Double itemPrice) {
-        final AtomicReference<TaxableItem> taxableItem = new AtomicReference<TaxableItem>(Mockito.mock(TaxableItem.class));
-        Mockito.when(taxableItem.get().getName()).thenReturn(itemName);
-        Mockito.when(taxableItem.get().getPrice()).thenReturn(itemPrice);
-
-        return taxableItem.get();
-    }
-
-    private static TaxableImportedItem mockTaxableImportedItem(final String itemName, double itemPrice) {
-        final AtomicReference<TaxableImportedItem> taxableImportedItem = new AtomicReference<TaxableImportedItem>(Mockito.mock(TaxableImportedItem.class));
-        Mockito.when(taxableImportedItem.get().getName()).thenReturn(itemName);
-        Mockito.when(taxableImportedItem.get().getPrice()).thenReturn(itemPrice);
-        return taxableImportedItem.get();
+        return item;
     }
 }

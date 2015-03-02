@@ -1,11 +1,13 @@
 package com.teksystem.salestaxes.model.items;
 
-import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitor;
+import com.teksystem.salestaxes.utils.NegativeDecimalException;
+
+import java.math.BigDecimal;
 
 public class NonTaxableItem extends AbstractItem {
 
-    public NonTaxableItem(final String name, final Double price) throws NegativeDecimalException {
+    public NonTaxableItem(final String name, final BigDecimal price) throws NegativeDecimalException {
         super(name, price);
     }
 

@@ -5,6 +5,8 @@ import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
 import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -14,9 +16,9 @@ public class NegativeDecimalExceptionTest {
     public void itShouldRaiseNegativeDecimalExceptionForItems() {
 
         try {
-            new TaxableItem("Negative price fro Item", -22.3);
+            new TaxableItem("Negative price fro Item", new BigDecimal(-22.3));
         } catch (NegativeDecimalException e) {
-            assertThat(e.getMessage(), is("Values -22.3 for price provided is negative."));
+            assertThat(e.getMessage(), is("Values -22.30 for price provided is negative."));
         }
     }
 

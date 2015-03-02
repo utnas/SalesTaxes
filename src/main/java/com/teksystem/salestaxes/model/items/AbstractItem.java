@@ -2,20 +2,24 @@ package com.teksystem.salestaxes.model.items;
 
 import com.teksystem.salestaxes.utils.NegativeDecimalException;
 
+import java.math.BigDecimal;
+
+import static com.teksystem.salestaxes.utils.CustomDecimalFormatter.format;
+
 public abstract class AbstractItem implements Item {
     private final String name;
-    private final Double price;
+    private final BigDecimal price;
 
-    AbstractItem(final String name, final Double price) throws NegativeDecimalException {
-        if (price < 0) {
-            throw new NegativeDecimalException("Values " + price + " for price provided is negative.");
+    AbstractItem(final String name, final BigDecimal price) throws NegativeDecimalException {
+        if (price.doubleValue() < 0) {
+            throw new NegativeDecimalException("Values " + format(price) + " for price provided is negative.");
         }
         this.price = price;
         this.name = name;
     }
 
     @Override
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 

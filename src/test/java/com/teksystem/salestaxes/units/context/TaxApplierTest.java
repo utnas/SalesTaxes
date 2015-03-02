@@ -5,9 +5,11 @@ import com.teksystem.salestaxes.model.items.NonTaxableImportedItem;
 import com.teksystem.salestaxes.model.items.NonTaxableItem;
 import com.teksystem.salestaxes.model.items.TaxableImportedItem;
 import com.teksystem.salestaxes.model.items.TaxableItem;
-import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
+import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import org.junit.Test;
+
+import java.math.BigDecimal;
 
 import static com.teksystem.salestaxes.model.taxes.helper.TaxApplierHelper.addItemsTo;
 import static org.hamcrest.core.Is.is;
@@ -19,10 +21,10 @@ public class TaxApplierTest {
     public void itShouldAddItemsToTaxApplier() throws NegativeDecimalException {
         final TaxApplier taxApplier = new TaxApplier(new TaxVisitorImpl(10.0, 5.0));
         addItemsTo(taxApplier,
-                new TaxableImportedItem("music box", 20.30),
-                new NonTaxableImportedItem("book", 12.49),
-                new NonTaxableItem("book", 12.49),
-                new TaxableItem("music box", 20.30)
+                new TaxableImportedItem("music box", new BigDecimal(20.30)),
+                new NonTaxableImportedItem("book", new BigDecimal(12.49)),
+                new NonTaxableItem("book", new BigDecimal(12.49)),
+                new TaxableItem("music box", new BigDecimal(20.30))
         );
         assertThat(taxApplier.getTaxedItems().size(), is(4));
     }

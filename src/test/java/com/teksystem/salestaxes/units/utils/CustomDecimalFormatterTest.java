@@ -12,12 +12,12 @@ public class CustomDecimalFormatterTest {
 
     @Test
     public void itShouldFormatABigDecimal() {
-        assertThat(format(new BigDecimal(23.345)), is(23.34));
+        assertThat(format(new BigDecimal(23.345)), is("23.34"));
     }
 
 
     @Test
     public void itShouldFormatADouble() {
-        assertThat(format(23.345), is(23.34));
+        assertThat(format(23.345), is("23.34"));
     }
 }

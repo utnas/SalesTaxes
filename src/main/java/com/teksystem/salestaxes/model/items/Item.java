@@ -1,11 +1,13 @@
 package com.teksystem.salestaxes.model.items;
 
-import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitor;
+import com.teksystem.salestaxes.utils.NegativeDecimalException;
+
+import java.math.BigDecimal;
 
 public interface Item {
 
-    public Double getPrice();
+    public BigDecimal getPrice();
 
     public String getName();
 

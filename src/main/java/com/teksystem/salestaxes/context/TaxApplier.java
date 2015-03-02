@@ -1,10 +1,11 @@
 package com.teksystem.salestaxes.context;
 
 import com.teksystem.salestaxes.model.items.*;
-import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
+import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import com.teksystem.salestaxes.utils.Pair;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -14,7 +15,7 @@ import static java.util.Collections.unmodifiableCollection;
 
 
 public class TaxApplier {
-    private final ArrayList<Pair<Item, Double>> taxedItems = new ArrayList<Pair<Item, Double>>();
+    private final ArrayList<Pair<Item, BigDecimal>> taxedItems = new ArrayList<>();
     private final TaxVisitorImpl taxVisitor;
 
     public TaxApplier(final TaxVisitorImpl taxVisitor) {
@@ -40,13 +41,13 @@ public class TaxApplier {
         }
     }
 
-    public final Collection<Pair<Item, Double>> getTaxedItems() {
+    public final Collection<Pair<Item, BigDecimal>> getTaxedItems() {
         return unmodifiableCollection(taxedItems);
     }
 
     public String formatTaxedItems() {
         final StringBuilder result = new StringBuilder("");
-        for (final Pair<Item, Double> taxedItem : taxedItems) {
+        for (final Pair<Item, BigDecimal> taxedItem : taxedItems) {
             result.append("1 ");
             result.append(taxedItem.first().getName());
             result.append(": ");

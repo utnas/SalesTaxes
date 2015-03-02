@@ -6,7 +6,6 @@ import com.teksystem.salestaxes.utils.Pair;
 
 import java.math.BigDecimal;
 
-import static com.teksystem.salestaxes.utils.CustomDecimalFormatter.format;
 import static com.teksystem.salestaxes.utils.RateCalculator.calculateRate;
 import static java.lang.String.format;
 
@@ -16,37 +15,37 @@ public class TaxVisitorImpl implements TaxVisitor {
 
     public TaxVisitorImpl(final Double basicRate, final Double importationRate) throws NegativeDecimalException {
         if (basicRate < 0 || importationRate < 0) {
-            throw new NegativeDecimalException(format("Some values provided %s or %s as rate are negatives.", basicRate, importationRate));
+            throw new NegativeDecimalException(
+                    format("Some values provided %s or %s as rate are negatives.", basicRate, importationRate)
+            );
         }
         this.importationRate = importationRate;
         this.basicRate = basicRate;
     }
 
     @Override
-    public Pair<Item, Double> visit(final TaxableItem item) throws NegativeDecimalException {
-        final Double formattedTax = format(calculateRate(item.getPrice(), basicRate));
+    public Pair<Item, BigDecimal> visit(final TaxableItem item) throws NegativeDecimalException {
+        final BigDecimal formattedTax = calculateRate(item.getPrice(), basicRate);
 
-        return new Pair<Item, Double>(new TaxableItem(item.getName(), item.getPrice() + formattedTax), formattedTax);
+        return new Pair<Item, BigDecimal>(new TaxableItem(item.getName(), formattedTax.add(item.getPrice())), formattedTax);
     }
 
     @Override
-    public Pair<Item, Double> visit(final TaxableImportedItem item) throws NegativeDecimalException {
+    public Pair<Item, BigDecimal> visit(final TaxableImportedItem item) throws NegativeDecimalException {
         final BigDecimal calculatedRate = calculateRate(item.getPrice(), importationRate).add(calculateRate(item.getPrice(), basicRate));
-        final Double formattedTax = format(calculatedRate);
 
-        return new Pair<Item, Double>(new TaxableImportedItem(item.getName(), item.getPrice() + formattedTax), formattedTax);
+        return new Pair<Item, BigDecimal>(new TaxableImportedItem(item.getName(), calculatedRate.add(item.getPrice())), calculatedRate);
     }
 
     @Override
-    public Pair<Item, Double> visit(final NonTaxableItem nonTaxableItem) {
-        return new Pair<Item, Double>(nonTaxableItem, 0.0);
+    public Pair<Item, BigDecimal> visit(final NonTaxableItem nonTaxableItem) {
+        return new Pair<Item, BigDecimal>(nonTaxableItem, new BigDecimal(0.0));
     }
 
     @Override
-    public Pair<Item, Double> visit(final NonTaxableImportedItem item) throws NegativeDecimalException {
-        final BigDecimal calculateRate = calculateRate(item.getPrice(), importationRate);
-        final Double formattedTax = format(calculateRate);
+    public Pair<Item, BigDecimal> visit(final NonTaxableImportedItem item) throws NegativeDecimalException {
+        final BigDecimal formattedTax = (calculateRate(item.getPrice(), importationRate));
 
-        return new Pair<Item, Double>(new NonTaxableImportedItem(item.getName(), item.getPrice() + formattedTax), formattedTax);
+        return new Pair<Item, BigDecimal>(new NonTaxableImportedItem(item.getName(), formattedTax.add(item.getPrice())), formattedTax);
     }
 }

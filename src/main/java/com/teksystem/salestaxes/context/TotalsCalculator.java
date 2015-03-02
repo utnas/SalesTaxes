@@ -3,25 +3,27 @@ package com.teksystem.salestaxes.context;
 import com.teksystem.salestaxes.model.items.Item;
 import com.teksystem.salestaxes.utils.Pair;
 
-public class TotalsCalculator {
-    private Iterable<Pair<Item, Double>> pairOfTaxedItemsTax;
+import java.math.BigDecimal;
 
-    public TotalsCalculator(final Iterable<Pair<Item, Double>> pairOfTaxedItemsTax) {
+public class TotalsCalculator {
+    private final Iterable<Pair<Item, BigDecimal>> pairOfTaxedItemsTax;
+
+    public TotalsCalculator(final Iterable<Pair<Item, BigDecimal>> pairOfTaxedItemsTax) {
         this.pairOfTaxedItemsTax = pairOfTaxedItemsTax;
     }
 
-    public Double calculateTotalOfSalesTaxes() {
-        Double result = 0.0;
-        for (final Pair<Item, Double> taxedItem : pairOfTaxedItemsTax) {
-            result += taxedItem.second();
+    public BigDecimal calculateTotalOfSalesTaxes() {
+        BigDecimal result = new BigDecimal(0.0);
+        for (final Pair<Item, BigDecimal> taxedItem : pairOfTaxedItemsTax) {
+            result = result.add(taxedItem.second());
         }
         return result;
     }
 
-    public Double calculateTotalOfTaxedItems() {
-        Double result = 0.0;
-        for (final Pair<Item, Double> taxedItem : pairOfTaxedItemsTax) {
-            result += taxedItem.first().getPrice();
+    public BigDecimal calculateTotalOfTaxedItems() {
+        BigDecimal result = new BigDecimal(0.0);
+        for (final Pair<Item, BigDecimal> taxedItem : pairOfTaxedItemsTax) {
+            result = result.add(taxedItem.first().getPrice());
         }
         return result;
     }
