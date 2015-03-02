@@ -72,16 +72,16 @@
 <br/>
 
 
-<div class="sourceCode"><i>1</i>&nbsp;package com.teksystem.salestaxes.context;
+<div class="sourceCode"><i>1</i>&nbsp;package com.teksystem.salestaxes.receipt;
 <i>2</i>&nbsp;
 <i>3</i>&nbsp;import com.teksystem.salestaxes.model.items.NonTaxableImportedItem;
 <i>4</i>&nbsp;import com.teksystem.salestaxes.model.items.NonTaxableItem;
 <i>5</i>&nbsp;import com.teksystem.salestaxes.model.items.TaxableImportedItem;
 <i>6</i>&nbsp;import com.teksystem.salestaxes.model.items.TaxableItem;
-<i>7</i>&nbsp;import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
+<i>7</i>&nbsp;import com.teksystem.salestaxes.model.taxes.TaxVisitorImpl;
 <i>8</i>&nbsp;import org.junit.Test;
 <i>9</i>&nbsp;
-<i>10</i>&nbsp;import static com.teksystem.salestaxes.model.taxes.helper.TaxApplierHelper.addItemsTo;
+<i>10</i>&nbsp;import static com.teksystem.salestaxes.receipt.calculator.tax.TaxApplierHelper.addItemsTo;
 <i>11</i>&nbsp;import static org.hamcrest.core.Is.is;
 <i>12</i>&nbsp;import static org.junit.Assert.assertThat;
 <i>13</i>&nbsp;

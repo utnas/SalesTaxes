@@ -1,7 +1,7 @@
-package com.teksystem.salestaxes.context;
+package com.teksystem.salestaxes.receipt.calculator.tax;
 
 import com.teksystem.salestaxes.model.items.*;
-import com.teksystem.salestaxes.model.taxes.visitor.TaxVisitorImpl;
+import com.teksystem.salestaxes.model.taxes.TaxVisitorImpl;
 import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import com.teksystem.salestaxes.utils.Pair;
 
@@ -14,14 +14,15 @@ import static java.lang.System.getProperty;
 import static java.util.Collections.unmodifiableCollection;
 
 
-public class TaxApplier {
+public class TaxITaxApplier implements ITaxApplier {
     private final ArrayList<Pair<Item, BigDecimal>> taxedItems = new ArrayList<>();
     private final TaxVisitorImpl taxVisitor;
 
-    public TaxApplier(final TaxVisitorImpl taxVisitor) {
+    public TaxITaxApplier(final TaxVisitorImpl taxVisitor) {
         this.taxVisitor = taxVisitor;
     }
 
+    @Override
     public void applyTaxOn(final Item item) throws NegativeDecimalException {
         //TODO: not really elegant, should be refactored
         if (item instanceof TaxableItem) {
@@ -45,6 +46,7 @@ public class TaxApplier {
         return unmodifiableCollection(taxedItems);
     }
 
+    @Override
     public String formatTaxedItems() {
         final StringBuilder result = new StringBuilder("");
         for (final Pair<Item, BigDecimal> taxedItem : taxedItems) {
