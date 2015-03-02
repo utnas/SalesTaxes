@@ -4,7 +4,7 @@ import com.teksystem.salestaxes.receipt.ReceiptBuilder;
 import com.teksystem.salestaxes.receipt.calculator.tax.TaxITaxApplier;
 import com.teksystem.salestaxes.receipt.calculator.total.TotalsITotalsCalculator;
 import com.teksystem.salestaxes.model.items.NonTaxableItem;
-import com.teksystem.salestaxes.model.taxes.TaxVisitorImpl;
+import com.teksystem.salestaxes.model.tax.TaxVisitorImpl;
 import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import org.junit.Test;
 import org.mockito.Mockito;

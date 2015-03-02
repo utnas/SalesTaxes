@@ -2,7 +2,7 @@ package com.teksystem.salestaxes.units.receipt.calculator.total;
 
 import com.teksystem.salestaxes.model.items.NonTaxableImportedItem;
 import com.teksystem.salestaxes.model.items.TaxableImportedItem;
-import com.teksystem.salestaxes.model.taxes.TaxVisitorImpl;
+import com.teksystem.salestaxes.model.tax.TaxVisitorImpl;
 import com.teksystem.salestaxes.receipt.calculator.tax.TaxITaxApplier;
 import com.teksystem.salestaxes.receipt.calculator.total.TotalsITotalsCalculator;
 import com.teksystem.salestaxes.utils.NegativeDecimalException;

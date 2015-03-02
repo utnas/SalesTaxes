@@ -1,4 +1,4 @@
-package com.teksystem.salestaxes.model.taxes;
+package com.teksystem.salestaxes.model.tax;
 
 import com.teksystem.salestaxes.model.items.*;
 import com.teksystem.salestaxes.utils.NegativeDecimalException;

@@ -1,7 +1,7 @@
 package com.teksystem.salestaxes.units.utils;
 
 import com.teksystem.salestaxes.model.items.TaxableItem;
-import com.teksystem.salestaxes.model.taxes.TaxVisitorImpl;
+import com.teksystem.salestaxes.model.tax.TaxVisitorImpl;
 import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import org.junit.Test;
 

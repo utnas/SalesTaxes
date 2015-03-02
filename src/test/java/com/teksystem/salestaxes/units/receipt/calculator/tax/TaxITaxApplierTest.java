@@ -5,7 +5,7 @@ import com.teksystem.salestaxes.model.items.NonTaxableImportedItem;
 import com.teksystem.salestaxes.model.items.NonTaxableItem;
 import com.teksystem.salestaxes.model.items.TaxableImportedItem;
 import com.teksystem.salestaxes.model.items.TaxableItem;
-import com.teksystem.salestaxes.model.taxes.TaxVisitorImpl;
+import com.teksystem.salestaxes.model.tax.TaxVisitorImpl;
 import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import org.junit.Test;
 
