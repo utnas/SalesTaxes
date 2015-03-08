@@ -1,13 +1,13 @@
 package com.teksystem.salestaxes.integration;
 
-import com.teksystem.salestaxes.receipt.ReceiptBuilder;
-import com.teksystem.salestaxes.receipt.calculator.tax.TaxApplierImpl;
-import com.teksystem.salestaxes.receipt.calculator.total.TotalsCalculatorImpl;
 import com.teksystem.salestaxes.model.items.NonTaxableImportedItem;
 import com.teksystem.salestaxes.model.items.NonTaxableItem;
 import com.teksystem.salestaxes.model.items.TaxableImportedItem;
 import com.teksystem.salestaxes.model.items.TaxableItem;
 import com.teksystem.salestaxes.model.tax.TaxVisitorImpl;
+import com.teksystem.salestaxes.receipt.ReceiptBuilder;
+import com.teksystem.salestaxes.receipt.calculator.tax.TaxApplierImpl;
+import com.teksystem.salestaxes.receipt.calculator.total.TotalsCalculatorImpl;
 import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import org.junit.Test;
 
