@@ -17,8 +17,7 @@ public class ReceiptBuilder {
 
     public final String displayBill() {
         final String receipt =
-                (""
-                        + taxApplier.formatTaxedItems()
+                (taxApplier.formatTaxedItems()
                         + "Sales Taxes: " + format(totalsCalculator.calculateTotalOfSalesTaxes())
                         + getProperty("line.separator")
                         + "Total: " + format(totalsCalculator.calculateTotalOfTaxedItems())
