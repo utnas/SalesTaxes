@@ -5,10 +5,10 @@ import com.teksystem.salestaxes.utils.Pair;
 
 import java.math.BigDecimal;
 
-public class TotalsITotalsCalculator implements ITotalsCalculator {
+public class TotalsCalculatorImpl implements TotalsCalculator {
     private final Iterable<Pair<Item, BigDecimal>> pairOfTaxedItemsTax;
 
-    public TotalsITotalsCalculator(final Iterable<Pair<Item, BigDecimal>> pairOfTaxedItemsTax) {
+    public TotalsCalculatorImpl(final Iterable<Pair<Item, BigDecimal>> pairOfTaxedItemsTax) {
         this.pairOfTaxedItemsTax = pairOfTaxedItemsTax;
     }
 

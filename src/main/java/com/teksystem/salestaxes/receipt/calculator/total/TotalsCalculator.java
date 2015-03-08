@@ -2,7 +2,7 @@ package com.teksystem.salestaxes.receipt.calculator.total;
 
 import java.math.BigDecimal;
 
-public interface ITotalsCalculator {
+public interface TotalsCalculator {
 
     public BigDecimal calculateTotalOfSalesTaxes();
 

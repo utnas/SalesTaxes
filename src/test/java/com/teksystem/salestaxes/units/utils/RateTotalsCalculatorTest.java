@@ -8,7 +8,7 @@ import static com.teksystem.salestaxes.utils.RateCalculator.calculateRate;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class RateITotalsCalculatorTest {
+public class RateTotalsCalculatorTest {
 
     @Test
     public void ItShouldCalculateRateAndRoundUpNearestFive() {

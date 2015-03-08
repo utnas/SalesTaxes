@@ -6,8 +6,8 @@ import com.teksystem.salestaxes.model.items.TaxableImportedItem;
 import com.teksystem.salestaxes.model.items.TaxableItem;
 import com.teksystem.salestaxes.model.tax.TaxVisitorImpl;
 import com.teksystem.salestaxes.receipt.ReceiptBuilder;
-import com.teksystem.salestaxes.receipt.calculator.tax.TaxITaxApplier;
-import com.teksystem.salestaxes.receipt.calculator.total.TotalsITotalsCalculator;
+import com.teksystem.salestaxes.receipt.calculator.tax.TaxApplierImpl;
+import com.teksystem.salestaxes.receipt.calculator.total.TotalsCalculatorImpl;
 import com.teksystem.salestaxes.utils.NegativeDecimalException;
 
 import java.math.BigDecimal;
@@ -20,13 +20,13 @@ public class Launcher {
         try {
             //OUTPUT 1
 
-            final TaxITaxApplier taxApplier = new TaxITaxApplier(new TaxVisitorImpl(10.0, 5.0));
+            final TaxApplierImpl taxApplier = new TaxApplierImpl(new TaxVisitorImpl(10.0, 5.0));
             addItemsTo(taxApplier,
                     new NonTaxableItem("book", new BigDecimal(12.49)),
                     new TaxableItem("music CD", new BigDecimal(14.99)),
                     new NonTaxableItem("chocolate bar", new BigDecimal(0.85))
             );
-            TotalsITotalsCalculator totalsCalculator = new TotalsITotalsCalculator(taxApplier.getTaxedItems());
+            TotalsCalculatorImpl totalsCalculator = new TotalsCalculatorImpl(taxApplier.getTaxedItems());
             final ReceiptBuilder receiptBuilder = new ReceiptBuilder(totalsCalculator, taxApplier);
 
             System.out.println("\nOutput 1:");

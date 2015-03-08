@@ -3,7 +3,7 @@ package com.teksystem.salestaxes.receipt.calculator.tax;
 import com.teksystem.salestaxes.model.items.Item;
 import com.teksystem.salestaxes.utils.NegativeDecimalException;
 
-public interface ITaxApplier {
+public interface TaxApplier {
 
     public void applyTaxOn(final Item item) throws NegativeDecimalException;
 

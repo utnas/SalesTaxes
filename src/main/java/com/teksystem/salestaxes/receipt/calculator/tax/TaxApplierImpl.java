@@ -14,11 +14,11 @@ import static java.lang.System.getProperty;
 import static java.util.Collections.unmodifiableCollection;
 
 
-public class TaxITaxApplier implements ITaxApplier {
+public class TaxApplierImpl implements TaxApplier {
     private final ArrayList<Pair<Item, BigDecimal>> taxedItems = new ArrayList<>();
     private final TaxVisitorImpl taxVisitor;
 
-    public TaxITaxApplier(final TaxVisitorImpl taxVisitor) {
+    public TaxApplierImpl(final TaxVisitorImpl taxVisitor) {
         this.taxVisitor = taxVisitor;
     }
 
