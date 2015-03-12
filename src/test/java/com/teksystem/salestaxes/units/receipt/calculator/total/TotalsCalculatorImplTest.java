@@ -34,11 +34,6 @@ public class TotalsCalculatorImplTest {
     }
 
     @Test
-    public void itShouldReturnZeroForSalesTaxesOfNoItem() {
-        assertThat(new TotalsCalculatorImpl(EMPTY_LIST).calculateTotalOfSalesTaxes().doubleValue(), is(0.0));
-    }
-
-    @Test
     public void itShouldCalculateTotalOfItemsIncludingTaxes() throws NegativeDecimalException {
         final TaxApplierImpl taxApplier = createTaxApplier(10.0, 5.0);
         addItemsTo(taxApplier,
@@ -51,8 +46,13 @@ public class TotalsCalculatorImplTest {
     }
 
     @Test
+    public void itShouldReturnZeroForSalesTaxesOfNoItem() {
+        assertThat(createTotalCalculator(EMPTY_LIST).calculateTotalOfSalesTaxes().doubleValue(), is(0.0));
+    }
+
+    @Test
     public void itShouldReturnZeroAsTotalOfNoItem() {
-        assertThat(new TotalsCalculatorImpl(EMPTY_LIST).calculateTotalOfTaxedItems().doubleValue(), is(0.0));
+        assertThat(createTotalCalculator(EMPTY_LIST).calculateTotalOfTaxedItems().doubleValue(), is(0.0));
     }
 
     private static TotalsCalculator createTotalCalculator(Iterable<Pair<Item, BigDecimal>> taxedItems) {
