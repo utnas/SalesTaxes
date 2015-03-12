@@ -5,8 +5,6 @@ import com.teksystem.salestaxes.receipt.calculator.tax.TaxApplierImpl;
 import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import org.junit.Test;
 
-import java.math.BigDecimal;
-
 import static com.teksystem.salestaxes.receipt.calculator.tax.TaxApplierHelper.addItemsTo;
 import static com.teksystem.salestaxes.units.model.items.ItemMockHelper.mockItem;
 import static com.teksystem.salestaxes.units.receipt.calculator.TestHelper.createTaxApplier;
@@ -19,10 +17,10 @@ public class TaxApplierImplTest {
     public void itShouldAddItemsToTaxApplier() throws NegativeDecimalException {
         final TaxApplierImpl taxApplier = createTaxApplier(10.0, 5.0);
         addItemsTo(taxApplier,
-                new TaxableImportedItem("music box", new BigDecimal(20.30)),
-                new NonTaxableImportedItem("book", new BigDecimal(12.49)),
-                new NonTaxableItem("book", new BigDecimal(12.49)),
-                new TaxableItem("music box", new BigDecimal(20.30))
+                mockItem("music box", 20.30, TaxableImportedItem.class),
+                mockItem("book", 12.49, NonTaxableImportedItem.class),
+                mockItem("book", 12.49, NonTaxableItem.class),
+                mockItem("music box", 20.30, TaxableItem.class)
         );
         assertThat(taxApplier.getTaxedItems().size(), is(4));
     }
