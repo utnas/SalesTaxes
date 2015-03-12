@@ -5,7 +5,6 @@ import com.teksystem.salestaxes.model.tax.TaxVisitorImpl;
 import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import com.teksystem.salestaxes.utils.Pair;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 
@@ -39,12 +38,9 @@ public class TaxVisitorImplTest {
     @Test
     public void itShouldComputeTaxForNonTaxableItem() throws NegativeDecimalException {
         final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
+        final Item nonTaxableItem = mockItem("book", new BigDecimal(12.49), NonTaxableItem.class);
 
-        final NonTaxableItem nonTaxableItem = Mockito.mock(NonTaxableItem.class);
-        Mockito.when(nonTaxableItem.getName()).thenReturn("book");
-        Mockito.when(nonTaxableItem.getPrice()).thenReturn(new BigDecimal(12.49));
-
-        assertThat(taxVisitor.visit(nonTaxableItem).second().doubleValue(), is(0.0));
+        assertThat(taxVisitor.visit((NonTaxableItem) nonTaxableItem).second().doubleValue(), is(0.0));
     }
 
     @Test
