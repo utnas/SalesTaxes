@@ -1,17 +1,17 @@
 package com.teksystem.salestaxes.model.tax;
 
-import com.teksystem.salestaxes.model.items.*;
+import com.teksystem.salestaxes.model.items.NonTaxableImportedItem;
+import com.teksystem.salestaxes.model.items.NonTaxableItem;
+import com.teksystem.salestaxes.model.items.TaxableImportedItem;
+import com.teksystem.salestaxes.model.items.TaxableItem;
 import com.teksystem.salestaxes.utils.NegativeDecimalException;
-import com.teksystem.salestaxes.utils.Pair;
 
-import java.math.BigDecimal;
+public interface TaxVisitor<T> {
+    public T visit(final TaxableItem item) throws NegativeDecimalException;
 
-public interface TaxVisitor {
-    public Pair<Item, BigDecimal> visit(final TaxableItem item) throws NegativeDecimalException;
+    public T visit(final TaxableImportedItem taxableItem) throws NegativeDecimalException;
 
-    public Pair<Item, BigDecimal> visit(final TaxableImportedItem taxableItem) throws NegativeDecimalException;
+    public T visit(final NonTaxableItem nonTaxableItem);
 
-    public Pair<Item, BigDecimal> visit(final NonTaxableItem nonTaxableItem);
-
-    public Pair<Item, BigDecimal> visit(final NonTaxableImportedItem noneTaxableItem) throws NegativeDecimalException;
+    public T visit(final NonTaxableImportedItem noneTaxableItem) throws NegativeDecimalException;
 }
