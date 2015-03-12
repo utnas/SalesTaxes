@@ -12,6 +12,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class TestHelper {
+
     public static TotalsCalculator mockTotalsCalculator(final double salesTaxes, final double taxesItems) {
         final TotalsCalculator totalsCalculator = mock(TotalsCalculatorImpl.class);
         when(totalsCalculator.calculateTotalOfSalesTaxes()).thenReturn(new BigDecimal(salesTaxes));

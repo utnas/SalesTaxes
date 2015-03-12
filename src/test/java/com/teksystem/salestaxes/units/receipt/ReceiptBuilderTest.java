@@ -2,6 +2,7 @@ package com.teksystem.salestaxes.units.receipt;
 
 import com.teksystem.salestaxes.model.items.NonTaxableItem;
 import com.teksystem.salestaxes.receipt.ReceiptBuilder;
+import com.teksystem.salestaxes.receipt.calculator.tax.TaxApplier;
 import com.teksystem.salestaxes.receipt.calculator.tax.TaxApplierImpl;
 import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import org.junit.Test;
@@ -17,7 +18,7 @@ public class ReceiptBuilderTest {
     @Test
     public void itShouldDisplayZeroAsTaxTotalForNonItem() throws NegativeDecimalException {
         final TaxApplierImpl taxApplier = createTaxApplier(10.0, 5.0);
-        final ReceiptBuilder receiptBuilder = new ReceiptBuilder(mockTotalsCalculator(0.0, 0.0), taxApplier);
+        final ReceiptBuilder receiptBuilder = createReceiptBuilder(0.0, 0.0, taxApplier);
 
         assertThat(receiptBuilder.displayBill(), is("Sales Taxes: 0.00\nTotal: 0.00"));
     }
@@ -26,7 +27,7 @@ public class ReceiptBuilderTest {
     public void itShouldDisplayZeroAsTaxTotalForNonTaxableItem() throws NegativeDecimalException {
         final TaxApplierImpl taxApplier = createTaxApplier(10.0, 5.0);
         taxApplier.applyTaxOn(mockItem("chocolate bar", 0.85, NonTaxableItem.class));
-        final ReceiptBuilder receiptBuilder = new ReceiptBuilder(mockTotalsCalculator(0.0, 0.85), taxApplier);
+        final ReceiptBuilder receiptBuilder = createReceiptBuilder(0.0, 0.85, taxApplier);
 
         assertThat(receiptBuilder.displayBill(), is("1 chocolate bar: 0.85\nSales Taxes: 0.00\nTotal: 0.85"));
     }
@@ -35,8 +36,12 @@ public class ReceiptBuilderTest {
     public void itShouldDisplayTaxTotalForTaxableItem() throws NegativeDecimalException {
         final TaxApplierImpl taxApplier = createTaxApplier(10.0, 5.0);
         taxApplier.applyTaxOn(mockItem("chocolate bar", 0.85, NonTaxableItem.class));
-        final ReceiptBuilder receiptBuilder = new ReceiptBuilder(mockTotalsCalculator(0.0, 0.85), taxApplier);
+        final ReceiptBuilder receiptBuilder = createReceiptBuilder(0.0, 0.85, taxApplier);
 
         assertThat(receiptBuilder.displayBill(), is("1 chocolate bar: 0.85\nSales Taxes: 0.00\nTotal: 0.85"));
+    }
+
+    public static ReceiptBuilder createReceiptBuilder(final double baseRate, final double importRate, TaxApplier taxApplier) {
+        return new ReceiptBuilder(mockTotalsCalculator(baseRate, importRate), taxApplier);
     }
 }
