@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 public class NegativeDecimalExceptionTest {
 
@@ -17,6 +18,7 @@ public class NegativeDecimalExceptionTest {
 
         try {
             new TaxableItem("Negative price fro Item", new BigDecimal(-22.3));
+            fail();
         } catch (NegativeDecimalException e) {
             assertThat(e.getMessage(), is("Values -22.30 for price provided is negative."));
         }
@@ -27,6 +29,7 @@ public class NegativeDecimalExceptionTest {
 
         try {
             new TaxVisitorImpl(0.0, -22.3);
+            fail();
         } catch (NegativeDecimalException e) {
             assertThat(e.getMessage(), is("Some values provided 0.0 or -22.3 as rate are negatives."));
         }

@@ -4,6 +4,7 @@ import com.teksystem.salestaxes.model.items.NonTaxableImportedItem;
 import com.teksystem.salestaxes.model.items.TaxableImportedItem;
 import com.teksystem.salestaxes.model.tax.TaxVisitorImpl;
 import com.teksystem.salestaxes.receipt.calculator.tax.TaxApplierImpl;
+import com.teksystem.salestaxes.receipt.calculator.total.TotalsCalculator;
 import com.teksystem.salestaxes.receipt.calculator.total.TotalsCalculatorImpl;
 import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import org.junit.Test;
@@ -15,6 +16,8 @@ import static com.teksystem.salestaxes.utils.CustomDecimalFormatter.format;
 import static java.util.Collections.EMPTY_LIST;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class TotalsCalculatorImplTest {
 

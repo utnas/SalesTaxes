@@ -2,9 +2,11 @@ package com.teksystem.salestaxes.units.receipt.calculator.tax;
 
 import com.teksystem.salestaxes.model.items.*;
 import com.teksystem.salestaxes.model.tax.TaxVisitorImpl;
+import com.teksystem.salestaxes.receipt.calculator.tax.TaxApplier;
 import com.teksystem.salestaxes.receipt.calculator.tax.TaxApplierImpl;
 import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 
@@ -12,6 +14,7 @@ import static com.teksystem.salestaxes.receipt.calculator.tax.TaxApplierHelper.a
 import static com.teksystem.salestaxes.units.model.items.ItemMockHelper.mockItem;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
 
 public class TaxApplierImplTest {
 
