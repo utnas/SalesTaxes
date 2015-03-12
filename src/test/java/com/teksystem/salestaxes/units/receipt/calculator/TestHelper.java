@@ -1,7 +1,10 @@
 package com.teksystem.salestaxes.units.receipt.calculator;
 
+import com.teksystem.salestaxes.model.tax.TaxVisitorImpl;
+import com.teksystem.salestaxes.receipt.calculator.tax.TaxApplierImpl;
 import com.teksystem.salestaxes.receipt.calculator.total.TotalsCalculator;
 import com.teksystem.salestaxes.receipt.calculator.total.TotalsCalculatorImpl;
+import com.teksystem.salestaxes.utils.NegativeDecimalException;
 
 import java.math.BigDecimal;
 
@@ -14,5 +17,14 @@ public class TestHelper {
         when(totalsCalculator.calculateTotalOfSalesTaxes()).thenReturn(new BigDecimal(salesTaxes));
         when(totalsCalculator.calculateTotalOfTaxedItems()).thenReturn(new BigDecimal(taxesItems));
         return totalsCalculator;
+    }
+
+    public static TaxApplierImpl createTaxApplier(final double basicRate, final double importationRate) {
+        try {
+            return new TaxApplierImpl(new TaxVisitorImpl(basicRate, importationRate));
+        } catch (NegativeDecimalException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
