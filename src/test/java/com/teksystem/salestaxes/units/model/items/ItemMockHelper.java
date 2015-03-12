@@ -8,10 +8,10 @@ import java.math.BigDecimal;
 
 public class ItemMockHelper {
 
-    public static Item mockItem(final String itemName, final BigDecimal itemPrice, Class<? extends Item> classToMock) {
+    public static Item mockItem(final String itemName, final double itemPrice, Class<? extends Item> classToMock) {
         final Item item = Mockito.mock(classToMock);
         Mockito.when(item.getName()).thenReturn(itemName);
-        Mockito.when(item.getPrice()).thenReturn(itemPrice);
+        Mockito.when(item.getPrice()).thenReturn(new BigDecimal(itemPrice));
         return item;
     }
 }

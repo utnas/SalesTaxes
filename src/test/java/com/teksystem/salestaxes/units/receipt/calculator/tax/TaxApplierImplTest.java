@@ -2,11 +2,9 @@ package com.teksystem.salestaxes.units.receipt.calculator.tax;
 
 import com.teksystem.salestaxes.model.items.*;
 import com.teksystem.salestaxes.model.tax.TaxVisitorImpl;
-import com.teksystem.salestaxes.receipt.calculator.tax.TaxApplier;
 import com.teksystem.salestaxes.receipt.calculator.tax.TaxApplierImpl;
 import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 
@@ -14,13 +12,12 @@ import static com.teksystem.salestaxes.receipt.calculator.tax.TaxApplierHelper.a
 import static com.teksystem.salestaxes.units.model.items.ItemMockHelper.mockItem;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
 
 public class TaxApplierImplTest {
 
     @Test
     public void itShouldAddItemsToTaxApplier() throws NegativeDecimalException {
-        final TaxApplierImpl taxApplier = new TaxApplierImpl(new TaxVisitorImpl(10.0, 5.0));
+        final TaxApplierImpl taxApplier = createTaxApplier(10.0, 5.0);
         addItemsTo(taxApplier,
                 new TaxableImportedItem("music box", new BigDecimal(20.30)),
                 new NonTaxableImportedItem("book", new BigDecimal(12.49)),
@@ -32,16 +29,25 @@ public class TaxApplierImplTest {
 
     @Test
     public void itemListShouldBeEmptyByDefault() throws NegativeDecimalException {
-        final TaxApplierImpl taxApplier = new TaxApplierImpl(new TaxVisitorImpl(2.0, 23.0));
-        assertThat(taxApplier.getTaxedItems().size(), is(0));
+        assertThat(createTaxApplier(2.0, 23.0).getTaxedItems().size(), is(0));
     }
 
     @Test
     public void itShouldClearItemsList() throws NegativeDecimalException {
-        final TaxApplierImpl taxApplier = new TaxApplierImpl(new TaxVisitorImpl(10.0, 5.0));
-        final Item item = mockItem("music box", new BigDecimal(20.30), TaxableItem.class);
+        final Item item = mockItem("music box", 20.30, TaxableItem.class);
+        final TaxApplierImpl taxApplier = createTaxApplier(10.0, 5.0);
         taxApplier.applyTaxOn(item);
         taxApplier.clearItemsList();
+
         assertThat(taxApplier.getTaxedItems().size(), is(0));
+    }
+
+    private static TaxApplierImpl createTaxApplier(final double basicRate, final double importationRate) {
+        try {
+            return new TaxApplierImpl(new TaxVisitorImpl(basicRate, importationRate));
+        } catch (NegativeDecimalException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

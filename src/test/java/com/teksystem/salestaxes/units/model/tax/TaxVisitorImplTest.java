@@ -18,8 +18,8 @@ public class TaxVisitorImplTest {
 
     @Test
     public void itShouldReturnComputedTaxItemAfterComputingForTaxTaxableItem() throws NegativeDecimalException {
-        final Item taxableItem = mockItem("music CD", new BigDecimal(14.99), TaxableItem.class);
-        final Pair<Item, BigDecimal> itemTax = new TaxVisitorImpl(10.0, 5.0).visit((TaxableItem) taxableItem);
+        final Item taxableItem = mockItem("music CD", 14.99, TaxableItem.class);
+        final Pair<Item, BigDecimal> itemTax = createTaxVisitorImpl(10.0, 5.0).visit((TaxableItem) taxableItem);
 
         assertThat(itemTax.first().getName(), is(taxableItem.getName()));
         assertThat(itemTax.first().getPrice(), not(taxableItem.getPrice()));
@@ -29,24 +29,24 @@ public class TaxVisitorImplTest {
 
     @Test
     public void itShouldComputeTaxForTaxableItem() throws NegativeDecimalException {
-        final Item taxableItem = mockItem("music CD", new BigDecimal(14.99), TaxableItem.class);
-        final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
+        final Item taxableItem = mockItem("music CD", 14.99, TaxableItem.class);
+        final TaxVisitorImpl taxVisitor = createTaxVisitorImpl(10.0, 5.0);
 
         assertThat(taxVisitor.visit((TaxableItem) taxableItem).second().doubleValue(), is(1.50));
     }
 
     @Test
     public void itShouldComputeTaxForNonTaxableItem() throws NegativeDecimalException {
-        final Item nonTaxableItem = mockItem("book", new BigDecimal(12.49), NonTaxableItem.class);
-        final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
+        final Item nonTaxableItem = mockItem("book", 12.49, NonTaxableItem.class);
+        final TaxVisitorImpl taxVisitor = createTaxVisitorImpl(10.0, 5.0);
 
         assertThat(taxVisitor.visit((NonTaxableItem) nonTaxableItem).second().doubleValue(), is(0.0));
     }
 
     @Test
     public void itShouldComputeTaxForTaxableImportedItem() throws NegativeDecimalException {
-        final Item taxableImportedItem = mockItem("bottle of perfume", new BigDecimal(10.0), TaxableImportedItem.class);
-        final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
+        final Item taxableImportedItem = mockItem("bottle of perfume", 10.0, TaxableImportedItem.class);
+        final TaxVisitorImpl taxVisitor = createTaxVisitorImpl(10.0, 5.0);
 
         assertThat(taxVisitor.visit((TaxableImportedItem) taxableImportedItem).second().doubleValue(), is(1.50));
     }
@@ -54,16 +54,16 @@ public class TaxVisitorImplTest {
 
     @Test
     public void itShouldComputeTaxForTaxableImportedItemWithNonZeroDecimal() throws NegativeDecimalException {
-        final Item taxableImportedItem = mockItem("bottle of perfume", new BigDecimal(47.50), TaxableImportedItem.class);
-        final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
+        final Item taxableImportedItem = mockItem("bottle of perfume", 47.50, TaxableImportedItem.class);
+        final TaxVisitorImpl taxVisitor = createTaxVisitorImpl(10.0, 5.0);
 
         assertThat(taxVisitor.visit((TaxableImportedItem) taxableImportedItem).second().doubleValue(), is(7.13));
     }
 
     @Test
     public void itShouldComputeTaxForTaxableImportedItemButNotAsExpectedInSpecification() throws NegativeDecimalException {
-        final Item taxableImportedItem = mockItem("bottle of perfume", new BigDecimal(47.50), TaxableImportedItem.class);
-        final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
+        final Item taxableImportedItem = mockItem("bottle of perfume", 47.50, TaxableImportedItem.class);
+        final TaxVisitorImpl taxVisitor = createTaxVisitorImpl(10.0, 5.0);
 
         assertThat(taxVisitor.visit((TaxableImportedItem) taxableImportedItem).second().doubleValue(), not(7.15));
     }
@@ -71,17 +71,26 @@ public class TaxVisitorImplTest {
 
     @Test
     public void itShouldComputeTaxForNonTaxableImportedItem() throws NegativeDecimalException {
-        final Item item = mockItem("box of imported chocolates", new BigDecimal(11.25), NonTaxableImportedItem.class);
-        final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
+        final Item item = mockItem("box of imported chocolates", 11.25, NonTaxableImportedItem.class);
+        final TaxVisitorImpl taxVisitor = createTaxVisitorImpl(10.0, 5.0);
 
         assertThat(taxVisitor.visit((NonTaxableImportedItem) item).second().doubleValue(), is(0.563));
     }
 
     @Test
     public void itShouldComputeTaxForNonTaxableImportedItemNotEqualsToExpectedValueFromSpecification() throws NegativeDecimalException {
-        final Item item = mockItem("box of imported chocolates", new BigDecimal(11.25), NonTaxableImportedItem.class);
-        final TaxVisitorImpl taxVisitor = new TaxVisitorImpl(10.0, 5.0);
+        final Item item = mockItem("box of imported chocolates", 11.25, NonTaxableImportedItem.class);
+        final TaxVisitorImpl taxVisitor = createTaxVisitorImpl(10.0, 5.0);
 
         assertThat(taxVisitor.visit((NonTaxableImportedItem) item).second().doubleValue(), not(0.60));
+    }
+
+    private static TaxVisitorImpl createTaxVisitorImpl(final double baseRate, final double importRate) {
+        try {
+            return new TaxVisitorImpl(baseRate, importRate);
+        } catch (NegativeDecimalException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
