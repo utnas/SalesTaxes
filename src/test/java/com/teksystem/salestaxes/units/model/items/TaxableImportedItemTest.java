@@ -1,7 +1,6 @@
 package com.teksystem.salestaxes.units.model.items;
 
 import com.teksystem.salestaxes.model.items.TaxableImportedItem;
-import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -13,12 +12,12 @@ public class TaxableImportedItemTest {
 
 
     @Test
-    public void itShouldGetName() throws NegativeDecimalException {
+    public void itShouldGetName() {
         assertThat(new TaxableImportedItem("box of chocolates", new BigDecimal(10.0)).getName(), is("box of chocolates"));
     }
 
     @Test
-    public void itShouldGetPrice() throws NegativeDecimalException {
+    public void itShouldGetPrice() {
         assertThat(new TaxableImportedItem("box of chocolates", new BigDecimal(10.0)).getPrice().doubleValue(), is(10.0));
     }
 }
