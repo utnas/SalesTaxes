@@ -42,10 +42,6 @@ public class TaxApplierImpl implements TaxApplier {
         }
     }
 
-    public final Collection<Pair<Item, BigDecimal>> getTaxedItems() {
-        return unmodifiableCollection(taxedItems);
-    }
-
     @Override
     public String formatTaxedItems() {
         final StringBuilder result = new StringBuilder("");
@@ -57,6 +53,10 @@ public class TaxApplierImpl implements TaxApplier {
             result.append(getProperty("line.separator"));
         }
         return result.toString();
+    }
+
+    public final Collection<Pair<Item, BigDecimal>> getTaxedItems() {
+        return unmodifiableCollection(taxedItems);
     }
 
     @Override
