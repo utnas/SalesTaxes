@@ -41,7 +41,7 @@ public class ReceiptBuilderTest {
         assertThat(receiptBuilder.displayBill(), is("1 chocolate bar: 0.85\nSales Taxes: 0.00\nTotal: 0.85"));
     }
 
-    public static ReceiptBuilder createReceiptBuilder(final double baseRate, final double importRate, TaxApplier taxApplier) {
+    private static ReceiptBuilder createReceiptBuilder(final double baseRate, final double importRate, TaxApplier taxApplier) {
         return new ReceiptBuilder(mockTotalsCalculator(baseRate, importRate), taxApplier);
     }
 }
