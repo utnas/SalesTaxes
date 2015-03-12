@@ -11,7 +11,7 @@ import static java.util.Collections.unmodifiableCollection;
 
 public class TaxApplierHelper {
 
-    public static Collection<Pair<Item, BigDecimal>> addItemsTo(final TaxApplierImpl taxApplier, final Item... items) throws NegativeDecimalException {
+    public static Collection<Pair<Item, BigDecimal>> addItemsTo(final TaxApplier taxApplier, final Item... items) throws NegativeDecimalException {
         for (final Item item : items) {
             taxApplier.applyTaxOn(item);
         }

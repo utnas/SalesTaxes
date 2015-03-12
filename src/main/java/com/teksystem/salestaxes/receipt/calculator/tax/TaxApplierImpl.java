@@ -1,7 +1,7 @@
 package com.teksystem.salestaxes.receipt.calculator.tax;
 
 import com.teksystem.salestaxes.model.items.*;
-import com.teksystem.salestaxes.model.tax.TaxVisitorImpl;
+import com.teksystem.salestaxes.model.tax.TaxVisitor;
 import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import com.teksystem.salestaxes.utils.Pair;
 
@@ -16,9 +16,9 @@ import static java.util.Collections.unmodifiableCollection;
 
 public class TaxApplierImpl implements TaxApplier {
     private final ArrayList<Pair<Item, BigDecimal>> taxedItems = new ArrayList<>();
-    private final TaxVisitorImpl taxVisitor;
+    private final TaxVisitor<Pair<Item, BigDecimal>> taxVisitor;
 
-    public TaxApplierImpl(final TaxVisitorImpl taxVisitor) {
+    public TaxApplierImpl(final TaxVisitor<Pair<Item, BigDecimal>> taxVisitor) {
         this.taxVisitor = taxVisitor;
     }
 
