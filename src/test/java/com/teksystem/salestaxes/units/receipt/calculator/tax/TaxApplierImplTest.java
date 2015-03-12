@@ -14,7 +14,7 @@ import static org.junit.Assert.assertThat;
 public class TaxApplierImplTest {
 
     @Test
-    public void itShouldAddItemsToTaxApplier() throws NegativeDecimalException {
+    public void itShouldAddItemsToTaxApplier()  {
         final TaxApplierImpl taxApplier = createTaxApplier(10.0, 5.0);
         addItemsTo(taxApplier,
                 mockItem("music box", 20.30, TaxableImportedItem.class),
@@ -26,12 +26,12 @@ public class TaxApplierImplTest {
     }
 
     @Test
-    public void itemListShouldBeEmptyByDefault() throws NegativeDecimalException {
+    public void itemListShouldBeEmptyByDefault()  {
         assertThat(createTaxApplier(2.0, 23.0).getTaxedItems().size(), is(0));
     }
 
     @Test
-    public void itShouldClearItemsList() throws NegativeDecimalException {
+    public void itShouldClearItemsList()  {
         final Item item = mockItem("music box", 20.30, TaxableItem.class);
         final TaxApplierImpl taxApplier = createTaxApplier(10.0, 5.0);
         taxApplier.applyTaxOn(item);

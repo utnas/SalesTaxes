@@ -1,7 +1,7 @@
 package com.teksystem.salestaxes.units.utils;
 
-import com.teksystem.salestaxes.model.items.TaxableItem;
-import com.teksystem.salestaxes.model.tax.TaxVisitorImpl;
+import com.teksystem.salestaxes.model.items.TaxableItemBuilder;
+import com.teksystem.salestaxes.receipt.calculator.tax.TaxVisitorImplBuilder;
 import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import org.junit.Test;
 
@@ -15,9 +15,8 @@ public class NegativeDecimalExceptionTest {
 
     @Test
     public void itShouldRaiseNegativeDecimalExceptionForItems() {
-
         try {
-            new TaxableItem("Negative price fro Item", new BigDecimal(-22.3));
+            new TaxableItemBuilder("Negative price fro Item", new BigDecimal(-22.3)).make();
             fail();
         } catch (NegativeDecimalException e) {
             assertThat(e.getMessage(), is("Values -22.30 for price provided is negative."));
@@ -26,14 +25,11 @@ public class NegativeDecimalExceptionTest {
 
     @Test
     public void itShouldRaiseNegativeDecimalExceptionForTaxVisitor() {
-
         try {
-            new TaxVisitorImpl(0.0, -22.3);
+            new TaxVisitorImplBuilder(0.0, -22.3).make();
             fail();
         } catch (NegativeDecimalException e) {
             assertThat(e.getMessage(), is("Some values provided 0.0 or -22.3 as rate are negatives."));
         }
     }
-
-
 }

@@ -4,7 +4,6 @@ import com.teksystem.salestaxes.model.tax.TaxVisitorImpl;
 import com.teksystem.salestaxes.receipt.calculator.tax.TaxApplierImpl;
 import com.teksystem.salestaxes.receipt.calculator.total.TotalsCalculator;
 import com.teksystem.salestaxes.receipt.calculator.total.TotalsCalculatorImpl;
-import com.teksystem.salestaxes.utils.NegativeDecimalException;
 
 import java.math.BigDecimal;
 
@@ -21,11 +20,6 @@ public class TestHelper {
     }
 
     public static TaxApplierImpl createTaxApplier(final double basicRate, final double importationRate) {
-        try {
-            return new TaxApplierImpl(new TaxVisitorImpl(basicRate, importationRate));
-        } catch (NegativeDecimalException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return new TaxApplierImpl(new TaxVisitorImpl(basicRate, importationRate));
     }
 }

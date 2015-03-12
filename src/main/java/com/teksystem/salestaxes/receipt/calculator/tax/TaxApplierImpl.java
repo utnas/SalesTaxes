@@ -2,7 +2,6 @@ package com.teksystem.salestaxes.receipt.calculator.tax;
 
 import com.teksystem.salestaxes.model.items.*;
 import com.teksystem.salestaxes.model.tax.TaxVisitor;
-import com.teksystem.salestaxes.utils.NegativeDecimalException;
 import com.teksystem.salestaxes.utils.Pair;
 
 import java.math.BigDecimal;
@@ -23,7 +22,7 @@ public class TaxApplierImpl implements TaxApplier {
     }
 
     @Override
-    public void applyTaxOn(final Item item) throws NegativeDecimalException {
+    public void applyTaxOn(final Item item) {
         //TODO: not really elegant
         if (item instanceof TaxableItem) {
             taxedItems.add(taxVisitor.visit((TaxableItem) item));

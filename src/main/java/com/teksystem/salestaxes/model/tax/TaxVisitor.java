@@ -7,11 +7,11 @@ import com.teksystem.salestaxes.model.items.TaxableItem;
 import com.teksystem.salestaxes.utils.NegativeDecimalException;
 
 public interface TaxVisitor<T> {
-    public T visit(final TaxableItem item) throws NegativeDecimalException;
+    public T visit(final TaxableItem item) ;
 
-    public T visit(final TaxableImportedItem taxableItem) throws NegativeDecimalException;
+    public T visit(final TaxableImportedItem taxableItem);
 
     public T visit(final NonTaxableItem nonTaxableItem);
 
-    public T visit(final NonTaxableImportedItem noneTaxableItem) throws NegativeDecimalException;
+    public T visit(final NonTaxableImportedItem noneTaxableItem);
 }

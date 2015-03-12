@@ -1,7 +1,6 @@
 package com.teksystem.salestaxes.model.items;
 
 import com.teksystem.salestaxes.model.tax.TaxVisitor;
-import com.teksystem.salestaxes.utils.NegativeDecimalException;
 
 import java.math.BigDecimal;
 
@@ -11,5 +10,5 @@ public interface Item {
 
     public String getName();
 
-    public void accept(final TaxVisitor taxVisitor) throws NegativeDecimalException;
+    public void accept(final TaxVisitor taxVisitor);
 }

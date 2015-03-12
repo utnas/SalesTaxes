@@ -7,12 +7,12 @@ import java.math.BigDecimal;
 
 public class TaxableItem extends AbstractItem {
 
-    public TaxableItem(final String name, final BigDecimal price) throws NegativeDecimalException {
+    public TaxableItem(final String name, final BigDecimal price) {
         super(name, price);
     }
 
     @Override
-    public void accept(final TaxVisitor taxVisitor) throws NegativeDecimalException {
+    public void accept(final TaxVisitor taxVisitor) {
         taxVisitor.visit(this);
     }
 }

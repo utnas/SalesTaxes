@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 public class NonTaxableItem extends AbstractItem {
 
-    public NonTaxableItem(final String name, final BigDecimal price) throws NegativeDecimalException {
+    public NonTaxableItem(final String name, final BigDecimal price)  {
         super(name, price);
     }
 

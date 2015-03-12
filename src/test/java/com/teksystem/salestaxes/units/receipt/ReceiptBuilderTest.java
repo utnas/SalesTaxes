@@ -16,7 +16,7 @@ import static org.junit.Assert.assertThat;
 public class ReceiptBuilderTest {
 
     @Test
-    public void itShouldDisplayZeroAsTaxTotalForNonItem() throws NegativeDecimalException {
+    public void itShouldDisplayZeroAsTaxTotalForNonItem()  {
         final TaxApplierImpl taxApplier = createTaxApplier(10.0, 5.0);
         final ReceiptBuilder receiptBuilder = createReceiptBuilder(0.0, 0.0, taxApplier);
 
@@ -24,7 +24,7 @@ public class ReceiptBuilderTest {
     }
 
     @Test
-    public void itShouldDisplayZeroAsTaxTotalForNonTaxableItem() throws NegativeDecimalException {
+    public void itShouldDisplayZeroAsTaxTotalForNonTaxableItem()  {
         final TaxApplierImpl taxApplier = createTaxApplier(10.0, 5.0);
         taxApplier.applyTaxOn(mockItem("chocolate bar", 0.85, NonTaxableItem.class));
         final ReceiptBuilder receiptBuilder = createReceiptBuilder(0.0, 0.85, taxApplier);
@@ -33,7 +33,7 @@ public class ReceiptBuilderTest {
     }
 
     @Test
-    public void itShouldDisplayTaxTotalForTaxableItem() throws NegativeDecimalException {
+    public void itShouldDisplayTaxTotalForTaxableItem()  {
         final TaxApplierImpl taxApplier = createTaxApplier(10.0, 5.0);
         taxApplier.applyTaxOn(mockItem("chocolate bar", 0.85, NonTaxableItem.class));
         final ReceiptBuilder receiptBuilder = createReceiptBuilder(0.0, 0.85, taxApplier);

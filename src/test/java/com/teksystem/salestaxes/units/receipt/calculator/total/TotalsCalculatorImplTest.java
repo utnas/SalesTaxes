@@ -23,7 +23,7 @@ import static org.junit.Assert.assertThat;
 public class TotalsCalculatorImplTest {
 
     @Test
-    public void itShouldCalculateTotalOfSalesTaxes() throws NegativeDecimalException {
+    public void itShouldCalculateTotalOfSalesTaxes() {
         final TaxApplierImpl taxApplier = createTaxApplier(10.0, 5.0);
         addItemsTo(taxApplier,
                 mockItem("imported box chocolates", 10.00, NonTaxableImportedItem.class),
@@ -35,7 +35,7 @@ public class TotalsCalculatorImplTest {
     }
 
     @Test
-    public void itShouldCalculateTotalOfItemsIncludingTaxes() throws NegativeDecimalException {
+    public void itShouldCalculateTotalOfItemsIncludingTaxes() {
         final TaxApplierImpl taxApplier = createTaxApplier(10.0, 5.0);
         addItemsTo(taxApplier,
                 mockItem("imported box chocolates", 10.00, NonTaxableImportedItem.class),

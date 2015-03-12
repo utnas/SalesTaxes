@@ -24,5 +24,4 @@ public class CustomDecimalFormatter {
         decimalFormat.setMaximumFractionDigits(MAXIMUM_FRACTION_DIGITS);
         return decimalFormat.format(number);
     }
-
 }
