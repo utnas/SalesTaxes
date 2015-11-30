@@ -4,7 +4,6 @@ import com.teksystem.salestaxes.receipt.calculator.tax.TaxApplier;
 import com.teksystem.salestaxes.receipt.calculator.total.TotalsCalculator;
 
 import static com.teksystem.salestaxes.utils.CustomDecimalFormatter.format;
-import static java.lang.System.getProperty;
 
 public class ReceiptBuilder {
     private final TotalsCalculator totalsCalculator;
